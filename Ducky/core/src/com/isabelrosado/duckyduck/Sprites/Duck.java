@@ -14,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.isabelrosado.duckyduck.DuckyDuck;
 import com.isabelrosado.duckyduck.Screens.PlayScreen;
+import com.isabelrosado.duckyduck.Tools.Animator;
 
 public class Duck extends Sprite {
     public World world;
@@ -31,7 +32,7 @@ public class Duck extends Sprite {
 
     private Texture animationTexture;
 
-    private TextureRegion[] frames;
+    Animator animator;
     private Animation<TextureRegion> duckIdle;
     private Animation<TextureRegion> duckRun;
     private Animation<TextureRegion> duckDoubleJump;
@@ -84,26 +85,11 @@ public class Duck extends Sprite {
         touchedGround = true;
 
         animationTexture = new Texture("Frog.png");
-
-        frames = new TextureRegion[11];
-        for (int i = 0; i < frames.length; i++) {
-            frames[i] = new TextureRegion(getTexture(), (384)+32*i, 0, 32, 32);
-        }
-        duckIdle = new Animation<TextureRegion>(0.12f, frames);
-
-        frames = new TextureRegion[12];
-        for (int i = 0; i < frames.length; i++) {
-            frames[i] = new TextureRegion(getTexture(), 32*i, 0, 32, 32);
-        }
-        duckRun = new Animation<TextureRegion>(0.12f, frames);
-
-        frames = new TextureRegion[6];
-        for (int i = 0; i < frames.length; i++) {
-            frames[i] = new TextureRegion(getTexture(), (960)+32*i, 0, 32, 32);
-        }
-        duckDoubleJump = new Animation<TextureRegion>(0.12f, frames);
-        
-        duckJump = new TextureRegion(getTexture(), 1152, 0, 32, 32);
+        animator = new Animator(getTexture(), 32, 32);
+        duckIdle = animator.getAnimation(11, 384, 0);
+        duckRun = animator.getAnimation(12, 0,0);
+        duckDoubleJump = animator.getAnimation(6, 960, 0);
+        duckJump = new TextureRegion(getTexture(), 1344, 0, 32, 32);
         duckFall = new TextureRegion(getTexture(), 1312, 0, 32, 32);
 
         setBounds(0, 0, 36/DuckyDuck.PIXEL_PER_METER, 36/DuckyDuck.PIXEL_PER_METER);
@@ -120,7 +106,7 @@ public class Duck extends Sprite {
         CircleShape shape = new CircleShape();
         shape.setRadius(12 / DuckyDuck.PIXEL_PER_METER);
         duckFDef.filter.categoryBits = DuckyDuck.DUCK_BIT;
-        duckFDef.filter.maskBits = DuckyDuck.DEFAULT_BIT | DuckyDuck.BRICK_BIT | DuckyDuck.FRUIT_BIT | DuckyDuck.BRICKHIT_BIT;
+        duckFDef.filter.maskBits = DuckyDuck.DEFAULT_BIT | DuckyDuck.BRICK_BIT | DuckyDuck.FRUIT_BIT | DuckyDuck.BRICKHIT_BIT | DuckyDuck.GROUND;
 
         duckFDef.shape = shape;
         dBody.createFixture(duckFDef);
@@ -131,6 +117,13 @@ public class Duck extends Sprite {
         duckFDef.isSensor = true;
 
         dBody.createFixture(duckFDef).setUserData("head");
+
+        EdgeShape feet = new EdgeShape();
+        head.set(new Vector2(-4 / DuckyDuck.PIXEL_PER_METER, -12 / DuckyDuck.PIXEL_PER_METER), new Vector2(4 / DuckyDuck.PIXEL_PER_METER, -12 / DuckyDuck.PIXEL_PER_METER));
+        duckFDef.shape = feet;
+        duckFDef.isSensor = true;
+
+        dBody.createFixture(duckFDef).setUserData("feet");
     }
 
     public TextureRegion getFrame(float dt){

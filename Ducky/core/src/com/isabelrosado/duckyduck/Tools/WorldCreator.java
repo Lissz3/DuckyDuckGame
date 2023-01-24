@@ -13,6 +13,7 @@ import com.isabelrosado.duckyduck.DuckyDuck;
 import com.isabelrosado.duckyduck.Sprites.Brick;
 import com.isabelrosado.duckyduck.Sprites.BrickHit;
 import com.isabelrosado.duckyduck.Sprites.Fruit;
+import com.isabelrosado.duckyduck.Sprites.Ground;
 
 public class WorldCreator {
 
@@ -33,6 +34,7 @@ public class WorldCreator {
             shape.setAsBox((rec.getWidth()/2) / DuckyDuck.PIXEL_PER_METER, (rec.getHeight()/2) / DuckyDuck.PIXEL_PER_METER);
             fdef.shape = shape;
             body.createFixture(fdef);
+            new Ground(world, map, rec);
         }
 
         //hittable bricks

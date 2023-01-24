@@ -18,6 +18,7 @@ public class DuckyDuck extends Game {
 	public static final short BRICKHIT_BIT = 8;
 	public static final short FRUIT_BIT = 16;
 	public static final short DESTROYED_BIT = 32;
+	public static final short GROUND = 64;
 	
 	@Override
 	public void create () {

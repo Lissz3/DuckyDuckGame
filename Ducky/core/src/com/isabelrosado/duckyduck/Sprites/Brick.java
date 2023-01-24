@@ -24,7 +24,5 @@ public class Brick extends InteractiveTileObject{
     @Override
     public void onHeadHit() {
         Gdx.app.log("Brick", "Collision");
-        setCategoryFilter(DuckyDuck.DESTROYED_BIT);
-        getCell().setTile(null);
     }
 }
