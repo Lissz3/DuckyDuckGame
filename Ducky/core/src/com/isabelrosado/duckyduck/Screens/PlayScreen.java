@@ -176,8 +176,6 @@ public class PlayScreen implements Screen {
         //tell render to draw only what camera sees in the world
         renderer.setView(gameCam);
 
-//        //update the duck sprite
-        duck.update(dt);
     }
 
     public TextureAtlas getAtlas(){

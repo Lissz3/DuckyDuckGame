@@ -119,7 +119,7 @@ public class Duck extends Sprite {
         dBody.createFixture(duckFDef).setUserData("head");
 
         EdgeShape feet = new EdgeShape();
-        head.set(new Vector2(-4 / DuckyDuck.PIXEL_PER_METER, -12 / DuckyDuck.PIXEL_PER_METER), new Vector2(4 / DuckyDuck.PIXEL_PER_METER, -12 / DuckyDuck.PIXEL_PER_METER));
+        head.set(new Vector2(-4 / DuckyDuck.PIXEL_PER_METER, -13 / DuckyDuck.PIXEL_PER_METER), new Vector2(4 / DuckyDuck.PIXEL_PER_METER, -13 / DuckyDuck.PIXEL_PER_METER));
         duckFDef.shape = feet;
         duckFDef.isSensor = true;
 

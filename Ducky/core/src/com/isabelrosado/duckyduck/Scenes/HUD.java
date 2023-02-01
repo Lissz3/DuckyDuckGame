@@ -1,25 +1,18 @@
 package com.isabelrosado.duckyduck.Scenes;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.isabelrosado.duckyduck.DuckyDuck;
 
-import org.w3c.dom.Text;
+import com.isabelrosado.duckyduck.Tools.Animator;
 
-public class HUD implements Disposable {
+public class HUD implements Disposable{
     public Stage stage;
     private Viewport viewport;
 
@@ -27,32 +20,37 @@ public class HUD implements Disposable {
     private float timeCount;
     private int score;
 
-    ImageButton heart1Img;
-    ImageButton heart2Img;
-    ImageButton heart3Img;
+    Image heart1;
+    Image heart2;
+    Image heart3;
+
+    Image fruit;
+
+    Table table;
 
     public HUD(SpriteBatch sb) {
-        worldTimer = 300;
-        timeCount = 0;
         score = 0;
         viewport = new FitViewport(DuckyDuck.V_WIDTH, DuckyDuck.V_HEIGHT);
         stage = new Stage(viewport, sb);
 
-        Table table = new Table();
+
+        table = new Table();
         table.top();
+//        table.setDebug(true);
+        table.padTop(10);
+        table.padLeft(10);
         table.align(Align.topLeft);
         table.setFillParent(true);
-        Texture heartTexture = new Texture("Heart.png");
-        TextureRegion heartTR = new TextureRegion(heartTexture);
-        TextureRegionDrawable heartD = new TextureRegionDrawable(heartTR);
-        heart1Img = new ImageButton(heartD);
-        heart2Img = new ImageButton(heartD);
-        heart3Img = new ImageButton(heartD);
-
-        table.add(heart1Img).pad(3);
-        table.add(heart2Img).pad(3);
-        table.add(heart3Img).pad(3);
+        Texture heartTexture = new Texture("100-percent.png");
+        heart1 = new Image(heartTexture);
+        heart2 = new Image(heartTexture);
+        heart3 = new Image(heartTexture);
+        fruit = new Image(new Texture("swbgif.gif"));
+        table.add(heart1).width(Value.percentWidth(0.07f)).height(Value.percentHeight(0.07f)).pad(3);
+        table.add(heart2).width(Value.percentWidth(0.07f)).height(Value.percentHeight(0.07f)).pad(3);
+        table.add(heart3).width(Value.percentWidth(0.07f)).height(Value.percentHeight(0.07f)).pad(3);
         table.row();
+        table.add(fruit);
 
         stage.addActor(table);
     }
