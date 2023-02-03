@@ -34,19 +34,19 @@ public class WorldContactListener implements ContactListener {
             }
         }
 
-        if (fixA.getUserData() == "feet" || fixB.getUserData() == "feet") {
-            feet = fixA.getUserData() == "feet" ? fixA : fixB;
-            object = feet == fixA ? fixB : fixA;
-            if (object.getUserData() != null) {
-                switch (object.getUserData().getClass().equals(Ground.class) ? "Ground" : object.getUserData().getClass().equals(Brick.class) ? "Brick" : "BrickHit"){
-                    case "Ground":
-                    case "Brick":
-                    case "BrickHit":
-//                        Duck.setCanDoubleJump(true);
-                        break;
-                }
-            }
-        }
+//        if (fixA.getUserData() == "feet" || fixB.getUserData() == "feet") {
+//            feet = fixA.getUserData() == "feet" ? fixA : fixB;
+//            object = feet == fixA ? fixB : fixA;
+//            if (object.getUserData() != null) {
+//                switch (object.getUserData().getClass().equals(Ground.class) ? "Ground" : object.getUserData().getClass().equals(Brick.class) ? "Brick" : "BrickHit"){
+//                    case "Ground":
+//                    case "Brick":
+//                    case "BrickHit":
+////                        Duck.setCanDoubleJump(true);
+//                        break;
+//                }
+//            }
+//        }
 
         if (fixA.getUserData() != null && fixB.getUserData() != null) {
             Gdx.app.log("FixA:", fixA.getUserData().toString());

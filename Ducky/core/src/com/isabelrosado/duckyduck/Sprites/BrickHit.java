@@ -1,6 +1,7 @@
 package com.isabelrosado.duckyduck.Sprites;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
 import com.isabelrosado.duckyduck.DuckyDuck;
+import com.isabelrosado.duckyduck.Screens.PlayScreen;
 import com.isabelrosado.duckyduck.Tools.Animator;
 
 public class BrickHit extends InteractiveTileObject {
@@ -19,8 +21,8 @@ public class BrickHit extends InteractiveTileObject {
     private Animation<TextureRegion> onHit;
 
 
-    public BrickHit(World world, TiledMap map, Rectangle bounds) {
-        super(world, map, bounds);
+    public BrickHit(DuckyDuck game, PlayScreen screen, Rectangle bounds) {
+        super(game, screen, bounds);
         atlas = new TextureAtlas("Box.atlas");
         animationTexture = new Texture("Box.png");
         animator = new Animator(atlas.findRegion("Hit").getTexture(), 28, 24);
@@ -32,9 +34,10 @@ public class BrickHit extends InteractiveTileObject {
 
     @Override
     public void onHeadHit() {
-        Gdx.app.log("BrickHit", "Collision");
+//        Gdx.app.log("BrickHit", "Collision");
         setCategoryFilter(DuckyDuck.DESTROYED_BIT);
         getCell().setTile(null);
+        game.getAssetManager().get("02.mp3", Sound.class).play();
     }
 
     @Override

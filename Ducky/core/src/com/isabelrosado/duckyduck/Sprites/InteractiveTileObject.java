@@ -1,5 +1,6 @@
 package com.isabelrosado.duckyduck.Sprites;
 
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.isabelrosado.duckyduck.DuckyDuck;
+import com.isabelrosado.duckyduck.Screens.PlayScreen;
 
 public abstract class InteractiveTileObject {
     protected World world;
@@ -20,9 +22,13 @@ public abstract class InteractiveTileObject {
     protected Rectangle bounds;
     protected Body body;
     protected Fixture fixture;
-    public InteractiveTileObject(World world, TiledMap map, Rectangle bounds){
-        this.world = world;
-        this.map = map;
+    protected DuckyDuck game;
+
+
+    public InteractiveTileObject(DuckyDuck game, PlayScreen screen, Rectangle bounds){
+        this.game = game;
+        this.world = screen.getWorld();
+        this.map = screen.getMap();
         this.bounds = bounds;
 
         BodyDef bDef = new BodyDef();

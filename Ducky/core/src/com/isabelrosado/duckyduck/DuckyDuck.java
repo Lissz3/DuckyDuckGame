@@ -1,6 +1,9 @@
 package com.isabelrosado.duckyduck;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.isabelrosado.duckyduck.Screens.PlayScreen;
@@ -19,10 +22,19 @@ public class DuckyDuck extends Game {
 	public static final short FRUIT_BIT = 16;
 	public static final short DESTROYED_BIT = 32;
 	public static final short GROUND = 64;
+
+	private AssetManager assetManager;
 	
 	@Override
 	public void create () {
 		sprite = new SpriteBatch();
+		assetManager = new AssetManager();
+		assetManager.load("MainTheme.mp3", Music.class);
+		assetManager.load("01.mp3", Sound.class);
+		assetManager.load("02.mp3", Sound.class);
+		assetManager.finishLoading();
+		assetManager.getLoadedAssets();
+
 		setScreen(new PlayScreen(this));
 	}
 
@@ -33,6 +45,17 @@ public class DuckyDuck extends Game {
 	
 	@Override
 	public void dispose () {
+		super.dispose();
 		sprite.dispose();
+		sprite.dispose();
+		assetManager.dispose();
+	}
+
+	public AssetManager getAssetManager() {
+		return assetManager;
+	}
+
+	public void setAssetManager(AssetManager assetManager) {
+		this.assetManager = assetManager;
 	}
 }

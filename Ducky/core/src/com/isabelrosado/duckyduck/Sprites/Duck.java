@@ -80,9 +80,9 @@ public class Duck extends Sprite {
         this.previousState = previousState;
     }
 
-    public Duck(World world, PlayScreen screen) {
+    public Duck(PlayScreen screen) {
         super(screen.getAtlas().findRegion("FrogRun"));
-        this.world = world;
+        this.world = screen.getWorld();
         defineDuck();
 
         setCurrentState(State.STANDING);

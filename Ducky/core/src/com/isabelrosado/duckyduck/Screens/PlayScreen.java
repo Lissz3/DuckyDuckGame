@@ -1,30 +1,19 @@
 package com.isabelrosado.duckyduck.Screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.ContactFilter;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.isabelrosado.duckyduck.DuckyDuck;
 import com.isabelrosado.duckyduck.Scenes.HUD;
@@ -33,7 +22,7 @@ import com.isabelrosado.duckyduck.Tools.WorldContactListener;
 import com.isabelrosado.duckyduck.Tools.WorldCreator;
 
 public class PlayScreen implements Screen {
-    private DuckyDuck game;
+    private DuckyDuck newGame;
     private TextureAtlas atlas;
 
     private OrthographicCamera gameCam;
@@ -46,14 +35,15 @@ public class PlayScreen implements Screen {
 
     private World world;
     private Box2DDebugRenderer b2dr;
-    private WorldCreator worldCreator;
 
     private Duck duck;
 
-    public PlayScreen(Game game) {
+    private Music music;
+
+    public PlayScreen(DuckyDuck game) {
         atlas = new TextureAtlas("Frog.atlas");
 
-        this.game = (DuckyDuck) game;
+        newGame = game;
 
         //follows the Duck through world
         gameCam = new OrthographicCamera();
@@ -63,7 +53,7 @@ public class PlayScreen implements Screen {
         gamePort = new FitViewport(DuckyDuck.V_WIDTH / DuckyDuck.PIXEL_PER_METER, DuckyDuck.V_HEIGHT / DuckyDuck.PIXEL_PER_METER, gameCam);
 
         //create the HUD
-        hud = new HUD(((DuckyDuck) game).sprite);
+        hud = new HUD(game.sprite);
 
         //load map and setup the renderer
         mapLoader = new TmxMapLoader();
@@ -76,12 +66,16 @@ public class PlayScreen implements Screen {
         world = new World(new Vector2(0, -10), true);
         b2dr = new Box2DDebugRenderer();
 
-        worldCreator = new WorldCreator(world, map);
+        new WorldCreator(newGame, this);
 
         //create Duck in our world
-        duck = new Duck(world, this);
+        duck = new Duck(this);
 
         world.setContactListener(new WorldContactListener());
+
+        music = ((DuckyDuck) game).getAssetManager().get("MainTheme.mp3", Music.class);
+        music.setLooping(true);
+        music.play();
     }
 
     @Override
@@ -104,13 +98,13 @@ public class PlayScreen implements Screen {
         //box2D renderer
         b2dr.render(world, gameCam.combined);
 
-        game.sprite.setProjectionMatrix(gameCam.combined);
-        game.sprite.begin();
-        duck.draw(game.sprite);
-        game.sprite.end();
+        newGame.sprite.setProjectionMatrix(gameCam.combined);
+        newGame.sprite.begin();
+        duck.draw(newGame.sprite);
+        newGame.sprite.end();
 
         //set batch with the HUD
-        game.sprite.setProjectionMatrix(hud.stage.getCamera().combined);
+        newGame.sprite.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
 
     }
@@ -180,5 +174,13 @@ public class PlayScreen implements Screen {
 
     public TextureAtlas getAtlas() {
         return atlas;
+    }
+
+    public TiledMap getMap(){
+        return map;
+    }
+
+    public World getWorld(){
+        return world;
     }
 }

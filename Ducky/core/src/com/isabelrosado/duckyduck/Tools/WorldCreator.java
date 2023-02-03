@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.isabelrosado.duckyduck.DuckyDuck;
+import com.isabelrosado.duckyduck.Screens.PlayScreen;
 import com.isabelrosado.duckyduck.Sprites.Brick;
 import com.isabelrosado.duckyduck.Sprites.BrickHit;
 import com.isabelrosado.duckyduck.Sprites.Fruit;
@@ -17,7 +18,9 @@ import com.isabelrosado.duckyduck.Sprites.Ground;
 
 public class WorldCreator {
 
-    public WorldCreator(World world, TiledMap map){
+    public WorldCreator(DuckyDuck game, PlayScreen screen){
+        World world = screen.getWorld();
+        TiledMap map = screen.getMap();
         BodyDef bdef = new BodyDef();
         PolygonShape shape = new PolygonShape();
         FixtureDef fdef = new FixtureDef();
@@ -34,25 +37,25 @@ public class WorldCreator {
             shape.setAsBox((rec.getWidth()/2) / DuckyDuck.PIXEL_PER_METER, (rec.getHeight()/2) / DuckyDuck.PIXEL_PER_METER);
             fdef.shape = shape;
             body.createFixture(fdef);
-            new Ground(world, map, rec);
+            new Ground(game, screen, rec);
         }
 
         //hittable bricks
         for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rec = ((RectangleMapObject) object).getRectangle();
-            new BrickHit(world, map, rec);
+            new BrickHit(game, screen, rec);
         }
 
         //bricks
         for(MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rec = ((RectangleMapObject) object).getRectangle();
-            new Brick(world, map, rec);
+            new Brick(game, screen, rec);
         }
 
         //fruits
         for(MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rec = ((RectangleMapObject) object).getRectangle();
-            new Fruit(world, map, rec);
+            new Fruit(game, screen, rec);
         }
     }
 }
