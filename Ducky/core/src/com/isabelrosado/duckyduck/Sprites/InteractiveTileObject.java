@@ -43,6 +43,8 @@ public abstract class InteractiveTileObject {
 
     public abstract void onHeadHit();
 
+    public abstract void onFeetHit();
+
     public void setCategoryFilter(short filterBit){
         Filter f = new Filter();
         f.categoryBits = filterBit;

@@ -18,4 +18,9 @@ public class Fruit extends InteractiveTileObject{
         Gdx.app.log("Fruit", "Collision");
         setCategoryFilter(DuckyDuck.DESTROYED_BIT);
     }
+
+    @Override
+    public void onFeetHit() {
+
+    }
 }

@@ -1,6 +1,7 @@
 package com.isabelrosado.duckyduck.Sprites;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -24,7 +25,8 @@ public class Duck extends Sprite {
         FALLING,
         JUMPING,
         STANDING,
-        RUNNING
+        RUNNING,
+        DOUBLEJUMPING
     }
 
     public State currentState;
@@ -40,14 +42,19 @@ public class Duck extends Sprite {
     private TextureRegion duckJump;
 
     private boolean runningRight;
-    private boolean canDoubleJump;
-    private boolean touchedGround;
 
     private float stateTimer;
 
-    public State getState(){
-        if (dBody.getLinearVelocity().y > 0){
+    private int jumps;
+
+    private final int maxJumps = 2;
+
+
+    public State getState() {
+        if (dBody.getLinearVelocity().y > 0 && jumps == 1) {
             return State.JUMPING;
+        } else if (dBody.getLinearVelocity().y > 0 && jumps == 2) {
+            return State.DOUBLEJUMPING;
         } else if (dBody.getLinearVelocity().y < 0) {
             return State.FALLING;
         } else if (dBody.getLinearVelocity().x != 0) {
@@ -56,6 +63,7 @@ public class Duck extends Sprite {
             return State.STANDING;
         }
     }
+
     public State getCurrentState() {
         return currentState;
     }
@@ -72,31 +80,30 @@ public class Duck extends Sprite {
         this.previousState = previousState;
     }
 
-    public Duck(World world, PlayScreen screen){
+    public Duck(World world, PlayScreen screen) {
         super(screen.getAtlas().findRegion("FrogRun"));
         this.world = world;
         defineDuck();
 
-        currentState = State.STANDING;
-        previousState = State.STANDING;
+        setCurrentState(State.STANDING);
+        setPreviousState(State.STANDING);
         stateTimer = 0;
         runningRight = true;
-        canDoubleJump = true;
-        touchedGround = true;
+        jumps = 0;
 
         animationTexture = new Texture("Frog.png");
         animator = new Animator(getTexture(), 32, 32);
         duckIdle = animator.getAnimation(11, 384, 0);
-        duckRun = animator.getAnimation(12, 0,0);
+        duckRun = animator.getAnimation(12, 0, 0);
         duckDoubleJump = animator.getAnimation(6, 960, 0);
         duckJump = new TextureRegion(getTexture(), 1344, 0, 32, 32);
         duckFall = new TextureRegion(getTexture(), 1312, 0, 32, 32);
 
-        setBounds(0, 0, 36/DuckyDuck.PIXEL_PER_METER, 36/DuckyDuck.PIXEL_PER_METER);
+        setBounds(0, 0, 36 / DuckyDuck.PIXEL_PER_METER, 36 / DuckyDuck.PIXEL_PER_METER);
         setRegion(duckIdle.getKeyFrame(stateTimer));
     }
 
-    public void defineDuck(){
+    public void defineDuck() {
         BodyDef duckBdef = new BodyDef();
         duckBdef.position.set(32 / DuckyDuck.PIXEL_PER_METER, 32 / DuckyDuck.PIXEL_PER_METER);
         duckBdef.type = BodyDef.BodyType.DynamicBody;
@@ -119,18 +126,18 @@ public class Duck extends Sprite {
         dBody.createFixture(duckFDef).setUserData("head");
 
         EdgeShape feet = new EdgeShape();
-        head.set(new Vector2(-4 / DuckyDuck.PIXEL_PER_METER, -13 / DuckyDuck.PIXEL_PER_METER), new Vector2(4 / DuckyDuck.PIXEL_PER_METER, -13 / DuckyDuck.PIXEL_PER_METER));
+        feet.set(new Vector2(-4 / DuckyDuck.PIXEL_PER_METER, -13 / DuckyDuck.PIXEL_PER_METER), new Vector2(4 / DuckyDuck.PIXEL_PER_METER, -13 / DuckyDuck.PIXEL_PER_METER));
         duckFDef.shape = feet;
         duckFDef.isSensor = true;
 
         dBody.createFixture(duckFDef).setUserData("feet");
     }
 
-    public TextureRegion getFrame(float dt){
+    public TextureRegion getFrame(float dt) {
         currentState = getState();
 
         TextureRegion region;
-        switch (currentState){
+        switch (currentState) {
             case JUMPING:
                 region = duckJump;
                 break;
@@ -140,27 +147,44 @@ public class Duck extends Sprite {
             case FALLING:
                 region = duckFall;
                 break;
+            case DOUBLEJUMPING:
+                region = duckDoubleJump.getKeyFrame(stateTimer);
+                break;
             case STANDING:
             default:
                 region = duckIdle.getKeyFrame(stateTimer, true);
                 break;
         }
 
-        if ((dBody.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX()){
+
+        if ((dBody.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX()) {
             region.flip(true, false);
             runningRight = false;
-        } else if ((dBody.getLinearVelocity().x > 0 || runningRight) && region.isFlipX()){
+        } else if ((dBody.getLinearVelocity().x > 0 || runningRight) && region.isFlipX()) {
             region.flip(true, false);
             runningRight = true;
         }
 
-        stateTimer = currentState == previousState ? stateTimer + dt : 0;
-        previousState = currentState;
+
+        stateTimer = getCurrentState() == getPreviousState() ? stateTimer + dt : 0;
+        setPreviousState(getCurrentState());
         return region;
     }
 
-    public void update(float dt){
+    public void update(float dt) {
         setPosition(dBody.getPosition().x - getWidth() / 2, (dBody.getPosition().y - getHeight() / 2) + 0.05f);
         setRegion(getFrame(dt));
+        if (this.dBody.getLinearVelocity().y == 0) {
+            jumps = 0;
+        }
+    }
+
+    public boolean canDoubleJump() {
+        if (jumps == maxJumps) {
+            return false;
+        }
+        jumps++;
+        return true;
+
     }
 }

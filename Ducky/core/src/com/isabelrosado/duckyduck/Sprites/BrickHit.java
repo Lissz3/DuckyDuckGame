@@ -35,6 +35,10 @@ public class BrickHit extends InteractiveTileObject {
         Gdx.app.log("BrickHit", "Collision");
         setCategoryFilter(DuckyDuck.DESTROYED_BIT);
         getCell().setTile(null);
-//        (int)(body.getPosition().x * DuckyDuck.PIXEL_PER_METER / 16), (int)(body.getPosition().y * DuckyDuck.PIXEL_PER_METER / 16)
+    }
+
+    @Override
+    public void onFeetHit() {
+        Gdx.app.log("BrickHit", "Collision");
     }
 }

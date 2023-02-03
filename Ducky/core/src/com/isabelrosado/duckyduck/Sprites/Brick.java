@@ -13,7 +13,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.isabelrosado.duckyduck.DuckyDuck;
 
-public class Brick extends InteractiveTileObject{
+public class Brick extends InteractiveTileObject {
 
     public Brick(World world, TiledMap map, Rectangle bounds) {
         super(world, map, bounds);
@@ -23,6 +23,11 @@ public class Brick extends InteractiveTileObject{
 
     @Override
     public void onHeadHit() {
+        Gdx.app.log("Brick", "Collision");
+    }
+
+    @Override
+    public void onFeetHit() {
         Gdx.app.log("Brick", "Collision");
     }
 }

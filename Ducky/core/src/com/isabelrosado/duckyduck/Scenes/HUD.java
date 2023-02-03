@@ -12,12 +12,13 @@ import com.isabelrosado.duckyduck.DuckyDuck;
 
 import com.isabelrosado.duckyduck.Tools.Animator;
 
-public class HUD implements Disposable{
+public class HUD implements Disposable {
     public Stage stage;
     private Viewport viewport;
 
     private int worldTimer;
     private float timeCount;
+
     private int score;
 
     Image heart1;
@@ -49,10 +50,19 @@ public class HUD implements Disposable{
         table.add(heart1).width(Value.percentWidth(0.07f)).height(Value.percentHeight(0.07f)).pad(3);
         table.add(heart2).width(Value.percentWidth(0.07f)).height(Value.percentHeight(0.07f)).pad(3);
         table.add(heart3).width(Value.percentWidth(0.07f)).height(Value.percentHeight(0.07f)).pad(3);
+        table.add();
         table.row();
-        table.add(fruit);
+//        table.add(fruit);
 
         stage.addActor(table);
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 
     @Override
