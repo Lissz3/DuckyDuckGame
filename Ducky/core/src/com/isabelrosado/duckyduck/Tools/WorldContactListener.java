@@ -1,6 +1,7 @@
 package com.isabelrosado.duckyduck.Tools;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -34,13 +35,16 @@ public class WorldContactListener implements ContactListener {
             }
         }
 
-        switch (cDef){
+        switch (cDef) {
             case DuckyDuck.ENEMY_HEAD_BIT | DuckyDuck.DUCK_BIT:
-                if (fixA.getFilterData().categoryBits == DuckyDuck.ENEMY_HEAD_BIT){
-                    ((Enemy)fixA.getUserData()).hitOnHead();
-                } else if (fixB.getFilterData().categoryBits == DuckyDuck.ENEMY_HEAD_BIT){
-                    ((Enemy)fixB.getUserData()).hitOnHead();
+                if (fixA.getFilterData().categoryBits == DuckyDuck.ENEMY_HEAD_BIT) {
+                    ((Enemy) fixA.getUserData()).hitOnHead();
+                } else {
+                    ((Enemy) fixB.getUserData()).hitOnHead();
                 }
+                break;
+            case DuckyDuck.DUCK_BIT | DuckyDuck.ENEMY_BIT:
+                Gdx.app.log("Duck", "Dead");
                 break;
         }
 

@@ -75,7 +75,7 @@ public class PlayScreen implements Screen {
         duck = new Duck(this);
 
         //create FatBird in our world
-        fatBird = new FatBird(this, 180 / DuckyDuck.PIXEL_PER_METER, 120 / DuckyDuck.PIXEL_PER_METER);
+        fatBird = new FatBird(this, 180 / DuckyDuck.PIXEL_PER_METER, 270 / DuckyDuck.PIXEL_PER_METER, 0, -2f);
 
         world.setContactListener(new WorldContactListener());
 
