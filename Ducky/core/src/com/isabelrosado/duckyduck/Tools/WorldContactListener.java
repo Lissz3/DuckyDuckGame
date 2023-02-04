@@ -6,10 +6,8 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
-import com.isabelrosado.duckyduck.Sprites.Brick;
-import com.isabelrosado.duckyduck.Sprites.Duck;
-import com.isabelrosado.duckyduck.Sprites.Ground;
-import com.isabelrosado.duckyduck.Sprites.InteractiveTileObject;
+import com.isabelrosado.duckyduck.DuckyDuck;
+import com.isabelrosado.duckyduck.Sprites.*;
 
 public class WorldContactListener implements ContactListener {
     private Fixture fixA;
@@ -26,6 +24,8 @@ public class WorldContactListener implements ContactListener {
         fixA = contact.getFixtureA();
         fixB = contact.getFixtureB();
 
+        int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
+
         if (fixA.getUserData() == "head" || fixB.getUserData() == "head") {
             head = fixA.getUserData() == "head" ? fixA : fixB;
             object = head == fixA ? fixB : fixA;
@@ -34,29 +34,21 @@ public class WorldContactListener implements ContactListener {
             }
         }
 
-//        if (fixA.getUserData() == "feet" || fixB.getUserData() == "feet") {
-//            feet = fixA.getUserData() == "feet" ? fixA : fixB;
-//            object = feet == fixA ? fixB : fixA;
-//            if (object.getUserData() != null) {
-//                switch (object.getUserData().getClass().equals(Ground.class) ? "Ground" : object.getUserData().getClass().equals(Brick.class) ? "Brick" : "BrickHit"){
-//                    case "Ground":
-//                    case "Brick":
-//                    case "BrickHit":
-////                        Duck.setCanDoubleJump(true);
-//                        break;
-//                }
-//            }
-//        }
-
-        if (fixA.getUserData() != null && fixB.getUserData() != null) {
-            Gdx.app.log("FixA:", fixA.getUserData().toString());
-            Gdx.app.log("FixB:", fixB.getUserData().toString());
+        switch (cDef){
+            case DuckyDuck.ENEMY_HEAD_BIT | DuckyDuck.DUCK_BIT:
+                if (fixA.getFilterData().categoryBits == DuckyDuck.ENEMY_HEAD_BIT){
+                    ((Enemy)fixA.getUserData()).hitOnHead();
+                } else if (fixB.getFilterData().categoryBits == DuckyDuck.ENEMY_HEAD_BIT){
+                    ((Enemy)fixB.getUserData()).hitOnHead();
+                }
+                break;
         }
+
     }
 
     @Override
     public void endContact(Contact contact) {
-        Gdx.app.log("End", "Contact");
+//        Gdx.app.log("End", "Contact");
     }
 
     @Override

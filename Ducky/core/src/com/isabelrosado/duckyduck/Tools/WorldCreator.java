@@ -36,6 +36,7 @@ public class WorldCreator {
 
             shape.setAsBox((rec.getWidth()/2) / DuckyDuck.PIXEL_PER_METER, (rec.getHeight()/2) / DuckyDuck.PIXEL_PER_METER);
             fdef.shape = shape;
+            fdef.filter.categoryBits = DuckyDuck.GROUND_BIT;
             body.createFixture(fdef);
             new Ground(game, screen, rec);
         }
@@ -53,6 +54,12 @@ public class WorldCreator {
         }
 
         //fruits
+        for(MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle rec = ((RectangleMapObject) object).getRectangle();
+            new Fruit(game, screen, rec);
+        }
+
+        //Enemy
         for(MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rec = ((RectangleMapObject) object).getRectangle();
             new Fruit(game, screen, rec);

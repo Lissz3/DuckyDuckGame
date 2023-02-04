@@ -18,6 +18,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.isabelrosado.duckyduck.DuckyDuck;
 import com.isabelrosado.duckyduck.Scenes.HUD;
 import com.isabelrosado.duckyduck.Sprites.Duck;
+import com.isabelrosado.duckyduck.Sprites.FatBird;
 import com.isabelrosado.duckyduck.Tools.WorldContactListener;
 import com.isabelrosado.duckyduck.Tools.WorldCreator;
 
@@ -36,7 +37,9 @@ public class PlayScreen implements Screen {
     private World world;
     private Box2DDebugRenderer b2dr;
 
-    private Duck duck;
+    public Duck duck;
+
+    public FatBird fatBird;
 
     private Music music;
 
@@ -71,6 +74,9 @@ public class PlayScreen implements Screen {
         //create Duck in our world
         duck = new Duck(this);
 
+        //create FatBird in our world
+        fatBird = new FatBird(this, 180 / DuckyDuck.PIXEL_PER_METER, 120 / DuckyDuck.PIXEL_PER_METER);
+
         world.setContactListener(new WorldContactListener());
 
         music = ((DuckyDuck) game).getAssetManager().get("MainTheme.mp3", Music.class);
@@ -101,6 +107,7 @@ public class PlayScreen implements Screen {
         newGame.sprite.setProjectionMatrix(gameCam.combined);
         newGame.sprite.begin();
         duck.draw(newGame.sprite);
+        fatBird.draw(newGame.sprite);
         newGame.sprite.end();
 
         //set batch with the HUD
@@ -161,6 +168,9 @@ public class PlayScreen implements Screen {
 
         //update the duck sprite
         duck.update(dt);
+
+        //update the fatBird sprite
+        fatBird.update(dt);
 
         gameCam.position.x = duck.dBody.getPosition().x;
 

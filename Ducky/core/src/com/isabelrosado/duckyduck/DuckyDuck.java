@@ -21,7 +21,11 @@ public class DuckyDuck extends Game {
 	public static final short BRICKHIT_BIT = 8;
 	public static final short FRUIT_BIT = 16;
 	public static final short DESTROYED_BIT = 32;
-	public static final short GROUND = 64;
+	public static final short GROUND_BIT = 64;
+
+	public static final short ENEMY_BIT = 128;
+
+	public static final short ENEMY_HEAD_BIT = 256;
 
 	private AssetManager assetManager;
 	

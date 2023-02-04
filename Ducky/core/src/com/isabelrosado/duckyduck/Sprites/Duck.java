@@ -1,7 +1,5 @@
 package com.isabelrosado.duckyduck.Sprites;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -113,7 +111,7 @@ public class Duck extends Sprite {
         CircleShape shape = new CircleShape();
         shape.setRadius(12 / DuckyDuck.PIXEL_PER_METER);
         duckFDef.filter.categoryBits = DuckyDuck.DUCK_BIT;
-        duckFDef.filter.maskBits = DuckyDuck.DEFAULT_BIT | DuckyDuck.BRICK_BIT | DuckyDuck.FRUIT_BIT | DuckyDuck.BRICKHIT_BIT | DuckyDuck.GROUND;
+        duckFDef.filter.maskBits = DuckyDuck.DEFAULT_BIT | DuckyDuck.BRICK_BIT | DuckyDuck.FRUIT_BIT | DuckyDuck.BRICKHIT_BIT | DuckyDuck.GROUND_BIT | DuckyDuck.ENEMY_BIT | DuckyDuck.ENEMY_HEAD_BIT;
 
         duckFDef.shape = shape;
         dBody.createFixture(duckFDef);
