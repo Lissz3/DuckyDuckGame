@@ -36,10 +36,9 @@ public class PlayScreen implements Screen {
 
     private World world;
     private Box2DDebugRenderer b2dr;
+    private  WorldCreator creator;
 
     public Duck duck;
-
-    public FatBird fatBird;
 
     private Music music;
 
@@ -69,13 +68,12 @@ public class PlayScreen implements Screen {
         world = new World(new Vector2(0, -10), true);
         b2dr = new Box2DDebugRenderer();
 
-        new WorldCreator(newGame, this);
+        creator = new WorldCreator(newGame, this);
 
         //create Duck in our world
         duck = new Duck(this);
 
         //create FatBird in our world
-        fatBird = new FatBird(this, 180 / DuckyDuck.PIXEL_PER_METER, 270 / DuckyDuck.PIXEL_PER_METER, 0, -2f);
 
         world.setContactListener(new WorldContactListener());
 
@@ -107,7 +105,9 @@ public class PlayScreen implements Screen {
         newGame.sprite.setProjectionMatrix(gameCam.combined);
         newGame.sprite.begin();
         duck.draw(newGame.sprite);
-        fatBird.draw(newGame.sprite);
+        for (FatBird fb : creator.getFatBirds()) {
+            fb.draw(newGame.sprite);
+        }
         newGame.sprite.end();
 
         //set batch with the HUD
@@ -170,8 +170,9 @@ public class PlayScreen implements Screen {
         duck.update(dt);
 
         //update the fatBird sprite
-        fatBird.update(dt);
-
+        for (FatBird fb : creator.getFatBirds()) {
+            fb.update(dt);
+        }
         gameCam.position.x = duck.dBody.getPosition().x;
 
         //update gamecam with correct coordinates

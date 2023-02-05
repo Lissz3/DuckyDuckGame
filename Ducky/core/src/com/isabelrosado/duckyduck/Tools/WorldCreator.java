@@ -11,12 +11,16 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.isabelrosado.duckyduck.DuckyDuck;
 import com.isabelrosado.duckyduck.Screens.PlayScreen;
-import com.isabelrosado.duckyduck.Sprites.Brick;
-import com.isabelrosado.duckyduck.Sprites.BrickHit;
-import com.isabelrosado.duckyduck.Sprites.Fruit;
-import com.isabelrosado.duckyduck.Sprites.Ground;
+import com.isabelrosado.duckyduck.Sprites.*;
+import com.badlogic.gdx.utils.Array;
+
 
 public class WorldCreator {
+    private Array<FatBird> fatBirds;
+
+    public Array<FatBird> getFatBirds() {
+        return fatBirds;
+    }
 
     public WorldCreator(DuckyDuck game, PlayScreen screen){
         World world = screen.getWorld();
@@ -59,10 +63,11 @@ public class WorldCreator {
             new Fruit(game, screen, rec);
         }
 
-        //Enemy
-        for(MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
+        //fatbirds
+        fatBirds = new Array<FatBird>();
+        for(MapObject object : map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rec = ((RectangleMapObject) object).getRectangle();
-            new Fruit(game, screen, rec);
+            fatBirds.add(new FatBird(screen, rec.getX() / DuckyDuck.PIXEL_PER_METER, rec.getY() / DuckyDuck.PIXEL_PER_METER, 0, 0));
         }
     }
 }

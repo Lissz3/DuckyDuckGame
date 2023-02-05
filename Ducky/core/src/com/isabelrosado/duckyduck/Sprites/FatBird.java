@@ -10,6 +10,8 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.isabelrosado.duckyduck.DuckyDuck;
 import com.isabelrosado.duckyduck.Screens.PlayScreen;
 import com.isabelrosado.duckyduck.Tools.Animator;
+import com.sun.org.apache.bcel.internal.generic.RET;
+import jogamp.graph.font.typecast.ot.table.ID;
 
 
 public class FatBird extends Enemy {
@@ -18,7 +20,8 @@ public class FatBird extends Enemy {
         FALLING,
         GROUNDED,
         HITTED,
-        IDLE
+        IDLE,
+        FLAPPING
     }
     public State currentState;
     public State previousState;
@@ -41,6 +44,7 @@ public class FatBird extends Enemy {
     private boolean touchedGround;
     private boolean top;
 
+    private boolean smash;
 
 
     public FatBird(PlayScreen screen, float x, float y, float velX, float velY) {
@@ -58,11 +62,12 @@ public class FatBird extends Enemy {
         fbGround = animator.getAnimation(4, 680, 0);
 
         stateTime = 0;
+        setSmash(false);
 
-        setCurrentState(State.FALLING);
-        setPreviousState(State.FALLING);
+        setCurrentState(State.IDLE);
+        setPreviousState(State.IDLE);
 
-        setRegion(fbFall.getKeyFrame(stateTime));
+        setRegion(fbIdle.getKeyFrame(stateTime));
     }
 
 
@@ -104,6 +109,8 @@ public class FatBird extends Enemy {
             return State.FALLING;
         } else if (getY() < screen.duck.getY()) {
             return State.GROUNDED;
+        } else if (b2body.getLinearVelocity().y > 0) {
+            return  State.FLAPPING;
         } else {
             return State.IDLE;
         }
@@ -140,6 +147,7 @@ public class FatBird extends Enemy {
                 region = fbGround.getKeyFrame(stateTime);
                 break;
             case IDLE:
+            case FLAPPING:
             default:
                 region = fbIdle.getKeyFrame(stateTime, true);
                 break;
@@ -179,16 +187,32 @@ public class FatBird extends Enemy {
 
     @Override
     public void reverseVelocity(boolean x, boolean y){
-        if (getY() > 2.7 && !top){
-            velocity.y = 3f;
-            super.reverseVelocity(x, y);
-            top = true;
-            touchedGround = false;
-        } else if (getY() < screen.duck.getY() && !touchedGround){
-            velocity.y = -0.5f;
-            super.reverseVelocity(x, y);
-            top = false;
-            touchedGround = true;
+        if (getX() < screen.duck.getX() + 0.5 || getX() < screen.duck.getX() - 0.5){
+            setSmash(true);
+        } else {
+            setSmash(false);
         }
+
+        if (isSmash() || getState() != State.IDLE){
+            if (getY() >= 2 && !top) {
+                velocity.y = 3f;
+                super.reverseVelocity(x, y);
+                top = true;
+                touchedGround = false;
+            } else if (getY() < screen.duck.getY() && !touchedGround) {
+                velocity.y = -0.5f;
+                super.reverseVelocity(x, y);
+                top = false;
+                touchedGround = true;
+            }
+        }
+    }
+
+    public boolean isSmash() {
+        return smash;
+    }
+
+    public void setSmash(boolean smash) {
+        this.smash = smash;
     }
 }
