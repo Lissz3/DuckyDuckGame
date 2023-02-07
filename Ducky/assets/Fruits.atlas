@@ -1,0 +1,69 @@
+
+Fruits.png
+size: 2048, 128
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Apple
+  rotate: false
+  xy: 544, 32
+  size: 544, 32
+  orig: 544, 32
+  offset: 0, 0
+  index: -1
+Bananas
+  rotate: false
+  xy: 0, 64
+  size: 544, 32
+  orig: 544, 32
+  offset: 0, 0
+  index: -1
+Cherries
+  rotate: false
+  xy: 0, 0
+  size: 544, 32
+  orig: 544, 32
+  offset: 0, 0
+  index: -1
+Collected
+  rotate: false
+  xy: 544, 0
+  size: 192, 32
+  orig: 192, 32
+  offset: 0, 0
+  index: -1
+Kiwi
+  rotate: false
+  xy: 544, 96
+  size: 544, 32
+  orig: 544, 32
+  offset: 0, 0
+  index: -1
+Melon
+  rotate: false
+  xy: 0, 32
+  size: 544, 32
+  orig: 544, 32
+  offset: 0, 0
+  index: -1
+Orange
+  rotate: false
+  xy: 544, 64
+  size: 544, 32
+  orig: 544, 32
+  offset: 0, 0
+  index: -1
+Pineapple
+  rotate: false
+  xy: 1088, 96
+  size: 544, 32
+  orig: 544, 32
+  offset: 0, 0
+  index: -1
+Strawberry
+  rotate: false
+  xy: 0, 96
+  size: 544, 32
+  orig: 544, 32
+  offset: 0, 0
+  index: -1

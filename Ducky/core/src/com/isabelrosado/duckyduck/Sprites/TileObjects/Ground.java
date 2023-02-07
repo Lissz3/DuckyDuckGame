@@ -1,4 +1,4 @@
-package com.isabelrosado.duckyduck.Sprites;
+package com.isabelrosado.duckyduck.Sprites.TileObjects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;

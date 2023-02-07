@@ -1,14 +1,16 @@
 package com.isabelrosado.duckyduck.Tools;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.isabelrosado.duckyduck.DuckyDuck;
-import com.isabelrosado.duckyduck.Sprites.*;
+import com.isabelrosado.duckyduck.Sprites.Duck;
+import com.isabelrosado.duckyduck.Sprites.Enemies.Enemy;
+import com.isabelrosado.duckyduck.Sprites.Items.Fruit;
+import com.isabelrosado.duckyduck.Sprites.TileObjects.InteractiveTileObject;
 
 public class WorldContactListener implements ContactListener {
     private Fixture fixA;
@@ -44,7 +46,13 @@ public class WorldContactListener implements ContactListener {
                 }
                 break;
             case DuckyDuck.DUCK_BIT | DuckyDuck.ENEMY_BIT:
-                Gdx.app.log("Duck", "Dead");
+
+                break;
+
+            case DuckyDuck.FRUIT_BIT | DuckyDuck.DUCK_BIT:
+                Gdx.app.log("Fruit", "Adds score");
+                object = fixA.getFilterData().categoryBits == DuckyDuck.FRUIT_BIT ? fixA : fixB;
+                ((Fruit) object.getUserData()).onHit();
                 break;
         }
 

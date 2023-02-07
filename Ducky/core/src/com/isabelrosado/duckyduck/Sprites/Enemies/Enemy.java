@@ -1,4 +1,4 @@
-package com.isabelrosado.duckyduck.Sprites;
+package com.isabelrosado.duckyduck.Sprites.Enemies;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;

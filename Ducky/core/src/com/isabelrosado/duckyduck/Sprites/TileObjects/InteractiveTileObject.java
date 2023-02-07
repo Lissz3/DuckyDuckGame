@@ -1,4 +1,4 @@
-package com.isabelrosado.duckyduck.Sprites;
+package com.isabelrosado.duckyduck.Sprites.TileObjects;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -24,9 +24,12 @@ public abstract class InteractiveTileObject {
     protected Fixture fixture;
     protected DuckyDuck game;
 
+    PlayScreen screen;
+
 
     public InteractiveTileObject(DuckyDuck game, PlayScreen screen, Rectangle bounds){
         this.game = game;
+        this.screen = screen;
         this.world = screen.getWorld();
         this.map = screen.getMap();
         this.bounds = bounds;

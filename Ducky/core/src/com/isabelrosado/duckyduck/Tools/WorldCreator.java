@@ -11,8 +11,11 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.isabelrosado.duckyduck.DuckyDuck;
 import com.isabelrosado.duckyduck.Screens.PlayScreen;
-import com.isabelrosado.duckyduck.Sprites.*;
 import com.badlogic.gdx.utils.Array;
+import com.isabelrosado.duckyduck.Sprites.Enemies.FatBird;
+import com.isabelrosado.duckyduck.Sprites.TileObjects.Brick;
+import com.isabelrosado.duckyduck.Sprites.TileObjects.BrickHit;
+import com.isabelrosado.duckyduck.Sprites.TileObjects.Ground;
 
 
 public class WorldCreator {
@@ -55,12 +58,6 @@ public class WorldCreator {
         for(MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rec = ((RectangleMapObject) object).getRectangle();
             new Brick(game, screen, rec);
-        }
-
-        //fruits
-        for(MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
-            Rectangle rec = ((RectangleMapObject) object).getRectangle();
-            new Fruit(game, screen, rec);
         }
 
         //fatbirds

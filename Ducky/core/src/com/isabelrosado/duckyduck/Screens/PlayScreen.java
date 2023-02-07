@@ -13,14 +13,21 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.isabelrosado.duckyduck.DuckyDuck;
 import com.isabelrosado.duckyduck.Scenes.HUD;
 import com.isabelrosado.duckyduck.Sprites.Duck;
-import com.isabelrosado.duckyduck.Sprites.FatBird;
+import com.isabelrosado.duckyduck.Sprites.Enemies.FatBird;
+import com.isabelrosado.duckyduck.Sprites.Items.Fruit;
+import com.isabelrosado.duckyduck.Sprites.Items.Item;
+import com.isabelrosado.duckyduck.Sprites.Items.ItemDef;
 import com.isabelrosado.duckyduck.Tools.WorldContactListener;
 import com.isabelrosado.duckyduck.Tools.WorldCreator;
+
+import java.util.PriorityQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class PlayScreen implements Screen {
     private DuckyDuck newGame;
@@ -36,11 +43,14 @@ public class PlayScreen implements Screen {
 
     private World world;
     private Box2DDebugRenderer b2dr;
-    private  WorldCreator creator;
+    private WorldCreator creator;
+
+    private Music music;
 
     public Duck duck;
 
-    private Music music;
+    private Array<Item> items;
+    private LinkedBlockingQueue<ItemDef> itemsToSpawn;
 
     public PlayScreen(DuckyDuck game) {
         atlas = new TextureAtlas("Frog.atlas");
@@ -73,7 +83,9 @@ public class PlayScreen implements Screen {
         //create Duck in our world
         duck = new Duck(this);
 
-        //create FatBird in our world
+        //create Items in our world
+        items = new Array<Item>();
+        itemsToSpawn = new  LinkedBlockingQueue<ItemDef>();
 
         world.setContactListener(new WorldContactListener());
 
@@ -102,11 +114,17 @@ public class PlayScreen implements Screen {
         //box2D renderer
         b2dr.render(world, gameCam.combined);
 
+        //draw the sprites
         newGame.sprite.setProjectionMatrix(gameCam.combined);
         newGame.sprite.begin();
         duck.draw(newGame.sprite);
+
         for (FatBird fb : creator.getFatBirds()) {
             fb.draw(newGame.sprite);
+        }
+
+        for (Item item : items) {
+            item.draw(newGame.sprite);
         }
         newGame.sprite.end();
 
@@ -164,6 +182,9 @@ public class PlayScreen implements Screen {
         //handle user input
         handleInput(dt);
 
+        //handle item creation
+        handleSpawningItems();
+
         world.step(1 / 60f, 6, 2);
 
         //update the duck sprite
@@ -173,6 +194,13 @@ public class PlayScreen implements Screen {
         for (FatBird fb : creator.getFatBirds()) {
             fb.update(dt);
         }
+
+        //update the item sprite
+        for (Item fruit : items) {
+            fruit.update(dt);
+        }
+
+        //the game cam follows the main char
         gameCam.position.x = duck.dBody.getPosition().x;
 
         //update gamecam with correct coordinates
@@ -187,11 +215,24 @@ public class PlayScreen implements Screen {
         return atlas;
     }
 
-    public TiledMap getMap(){
+    public TiledMap getMap() {
         return map;
     }
 
-    public World getWorld(){
+    public World getWorld() {
         return world;
+    }
+
+    public void spawnItem(ItemDef itemDef) {
+        itemsToSpawn.add(itemDef);
+    }
+
+    public void handleSpawningItems() {
+        if (!itemsToSpawn.isEmpty()) {
+            ItemDef itemDef = itemsToSpawn.poll();
+            if (itemDef.type.equals(Fruit.class)) {
+                items.add(new Fruit(this, itemDef.position.x, itemDef.position.y));
+            }
+        }
     }
 }

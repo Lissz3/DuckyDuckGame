@@ -1,6 +1,5 @@
-package com.isabelrosado.duckyduck.Sprites;
+package com.isabelrosado.duckyduck.Sprites.Enemies;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -10,8 +9,6 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.isabelrosado.duckyduck.DuckyDuck;
 import com.isabelrosado.duckyduck.Screens.PlayScreen;
 import com.isabelrosado.duckyduck.Tools.Animator;
-import com.sun.org.apache.bcel.internal.generic.RET;
-import jogamp.graph.font.typecast.ot.table.ID;
 
 
 public class FatBird extends Enemy {
