@@ -158,6 +158,7 @@ public class FatBird extends Enemy {
     @Override
     public void update(float dt) {
         stateTime += dt;
+
         if (setToDestroy && !destroyed) {
             world.destroyBody(b2body);
             destroyed = true;
@@ -184,8 +185,10 @@ public class FatBird extends Enemy {
 
     @Override
     public void reverseVelocity(boolean x, boolean y){
-        if (getX() < screen.duck.getX() + 0.5 || getX() < screen.duck.getX() - 0.5){
-            setSmash(true);
+        if (!screen.duck.isHit() || getState() != State.IDLE) {
+            if ((getX() < screen.duck.getX() + 0.5 || getX() < screen.duck.getX() - 0.5)) {
+                setSmash(true);
+            }
         } else {
             setSmash(false);
         }

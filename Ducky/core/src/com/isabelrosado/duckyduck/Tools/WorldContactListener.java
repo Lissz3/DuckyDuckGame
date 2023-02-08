@@ -16,8 +16,6 @@ public class WorldContactListener implements ContactListener {
     private Fixture fixA;
     private Fixture fixB;
 
-    private Fixture feet;
-
     private Fixture head;
 
     private Fixture object;
@@ -46,7 +44,8 @@ public class WorldContactListener implements ContactListener {
                 }
                 break;
             case DuckyDuck.DUCK_BIT | DuckyDuck.ENEMY_BIT:
-
+                object = fixA.getFilterData().categoryBits == DuckyDuck.DUCK_BIT ? fixA : fixB;
+                ((Duck) object.getUserData()).onHit();
                 break;
 
             case DuckyDuck.FRUIT_BIT | DuckyDuck.DUCK_BIT:

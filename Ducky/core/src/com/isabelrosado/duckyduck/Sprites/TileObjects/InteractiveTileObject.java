@@ -1,6 +1,9 @@
 package com.isabelrosado.duckyduck.Sprites.TileObjects;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.maps.Map;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -23,16 +26,18 @@ public abstract class InteractiveTileObject {
     protected Body body;
     protected Fixture fixture;
     protected DuckyDuck game;
+    protected MapObject object;
 
     PlayScreen screen;
 
 
-    public InteractiveTileObject(DuckyDuck game, PlayScreen screen, Rectangle bounds){
+    public InteractiveTileObject(DuckyDuck game, PlayScreen screen, MapObject object){
         this.game = game;
         this.screen = screen;
+        this.object = object;
         this.world = screen.getWorld();
         this.map = screen.getMap();
-        this.bounds = bounds;
+        this.bounds = ((RectangleMapObject) object).getRectangle();
 
         BodyDef bDef = new BodyDef();
         FixtureDef fixDef = new FixtureDef();
@@ -51,8 +56,6 @@ public abstract class InteractiveTileObject {
     }
 
     public abstract void onHeadHit();
-
-    public abstract void onFeetHit();
 
     public void setCategoryFilter(short filterBit){
         Filter f = new Filter();

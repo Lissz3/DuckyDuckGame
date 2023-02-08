@@ -2,14 +2,15 @@ package com.isabelrosado.duckyduck.Sprites.TileObjects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.math.Rectangle;
 import com.isabelrosado.duckyduck.DuckyDuck;
 import com.isabelrosado.duckyduck.Screens.PlayScreen;
 
 public class Brick extends InteractiveTileObject {
 
-    public Brick(DuckyDuck game, PlayScreen screen, Rectangle bounds) {
-        super(game, screen, bounds);
+    public Brick(DuckyDuck game, PlayScreen screen, MapObject object) {
+        super(game, screen, object);
         fixture.setUserData(this);
         setCategoryFilter(DuckyDuck.BRICK_BIT);
     }
@@ -20,8 +21,4 @@ public class Brick extends InteractiveTileObject {
 //        Gdx.app.log("Brick", "Collision");
     }
 
-    @Override
-    public void onFeetHit() {
-        Gdx.app.log("Brick", "Collision");
-    }
 }

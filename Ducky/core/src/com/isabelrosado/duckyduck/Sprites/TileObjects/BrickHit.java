@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.isabelrosado.duckyduck.DuckyDuck;
@@ -22,8 +23,8 @@ public class BrickHit extends InteractiveTileObject {
     private Animation<TextureRegion> onHit;
 
 
-    public BrickHit(DuckyDuck game, PlayScreen screen, Rectangle bounds) {
-        super(game, screen, bounds);
+    public BrickHit(DuckyDuck game, PlayScreen screen, MapObject object) {
+        super(game, screen, object);
         atlas = new TextureAtlas("Box.atlas");
         animationTexture = new Texture("Box.png");
         animator = new Animator(atlas.findRegion("Hit").getTexture(), 28, 24);
@@ -41,8 +42,4 @@ public class BrickHit extends InteractiveTileObject {
         game.getAssetManager().get("02.mp3", Sound.class).play();
     }
 
-    @Override
-    public void onFeetHit() {
-        Gdx.app.log("BrickHit", "Collision");
-    }
 }

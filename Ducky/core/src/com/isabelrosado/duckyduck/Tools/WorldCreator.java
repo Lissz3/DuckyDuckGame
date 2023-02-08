@@ -45,19 +45,17 @@ public class WorldCreator {
             fdef.shape = shape;
             fdef.filter.categoryBits = DuckyDuck.GROUND_BIT;
             body.createFixture(fdef);
-            new Ground(game, screen, rec);
+            new Ground(game, screen, object);
         }
 
         //hittable bricks
         for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
-            Rectangle rec = ((RectangleMapObject) object).getRectangle();
-            new BrickHit(game, screen, rec);
+            new BrickHit(game, screen, object);
         }
 
         //bricks
         for(MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
-            Rectangle rec = ((RectangleMapObject) object).getRectangle();
-            new Brick(game, screen, rec);
+            new Brick(game, screen, object);
         }
 
         //fatbirds

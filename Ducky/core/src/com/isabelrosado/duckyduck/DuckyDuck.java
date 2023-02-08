@@ -6,6 +6,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.isabelrosado.duckyduck.Screens.MainMenuScreen;
 import com.isabelrosado.duckyduck.Screens.PlayScreen;
 
 public class DuckyDuck extends Game {
@@ -15,6 +16,7 @@ public class DuckyDuck extends Game {
 	public static final int V_HEIGHT = 420;
 	public static final float PIXEL_PER_METER = 100;
 
+	public static final short NOTHING_BIT = 0;
 	public static final short DEFAULT_BIT = 1;
 	public static final short DUCK_BIT = 2;
 	public static final short BRICK_BIT = 4;
@@ -22,10 +24,10 @@ public class DuckyDuck extends Game {
 	public static final short FRUIT_BIT = 16;
 	public static final short DESTROYED_BIT = 32;
 	public static final short GROUND_BIT = 64;
-
 	public static final short ENEMY_BIT = 128;
-
 	public static final short ENEMY_HEAD_BIT = 256;
+
+	public static final short DUCK_HEAD_BIT = 512;
 
 	private AssetManager assetManager;
 	
@@ -39,7 +41,7 @@ public class DuckyDuck extends Game {
 		assetManager.finishLoading();
 		assetManager.getLoadedAssets();
 
-		setScreen(new PlayScreen(this));
+		setScreen(new MainMenuScreen(this));
 	}
 
 	@Override

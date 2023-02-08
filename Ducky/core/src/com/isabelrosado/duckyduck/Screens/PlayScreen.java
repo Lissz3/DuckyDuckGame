@@ -85,7 +85,7 @@ public class PlayScreen implements Screen {
 
         //create Items in our world
         items = new Array<Item>();
-        itemsToSpawn = new  LinkedBlockingQueue<ItemDef>();
+        itemsToSpawn = new LinkedBlockingQueue<ItemDef>();
 
         world.setContactListener(new WorldContactListener());
 
@@ -132,6 +132,11 @@ public class PlayScreen implements Screen {
         newGame.sprite.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
 
+        if (gameOver()){
+            newGame.setScreen(new GameOverScreen(newGame));
+            dispose();
+        }
+
     }
 
     @Override
@@ -164,17 +169,19 @@ public class PlayScreen implements Screen {
     }
 
     public void handleInput(float dt) {
-        //holding down keys moves camera through world
-        if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && duck.canDoubleJump()) {
-            duck.dBody.applyLinearImpulse(new Vector2(0, 4f), duck.dBody.getWorldCenter(), true);
-        }
+        if (duck.currentState != Duck.State.HITTED) {
+            //holding down keys moves camera through world
+            if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && duck.canDoubleJump()) {
+                duck.dBody.applyLinearImpulse(new Vector2(0, 4f), duck.dBody.getWorldCenter(), true);
+            }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && duck.dBody.getLinearVelocity().x <= 2) {
-            duck.dBody.applyLinearImpulse(new Vector2(0.1f, 0), duck.dBody.getWorldCenter(), true);
-        }
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && duck.dBody.getLinearVelocity().x <= 2) {
+                duck.dBody.applyLinearImpulse(new Vector2(0.1f, 0), duck.dBody.getWorldCenter(), true);
+            }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && duck.dBody.getLinearVelocity().x >= -2) {
-            duck.dBody.applyLinearImpulse(new Vector2(-0.1f, 0), duck.dBody.getWorldCenter(), true);
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && duck.dBody.getLinearVelocity().x >= -2) {
+                duck.dBody.applyLinearImpulse(new Vector2(-0.1f, 0), duck.dBody.getWorldCenter(), true);
+            }
         }
     }
 
@@ -201,7 +208,9 @@ public class PlayScreen implements Screen {
         }
 
         //the game cam follows the main char
-        gameCam.position.x = duck.dBody.getPosition().x;
+        if (duck.currentState != Duck.State.HITTED) {
+            gameCam.position.x = duck.dBody.getPosition().x;
+        }
 
         //update gamecam with correct coordinates
         gameCam.update();
@@ -234,5 +243,12 @@ public class PlayScreen implements Screen {
                 items.add(new Fruit(this, itemDef.position.x, itemDef.position.y));
             }
         }
+    }
+
+    public boolean gameOver (){
+        if (duck.isHit() && duck.getStateTimer() > 3){
+            return true;
+        }
+        return false;
     }
 }
