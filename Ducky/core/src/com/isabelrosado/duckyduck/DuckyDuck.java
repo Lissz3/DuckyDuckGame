@@ -7,6 +7,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.isabelrosado.duckyduck.Screens.MainMenuScreen;
+import com.isabelrosado.duckyduck.Screens.MainMenuScreenTry;
 import com.isabelrosado.duckyduck.Screens.PlayScreen;
 
 public class DuckyDuck extends Game {
@@ -29,19 +30,28 @@ public class DuckyDuck extends Game {
 
 	public static final short DUCK_HEAD_BIT = 512;
 
+	public static final short CHECKPOINT_BIT = 1024;
+
 	private AssetManager assetManager;
 	
 	@Override
 	public void create () {
 		sprite = new SpriteBatch();
 		assetManager = new AssetManager();
-		assetManager.load("MainTheme.mp3", Music.class);
-		assetManager.load("01.mp3", Sound.class);
-		assetManager.load("02.mp3", Sound.class);
+		assetManager.load("Audio/Music/MainTheme.mp3", Music.class);
+		assetManager.load("Audio/Music/Gameplay.mp3", Music.class);
+		assetManager.load("Audio/Sounds/BreakableBox.mp3", Sound.class);
+		assetManager.load("Audio/Sounds/Button.mp3", Sound.class);
+		assetManager.load("Audio/Sounds/FatBirdGround.mp3", Sound.class);
+		assetManager.load("Audio/Sounds/FatBirdKilled.mp3", Sound.class);
+		assetManager.load("Audio/Sounds/NotBreakable.mp3", Sound.class);
+		assetManager.load("Audio/Sounds/PlayButton.mp3", Sound.class);
+		assetManager.load("Audio/Sounds/FruitCollected.mp3", Sound.class);
+		assetManager.load("Audio/Sounds/GameOver.mp3", Sound.class);
 		assetManager.finishLoading();
 		assetManager.getLoadedAssets();
 
-		setScreen(new MainMenuScreen(this));
+		setScreen(new MainMenuScreenTry(this));
 	}
 
 	@Override
@@ -52,7 +62,6 @@ public class DuckyDuck extends Game {
 	@Override
 	public void dispose () {
 		super.dispose();
-		sprite.dispose();
 		sprite.dispose();
 		assetManager.dispose();
 	}

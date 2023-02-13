@@ -1,5 +1,6 @@
 package com.isabelrosado.duckyduck.Sprites.Enemies;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -44,9 +45,9 @@ public class FatBird extends Enemy {
     private boolean smash;
 
 
-    public FatBird(PlayScreen screen, float x, float y, float velX, float velY) {
-        super(screen, x, y, velX, velY);
-        animationTexture = new Texture("FatBird.png");
+    public FatBird(DuckyDuck game, PlayScreen screen, float x, float y, float velX, float velY) {
+        super(game, screen, x, y, velX, velY);
+        animationTexture = new Texture("Sprites/FatBird.png");
         animator = new Animator(animationTexture, 40, 48);
         setToDestroy = false;
         destroyed = false;
@@ -72,7 +73,6 @@ public class FatBird extends Enemy {
     protected void defineEnemy() {
         fatBirdBdef = new BodyDef();
         fatBirdBdef.position.set(getX(), getY());
-//        fatBirdBdef.type = BodyDef.BodyType.DynamicBody;
         fatBirdBdef.type = BodyDef.BodyType.KinematicBody;
         b2body = world.createBody(fatBirdBdef);
         FixtureDef fbFDef = new FixtureDef();
@@ -174,6 +174,7 @@ public class FatBird extends Enemy {
     @Override
     public void hitOnHead() {
         setToDestroy = true;
+        game.getAssetManager().get("Audio/Sounds/FatBirdKilled.mp3", Sound.class).play();
     }
 
 
@@ -199,11 +200,13 @@ public class FatBird extends Enemy {
                 super.reverseVelocity(x, y);
                 top = true;
                 touchedGround = false;
-            } else if (getY() < screen.duck.getY() && !touchedGround) {
+            } else if (getY() < 0.3 && !touchedGround) {
                 velocity.y = -0.5f;
                 super.reverseVelocity(x, y);
                 top = false;
                 touchedGround = true;
+                game.getAssetManager().get("Audio/Sounds/FatBirdGround.mp3", Sound.class).play();
+
             }
         }
     }

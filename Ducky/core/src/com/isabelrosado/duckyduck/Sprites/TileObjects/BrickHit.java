@@ -17,19 +17,9 @@ import com.isabelrosado.duckyduck.Sprites.Items.ItemDef;
 import com.isabelrosado.duckyduck.Tools.Animator;
 
 public class BrickHit extends InteractiveTileObject {
-    private TextureAtlas atlas;
-    Animator animator;
-    Texture animationTexture;
-    private Animation<TextureRegion> onHit;
-
 
     public BrickHit(DuckyDuck game, PlayScreen screen, MapObject object) {
         super(game, screen, object);
-        atlas = new TextureAtlas("Box.atlas");
-        animationTexture = new Texture("Box.png");
-        animator = new Animator(atlas.findRegion("Hit").getTexture(), 28, 24);
-        onHit = animator.getAnimation(3, 112, 0);
-
         fixture.setUserData(this);
         setCategoryFilter(DuckyDuck.BRICKHIT_BIT);
     }
@@ -39,7 +29,7 @@ public class BrickHit extends InteractiveTileObject {
         setCategoryFilter(DuckyDuck.DESTROYED_BIT);
         getCell().setTile(null);
         screen.spawnItem(new ItemDef(new Vector2(body.getPosition().x, body.getPosition().y + 16 / DuckyDuck.PIXEL_PER_METER), Fruit.class));
-        game.getAssetManager().get("02.mp3", Sound.class).play();
+        game.getAssetManager().get("Audio/Sounds/BreakableBox.mp3", Sound.class).play();
     }
 
 }

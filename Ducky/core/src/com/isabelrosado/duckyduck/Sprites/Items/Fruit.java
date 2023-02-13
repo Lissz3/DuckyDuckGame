@@ -1,7 +1,9 @@
 package com.isabelrosado.duckyduck.Sprites.Items;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -15,7 +17,6 @@ import com.isabelrosado.duckyduck.Sprites.Enemies.FatBird;
 import com.isabelrosado.duckyduck.Tools.Animator;
 
 public class Fruit extends Item {
-
     public enum State {
         NOT_COLLECTED,
         COLLECTED
@@ -33,21 +34,22 @@ public class Fruit extends Item {
     BodyDef fruitBDef;
     private float stateTimer;
 
-    public Fruit(PlayScreen screen, float x, float y) {
-        super(screen, x, y);
+
+    public Fruit(DuckyDuck game, PlayScreen screen, float x, float y) {
+        super(game, screen, x, y);
         stateTimer = 0;
-        animationTexture = new Texture("Fruits.png");
+        animationTexture = new Texture("Sprites/Fruits.png");
         animator = new Animator(animationTexture, 32, 32);
         fruitNotCollected = animator.getAnimation(17, 0, 0);
         fruitCollected = animator.getAnimation(6, 544, 0);
         setCurrentState(State.NOT_COLLECTED);
         setPreviousState(State.NOT_COLLECTED);
 
-        setRegion(fruitNotCollected.getKeyFrame(stateTimer));
+        setRegion(fruitNotCollected.getKeyFrame(stateTimer, true));
     }
 
     public State getState() {
-        if (destroyed) {
+        if (toDestroy) {
             return State.COLLECTED;
         } else {
             return State.NOT_COLLECTED;
@@ -99,8 +101,6 @@ public class Fruit extends Item {
         FixtureDef fruitFDef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(7 / DuckyDuck.PIXEL_PER_METER);
-        fruitFDef.filter.categoryBits = DuckyDuck.FRUIT_BIT;
-        fruitFDef.filter.maskBits = DuckyDuck.DUCK_BIT;
 
         fruitFDef.filter.categoryBits = DuckyDuck.FRUIT_BIT;
         fruitFDef.filter.maskBits = DuckyDuck.DUCK_BIT | DuckyDuck.GROUND_BIT;
@@ -114,13 +114,23 @@ public class Fruit extends Item {
 
     @Override
     public void use() {
+        screen.getHud().setScore(screen.getHud().getScore() + 1);
+        game.getAssetManager().get("Audio/Sounds/FruitCollected.mp3", Sound.class).play();
         destroy();
     }
 
     @Override
-    public void update(float dt){
+    public void update(float dt) {
         super.update(dt);
         setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - getHeight() / 2);
         setRegion(getFrame(dt));
     }
+
+    @Override
+    public void draw(Batch batch) {
+        if (!destroyed || !fruitCollected.isAnimationFinished(stateTimer)) {
+            super.draw(batch);
+        }
+    }
+
 }

@@ -9,6 +9,7 @@ import com.isabelrosado.duckyduck.DuckyDuck;
 import com.isabelrosado.duckyduck.Screens.PlayScreen;
 
 public abstract class Item extends Sprite {
+    protected DuckyDuck game;
     protected PlayScreen screen;
     protected World world;
     protected Vector2 velocity;
@@ -17,7 +18,8 @@ public abstract class Item extends Sprite {
     protected Body body;
 
 
-    public Item(PlayScreen screen, float x, float y){
+    public Item(DuckyDuck game, PlayScreen screen, float x, float y) {
+        this.game = game;
         this.screen = screen;
         this.world = screen.getWorld();
         setPosition(x, y);
@@ -28,26 +30,22 @@ public abstract class Item extends Sprite {
     }
 
     public abstract void defineItem();
+
     public abstract void use();
 
-    public void destroy(){
+    public void destroy() {
         toDestroy = true;
     }
 
-    public void update (float dt){
-        if (toDestroy && !destroyed){
+    public void update(float dt) {
+        if (toDestroy && !destroyed) {
             world.destroyBody(body);
             destroyed = true;
         }
     }
-    public void draw(Batch batch){
-        if (!destroyed){
-            super.draw(batch);
-        }
-    }
 
-    public void onHit(){
-        destroy();
+    public void draw(Batch batch) {
+        super.draw(batch);
     }
 
 }

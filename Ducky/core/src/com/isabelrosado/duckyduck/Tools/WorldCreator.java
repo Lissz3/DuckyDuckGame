@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.Array;
 import com.isabelrosado.duckyduck.Sprites.Enemies.FatBird;
 import com.isabelrosado.duckyduck.Sprites.TileObjects.Brick;
 import com.isabelrosado.duckyduck.Sprites.TileObjects.BrickHit;
+import com.isabelrosado.duckyduck.Sprites.TileObjects.CheckPoint;
 import com.isabelrosado.duckyduck.Sprites.TileObjects.Ground;
 
 
@@ -58,11 +59,16 @@ public class WorldCreator {
             new Brick(game, screen, object);
         }
 
+        //Checkpoint
+        for(MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
+            new CheckPoint(game, screen, object);
+        }
+
         //fatbirds
         fatBirds = new Array<FatBird>();
         for(MapObject object : map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rec = ((RectangleMapObject) object).getRectangle();
-            fatBirds.add(new FatBird(screen, rec.getX() / DuckyDuck.PIXEL_PER_METER, rec.getY() / DuckyDuck.PIXEL_PER_METER, 0, 0));
+            fatBirds.add(new FatBird(game, screen, rec.getX() / DuckyDuck.PIXEL_PER_METER, rec.getY() / DuckyDuck.PIXEL_PER_METER, 0, 0));
         }
     }
 }

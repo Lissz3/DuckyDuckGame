@@ -10,6 +10,7 @@ import com.isabelrosado.duckyduck.DuckyDuck;
 import com.isabelrosado.duckyduck.Sprites.Duck;
 import com.isabelrosado.duckyduck.Sprites.Enemies.Enemy;
 import com.isabelrosado.duckyduck.Sprites.Items.Fruit;
+import com.isabelrosado.duckyduck.Sprites.TileObjects.CheckPoint;
 import com.isabelrosado.duckyduck.Sprites.TileObjects.InteractiveTileObject;
 
 public class WorldContactListener implements ContactListener {
@@ -49,9 +50,13 @@ public class WorldContactListener implements ContactListener {
                 break;
 
             case DuckyDuck.FRUIT_BIT | DuckyDuck.DUCK_BIT:
-                Gdx.app.log("Fruit", "Adds score");
                 object = fixA.getFilterData().categoryBits == DuckyDuck.FRUIT_BIT ? fixA : fixB;
-                ((Fruit) object.getUserData()).onHit();
+                ((Fruit) object.getUserData()).use();
+                break;
+
+            case DuckyDuck.DUCK_BIT | DuckyDuck.CHECKPOINT_BIT:
+                object = fixA.getFilterData().categoryBits == DuckyDuck.CHECKPOINT_BIT ? fixA : fixB;
+                ((CheckPoint) object.getUserData()).use();
                 break;
         }
 

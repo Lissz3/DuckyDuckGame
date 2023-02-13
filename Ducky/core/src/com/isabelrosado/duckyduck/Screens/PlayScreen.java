@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -35,6 +36,7 @@ public class PlayScreen implements Screen {
 
     private OrthographicCamera gameCam;
     private Viewport gamePort;
+
     private HUD hud;
 
     private TmxMapLoader mapLoader;
@@ -53,7 +55,7 @@ public class PlayScreen implements Screen {
     private LinkedBlockingQueue<ItemDef> itemsToSpawn;
 
     public PlayScreen(DuckyDuck game) {
-        atlas = new TextureAtlas("Frog.atlas");
+        atlas = new TextureAtlas("Sprites/Frog.atlas");
 
         newGame = game;
 
@@ -69,7 +71,7 @@ public class PlayScreen implements Screen {
 
         //load map and setup the renderer
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load("prueba2.tmx");
+        map = mapLoader.load("Maps/prueba2.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1 / DuckyDuck.PIXEL_PER_METER);
 
         //setup the gamecam at the start of the game
@@ -81,7 +83,7 @@ public class PlayScreen implements Screen {
         creator = new WorldCreator(newGame, this);
 
         //create Duck in our world
-        duck = new Duck(this);
+        duck = new Duck(newGame,this);
 
         //create Items in our world
         items = new Array<Item>();
@@ -89,9 +91,10 @@ public class PlayScreen implements Screen {
 
         world.setContactListener(new WorldContactListener());
 
-        music = ((DuckyDuck) game).getAssetManager().get("MainTheme.mp3", Music.class);
+        music = game.getAssetManager().get("Audio/Music/Gameplay.mp3", Music.class);
         music.setLooping(true);
         music.play();
+
     }
 
     @Override
@@ -134,6 +137,7 @@ public class PlayScreen implements Screen {
 
         if (gameOver()){
             newGame.setScreen(new GameOverScreen(newGame));
+            music.stop();
             dispose();
         }
 
@@ -189,6 +193,9 @@ public class PlayScreen implements Screen {
         //handle user input
         handleInput(dt);
 
+        //update hud
+        hud.update(dt);
+
         //handle item creation
         handleSpawningItems();
 
@@ -240,7 +247,7 @@ public class PlayScreen implements Screen {
         if (!itemsToSpawn.isEmpty()) {
             ItemDef itemDef = itemsToSpawn.poll();
             if (itemDef.type.equals(Fruit.class)) {
-                items.add(new Fruit(this, itemDef.position.x, itemDef.position.y));
+                items.add(new Fruit(newGame, this, itemDef.position.x, itemDef.position.y));
             }
         }
     }
@@ -251,4 +258,13 @@ public class PlayScreen implements Screen {
         }
         return false;
     }
+
+    public HUD getHud() {
+        return hud;
+    }
+
+    public void setHud(HUD hud) {
+        this.hud = hud;
+    }
+
 }

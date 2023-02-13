@@ -3,6 +3,8 @@ package com.isabelrosado.duckyduck.Screens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -23,15 +25,20 @@ public class MainMenuScreen implements Screen {
 
     private Viewport vp;
     private Stage stg;
-    private Game game;
+    private DuckyDuck game;
+    Music music;
 
-    public MainMenuScreen(final Game game){
+    public MainMenuScreen(final DuckyDuck game){
         this.game = game;
         this.vp = new FitViewport(DuckyDuck.V_WIDTH, DuckyDuck.V_HEIGHT, new OrthographicCamera());
-        this.stg = new Stage(vp, ((DuckyDuck) game).sprite);
+        this.stg = new Stage(vp, game.sprite);
+
+        music = game.getAssetManager().get("Audio/Music/MainTheme.mp3", Music.class);
+        music.setLooping(true);
+        music.play();
 
         Label.LabelStyle lblFont = new Label.LabelStyle();
-        BitmapFont font = new BitmapFont(Gdx.files.internal("white.fnt"));
+        BitmapFont font = new BitmapFont(Gdx.files.internal("Fonts/white.fnt"));
         lblFont.font = font;
         Table table = new Table();
         table.center();
@@ -40,7 +47,7 @@ public class MainMenuScreen implements Screen {
         int btnHeight = 48;
         int btnWidth = 160;
         Skin skin = new Skin();
-        skin.addRegions(new TextureAtlas("btns.atlas"));
+        skin.addRegions(new TextureAtlas("Sprites/btns.atlas"));
         TextButton.TextButtonStyle btnStyle = new TextButton.TextButtonStyle();
         btnStyle.font = font;
         btnStyle.up = skin.getDrawable("Normal");
@@ -52,7 +59,9 @@ public class MainMenuScreen implements Screen {
         btnPlay.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new PlayScreen((DuckyDuck) game));
+                game.getAssetManager().get("Audio/Sounds/PlayButton.mp3", Sound.class).play();
+                game.setScreen(new PlayScreen(game));
+                music.stop();
                 dispose();
             };
         });
@@ -68,6 +77,15 @@ public class MainMenuScreen implements Screen {
         TextButton btnCredits = new TextButton("CREDITS", btnStyle);
         btnCredits.setSize(btnWidth,btnHeight);
         btnCredits.getLabel().setAlignment(Align.top);
+        btnCredits.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.getAssetManager().get("Audio/Sounds/Button.mp3", Sound.class).play();
+                game.setScreen(new CreditsScreen(game));
+                music.stop();
+                dispose();
+            };
+        });
 
         TextButton btnHelp = new TextButton("HELP", btnStyle);
         btnHelp.setSize(btnWidth,btnHeight);
@@ -93,10 +111,6 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void render(float delta) {
-//        if (Gdx.input.justTouched()){
-//            game.setScreen(new PlayScreen((DuckyDuck) game));
-//            dispose();
-//        }
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stg.draw();

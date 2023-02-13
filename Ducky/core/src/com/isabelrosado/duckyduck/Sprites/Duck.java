@@ -1,5 +1,6 @@
 package com.isabelrosado.duckyduck.Sprites;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -46,6 +47,8 @@ public class Duck extends Sprite {
 
     private boolean hit;
 
+    private DuckyDuck game;
+
 
     public State getState() {
         if (!isHit()){
@@ -81,9 +84,10 @@ public class Duck extends Sprite {
         this.previousState = previousState;
     }
 
-    public Duck(PlayScreen screen) {
+    public Duck(DuckyDuck game, PlayScreen screen) {
         super(screen.getAtlas().findRegion("FrogRun"));
         this.world = screen.getWorld();
+        this.game = game;
         defineDuck();
 
         setCurrentState(State.STANDING);
@@ -93,7 +97,7 @@ public class Duck extends Sprite {
         jumps = 0;
         setHit(false);
 
-        animationTexture = new Texture("Frog.png");
+        animationTexture = new Texture("Sprites/Frog.png");
         animator = new Animator(getTexture(), 32, 32);
         duckIdle = animator.getAnimation(11, 384, 0);
         duckRun = animator.getAnimation(12, 0, 0);
@@ -116,7 +120,7 @@ public class Duck extends Sprite {
         CircleShape shape = new CircleShape();
         shape.setRadius(12 / DuckyDuck.PIXEL_PER_METER);
         duckFDef.filter.categoryBits = DuckyDuck.DUCK_BIT;
-        duckFDef.filter.maskBits = DuckyDuck.DEFAULT_BIT | DuckyDuck.BRICK_BIT | DuckyDuck.FRUIT_BIT | DuckyDuck.BRICKHIT_BIT | DuckyDuck.GROUND_BIT | DuckyDuck.ENEMY_BIT | DuckyDuck.ENEMY_HEAD_BIT;
+        duckFDef.filter.maskBits = DuckyDuck.DEFAULT_BIT | DuckyDuck.BRICK_BIT | DuckyDuck.FRUIT_BIT | DuckyDuck.BRICKHIT_BIT | DuckyDuck.GROUND_BIT | DuckyDuck.ENEMY_BIT | DuckyDuck.ENEMY_HEAD_BIT | DuckyDuck.CHECKPOINT_BIT;
 
         duckFDef.shape = shape;
         dBody.createFixture(duckFDef).setUserData(this);
@@ -196,6 +200,7 @@ public class Duck extends Sprite {
     }
 
     public void onHit() {
+        game.getAssetManager().get("Audio/Sounds/GameOver.mp3", Sound.class).play();
         Filter filter = new Filter();
         filter.maskBits = DuckyDuck.NOTHING_BIT;
         for (Fixture fix : dBody.getFixtureList()) {

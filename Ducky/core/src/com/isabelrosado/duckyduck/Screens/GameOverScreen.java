@@ -26,7 +26,7 @@ public class GameOverScreen implements Screen {
         this.stg = new Stage(vp, ((DuckyDuck) game).sprite);
 
         Label.LabelStyle font = new Label.LabelStyle();
-        font.font = new BitmapFont(Gdx.files.internal("a.fnt"));
+        font.font = new BitmapFont(Gdx.files.internal("Fonts/a.fnt"));
         Table table = new Table();
         table.center();
         table.setFillParent(true);

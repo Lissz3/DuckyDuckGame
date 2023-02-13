@@ -17,8 +17,7 @@ public class Brick extends InteractiveTileObject {
 
     @Override
     public void onHeadHit() {
-        game.getAssetManager().get("01.mp3", Sound.class).play();
-//        Gdx.app.log("Brick", "Collision");
+        game.getAssetManager().get("Audio/Sounds/NotBreakable.mp3", Sound.class).play();
     }
 
 }
