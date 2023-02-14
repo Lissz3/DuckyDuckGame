@@ -66,13 +66,18 @@ com.badlogic.gdx.graphics.Color: {
 com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable: {
 	Icon_Award: {
 		region: Icon_Award
-		minWidth: 55
-		minHeight: 60
+		minWidth: 30
+		minHeight: 40
+	}
+	Icon_Exit: {
+		region: Icon_Exit
+		minWidth: 30
+		minHeight: 40
 	}
 	Icon_Ghost: {
 		region: Icon_Ghost
-		minWidth: 55
-		minHeight: 60
+		minWidth: 30
+		minHeight: 40
 	}
 	Icon_Lightning: {
 		region: Icon_Lightning
@@ -96,8 +101,8 @@ com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable: {
 	}
 	Icon_Question: {
 		region: Icon_Question
-		minWidth: 40
-		minHeight: 50
+		minWidth: 30
+		minHeight: 40
 	}
 	Icon_Return: {
 		region: Icon_Return
@@ -106,8 +111,8 @@ com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable: {
 	}
 	Icon_Settings: {
 		region: Icon_Settings
-		minWidth: 55
-		minHeight: 55
+		minWidth: 40
+		minHeight: 40
 	}
 	Icon_SoundOff: {
 		region: Icon_SoundOff
@@ -146,8 +151,8 @@ com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable: {
 	}
 	Item5: {
 		region: Item5
-		minWidth: 210
-		minHeight: 60
+		minWidth: 30
+		minHeight: 40
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
@@ -187,6 +192,14 @@ com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
 		font: black
 	}
 }
+com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
+	default: {
+		imageUp: Icon_Exit
+	}
+	exit: {
+		imageUp: Icon_Exit
+	}
+}
 com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 	default: {
 		imageUp: Icon_Lightning
@@ -194,13 +207,11 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 		fontColor: white
 		downFontColor: white
 		up: Item5
-		down: Item5Push
 	}
 	Play: {
 		imageUp: Icon_Lightning
 		font: black
 		up: Item5
-		down: Item5
 	}
 	Options: {
 		imageUp: Icon_Settings

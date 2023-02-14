@@ -6,22 +6,14 @@
 			{
 				"child": {
 					"class": "Stack",
-					"name": "MTStack",
+					"name": null,
 					"children": [
 						{
 							"class": "Image",
-							"name": "bg",
+							"name": null,
 							"drawable": "fondo",
 							"scaling": "fill",
 							"touchable": "enabled",
-							"visible": true
-						},
-						{
-							"class": "Image",
-							"name": "menuImg",
-							"drawable": "Item3",
-							"scaling": "none",
-							"touchable": "disabled",
 							"visible": true
 						},
 						{
@@ -30,7 +22,7 @@
 								{
 									"child": {
 										"class": "Label",
-										"name": "lblFrogger",
+										"name": null,
 										"style": {
 											"clazz": "com.badlogic.gdx.scenes.scene2d.ui.Label",
 											"name": "default"
@@ -49,7 +41,7 @@
 									"padLeft": 0,
 									"padRight": 0,
 									"padTop": 0,
-									"padBottom": 0,
+									"padBottom": 20,
 									"spaceLeft": 0,
 									"spaceRight": 0,
 									"spaceTop": 0,
@@ -61,10 +53,10 @@
 									"growX": false,
 									"growY": false,
 									"alignment": 1,
-									"minWidth": 0,
+									"minWidth": -1,
 									"minHeight": -1,
-									"maxWidth": 150,
-									"maxHeight": 60,
+									"maxWidth": -1,
+									"maxHeight": -1,
 									"preferredWidth": -1,
 									"preferredHeight": -1,
 									"uniformX": false,
@@ -74,7 +66,7 @@
 								{
 									"child": {
 										"class": "ImageTextButton",
-										"name": "imgBtnPlay",
+										"name": "btnPlay",
 										"text": "Play",
 										"style": {
 											"clazz": "com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton",
@@ -95,14 +87,14 @@
 									"padLeft": 0,
 									"padRight": 0,
 									"padTop": 0,
-									"padBottom": 0,
+									"padBottom": 5,
 									"spaceLeft": 0,
 									"spaceRight": 0,
 									"spaceTop": 0,
 									"spaceBottom": 0,
 									"expandX": false,
 									"expandY": false,
-									"fillX": false,
+									"fillX": true,
 									"fillY": false,
 									"growX": false,
 									"growY": false,
@@ -120,7 +112,7 @@
 								{
 									"child": {
 										"class": "ImageTextButton",
-										"name": "imgBtnOptions",
+										"name": "btnOptions",
 										"text": "Options",
 										"style": {
 											"clazz": "com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton",
@@ -141,14 +133,14 @@
 									"padLeft": 0,
 									"padRight": 0,
 									"padTop": 0,
-									"padBottom": 0,
+									"padBottom": 5,
 									"spaceLeft": 0,
 									"spaceRight": 0,
 									"spaceTop": 0,
 									"spaceBottom": 0,
 									"expandX": false,
 									"expandY": false,
-									"fillX": false,
+									"fillX": true,
 									"fillY": false,
 									"growX": false,
 									"growY": false,
@@ -166,7 +158,7 @@
 								{
 									"child": {
 										"class": "ImageTextButton",
-										"name": "imgBtnRecords",
+										"name": "btnRecords",
 										"text": "Records",
 										"style": {
 											"clazz": "com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton",
@@ -187,14 +179,14 @@
 									"padLeft": 0,
 									"padRight": 0,
 									"padTop": 0,
-									"padBottom": 0,
+									"padBottom": 5,
 									"spaceLeft": 0,
 									"spaceRight": 0,
 									"spaceTop": 0,
 									"spaceBottom": 0,
 									"expandX": false,
 									"expandY": false,
-									"fillX": false,
+									"fillX": true,
 									"fillY": false,
 									"growX": false,
 									"growY": false,
@@ -212,7 +204,7 @@
 								{
 									"child": {
 										"class": "ImageTextButton",
-										"name": "imgBtnCredits",
+										"name": "btnCredits",
 										"text": "Credits",
 										"style": {
 											"clazz": "com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton",
@@ -233,14 +225,14 @@
 									"padLeft": 0,
 									"padRight": 0,
 									"padTop": 0,
-									"padBottom": 0,
+									"padBottom": 5,
 									"spaceLeft": 0,
 									"spaceRight": 0,
 									"spaceTop": 0,
 									"spaceBottom": 0,
 									"expandX": false,
 									"expandY": false,
-									"fillX": false,
+									"fillX": true,
 									"fillY": false,
 									"growX": false,
 									"growY": false,
@@ -258,7 +250,7 @@
 								{
 									"child": {
 										"class": "ImageTextButton",
-										"name": "imgBtnHelp",
+										"name": "btnHelp",
 										"text": "Help",
 										"style": {
 											"clazz": "com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton",
@@ -286,6 +278,68 @@
 									"spaceBottom": 0,
 									"expandX": false,
 									"expandY": false,
+									"fillX": true,
+									"fillY": false,
+									"growX": false,
+									"growY": false,
+									"alignment": 1,
+									"minWidth": -1,
+									"minHeight": -1,
+									"maxWidth": -1,
+									"maxHeight": -1,
+									"preferredWidth": -1,
+									"preferredHeight": -1,
+									"uniformX": false,
+									"uniformY": false,
+									"colSpan": 1
+								}
+							],
+							"name": "btnOp",
+							"background": null,
+							"color": null,
+							"padLeft": 0,
+							"padRight": 0,
+							"padTop": 0,
+							"padBottom": 2,
+							"paddingEnabled": false,
+							"alignment": 1,
+							"fillParent": false,
+							"touchable": "childrenOnly",
+							"visible": true
+						},
+						{
+							"class": "Table",
+							"cells": [
+								{
+									"child": {
+										"class": "ImageButton",
+										"name": "btnExit",
+										"style": {
+											"clazz": "com.badlogic.gdx.scenes.scene2d.ui.ImageButton",
+											"name": "default"
+										},
+										"checked": false,
+										"disabled": false,
+										"color": null,
+										"padLeft": 0,
+										"padRight": 0,
+										"padTop": 0,
+										"padBottom": 0,
+										"touchable": "enabled",
+										"visible": true
+									},
+									"row": 0,
+									"column": 0,
+									"padLeft": 0,
+									"padRight": 10,
+									"padTop": 10,
+									"padBottom": 0,
+									"spaceLeft": 0,
+									"spaceRight": 0,
+									"spaceTop": 0,
+									"spaceBottom": 0,
+									"expandX": false,
+									"expandY": false,
 									"fillX": false,
 									"fillY": false,
 									"growX": false,
@@ -302,15 +356,15 @@
 									"colSpan": 1
 								}
 							],
-							"name": "OptionsTable",
+							"name": null,
 							"background": null,
 							"color": null,
 							"padLeft": 0,
 							"padRight": 0,
 							"padTop": 0,
 							"padBottom": 0,
-							"paddingEnabled": true,
-							"alignment": 1,
+							"paddingEnabled": false,
+							"alignment": 18,
 							"fillParent": false,
 							"touchable": "childrenOnly",
 							"visible": true
@@ -347,7 +401,7 @@
 				"colSpan": 1
 			}
 		],
-		"name": "mainTable",
+		"name": null,
 		"background": null,
 		"color": null,
 		"padLeft": 0,

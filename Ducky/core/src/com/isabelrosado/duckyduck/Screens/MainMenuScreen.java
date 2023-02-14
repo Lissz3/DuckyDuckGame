@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -37,8 +38,8 @@ public class MainMenuScreen implements Screen {
         SceneComposerStageBuilder builder = new SceneComposerStageBuilder();
         builder.build(stg, skin, Gdx.files.internal("Skins/mmskin.json"));
 
-        ImageTextButton textButton = stg.getRoot().findActor("imgBtnPlay");
-        textButton.addListener(new ClickListener() {
+        ImageTextButton btnPlay = stg.getRoot().findActor("btnPlay");
+        btnPlay.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 music.stop();
@@ -48,7 +49,7 @@ public class MainMenuScreen implements Screen {
             };
         });
 
-        ImageTextButton options = stg.getRoot().findActor("imgBtnOptions");
+        ImageTextButton options = stg.getRoot().findActor("btnOptions");
         options.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -58,6 +59,19 @@ public class MainMenuScreen implements Screen {
                 dispose();
             };
         });
+
+        ImageButton exit = stg.getRoot().findActor("btnExit");
+        exit.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                music.stop();
+                game.getAssetManager().get("Audio/Sounds/PlayButton.mp3", Sound.class).play();
+                Gdx.app.exit();
+                dispose();
+            };
+        });
+
+
 
         Gdx.input.setInputProcessor(stg);
     }
