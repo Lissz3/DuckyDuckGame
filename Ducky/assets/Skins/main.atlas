@@ -1,0 +1,669 @@
+
+main.png
+size: 2048, 2048
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+fondo
+  rotate: false
+  xy: 1, 363
+  size: 960, 640
+  orig: 960, 640
+  offset: 0, 0
+  index: -1
+Item2
+  rotate: false
+  xy: 1, 1537
+  size: 1528, 346
+  orig: 1528, 346
+  offset: 0, 0
+  index: -1
+Item3
+  rotate: false
+  xy: 963, 190
+  size: 922, 813
+  orig: 922, 813
+  offset: 0, 0
+  index: -1
+Item4
+  rotate: false
+  xy: 1, 1005
+  size: 1438, 530
+  orig: 1438, 530
+  offset: 0, 0
+  index: -1
+
+main2.png
+size: 2048, 2048
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+12
+  rotate: false
+  xy: 884, 1516
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+12w
+  rotate: false
+  xy: 1, 717
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+12wItalic
+  rotate: false
+  xy: 1398, 1516
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+65
+  rotate: false
+  xy: 1, 203
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+a
+  rotate: false
+  xy: 515, 717
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+black
+  rotate: false
+  xy: 515, 203
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+white
+  rotate: false
+  xy: 1029, 1002
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+Icon_Add
+  rotate: false
+  xy: 1554, 430
+  size: 230, 231
+  orig: 230, 231
+  offset: 0, 0
+  index: -1
+Icon_ArrowLeft
+  rotate: false
+  xy: 1029, 34
+  size: 228, 199
+  orig: 228, 199
+  offset: 0, 0
+  index: -1
+Icon_ArrowUp_1
+  rotate: false
+  xy: 1747, 229
+  size: 228, 199
+  orig: 228, 199
+  offset: 0, 0
+  index: -1
+Icon_BatteryFull
+  rotate: false
+  xy: 1543, 1087
+  size: 244, 126
+  orig: 244, 126
+  offset: 0, 0
+  index: -1
+Icon_BatteryLow
+  rotate: false
+  xy: 254, 75
+  size: 244, 126
+  orig: 244, 126
+  offset: 0, 0
+  index: -1
+Icon_Camera
+  rotate: false
+  xy: 1804, 817
+  size: 223, 174
+  orig: 223, 174
+  offset: 0, 0
+  index: -1
+Icon_Cart
+  rotate: false
+  xy: 1515, 245
+  size: 230, 183
+  orig: 230, 183
+  offset: 0, 0
+  index: -1
+Icon_Crown
+  rotate: false
+  xy: 1, 13
+  size: 251, 188
+  orig: 251, 188
+  offset: 0, 0
+  index: -1
+Icon_Diamond
+  rotate: false
+  xy: 1786, 438
+  size: 224, 223
+  orig: 224, 223
+  offset: 0, 0
+  index: -1
+Icon_DotsHorizontal
+  rotate: false
+  xy: 254, 5
+  size: 226, 68
+  orig: 226, 68
+  offset: 0, 0
+  index: -1
+Icon_DoubleArrow
+  rotate: false
+  xy: 742, 66
+  size: 239, 135
+  orig: 239, 135
+  offset: 0, 0
+  index: -1
+Icon_Down
+  rotate: false
+  xy: 1259, 21
+  size: 224, 159
+  orig: 224, 159
+  offset: 0, 0
+  index: -1
+Icon_Flower
+  rotate: false
+  xy: 1318, 588
+  size: 234, 223
+  orig: 234, 223
+  offset: 0, 0
+  index: -1
+Icon_Focus
+  rotate: false
+  xy: 1029, 235
+  size: 243, 244
+  orig: 243, 244
+  offset: 0, 0
+  index: -1
+Icon_Hanger
+  rotate: false
+  xy: 1318, 813
+  size: 243, 187
+  orig: 243, 187
+  offset: 0, 0
+  index: -1
+Icon_Mail
+  rotate: false
+  xy: 1274, 182
+  size: 233, 167
+  orig: 233, 167
+  offset: 0, 0
+  index: -1
+Icon_Settings
+  rotate: false
+  xy: 1563, 848
+  size: 239, 237
+  orig: 239, 237
+  offset: 0, 0
+  index: -1
+Icon_Skull
+  rotate: false
+  xy: 1029, 481
+  size: 248, 220
+  orig: 248, 220
+  offset: 0, 0
+  index: -1
+Icon_SpeechBubble
+  rotate: false
+  xy: 1509, 31
+  size: 229, 212
+  orig: 229, 212
+  offset: 0, 0
+  index: -1
+Icon_Star
+  rotate: false
+  xy: 1804, 993
+  size: 224, 220
+  orig: 224, 220
+  offset: 0, 0
+  index: -1
+Icon_Stats
+  rotate: false
+  xy: 500, 6
+  size: 240, 195
+  orig: 240, 195
+  offset: 0, 0
+  index: -1
+Icon_Sun
+  rotate: false
+  xy: 1279, 351
+  size: 234, 235
+  orig: 234, 235
+  offset: 0, 0
+  index: -1
+Icon_Tube
+  rotate: false
+  xy: 1740, 1
+  size: 227, 226
+  orig: 227, 226
+  offset: 0, 0
+  index: -1
+Icon_Up
+  rotate: false
+  xy: 713, 1247
+  size: 223, 159
+  orig: 223, 159
+  offset: 0, 0
+  index: -1
+Icon_Writing
+  rotate: false
+  xy: 1563, 663
+  size: 232, 183
+  orig: 232, 183
+  offset: 0, 0
+  index: -1
+Item1
+  rotate: false
+  xy: 1, 1408
+  size: 881, 620
+  orig: 881, 620
+  offset: 0, 0
+  index: -1
+Item5
+  rotate: false
+  xy: 1, 1231
+  size: 710, 175
+  orig: 710, 175
+  offset: 0, 0
+  index: -1
+Item6
+  rotate: false
+  xy: 1029, 703
+  size: 287, 297
+  orig: 287, 297
+  offset: 0, 0
+  index: -1
+Item7
+  rotate: false
+  xy: 1543, 1215
+  size: 287, 299
+  orig: 287, 299
+  offset: 0, 0
+  index: -1
+
+main3.png
+size: 2048, 2048
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+Icon_ArrowDown
+  rotate: false
+  xy: 1466, 1817
+  size: 199, 228
+  orig: 199, 228
+  offset: 0, 0
+  index: -1
+Icon_ArrowUp
+  rotate: false
+  xy: 1667, 1817
+  size: 198, 228
+  orig: 198, 228
+  offset: 0, 0
+  index: -1
+Icon_Award
+  rotate: false
+  xy: 447, 1820
+  size: 205, 225
+  orig: 205, 225
+  offset: 0, 0
+  index: -1
+Icon_BackPack
+  rotate: false
+  xy: 1, 1045
+  size: 209, 197
+  orig: 209, 197
+  offset: 0, 0
+  index: -1
+Icon_Beaker
+  rotate: false
+  xy: 1515, 1570
+  size: 169, 245
+  orig: 169, 245
+  offset: 0, 0
+  index: -1
+Icon_Check
+  rotate: false
+  xy: 1159, 1624
+  size: 177, 197
+  orig: 177, 197
+  offset: 0, 0
+  index: -1
+Icon_Clock
+  rotate: false
+  xy: 211, 154
+  size: 190, 201
+  orig: 190, 201
+  offset: 0, 0
+  index: -1
+Icon_Cup
+  rotate: false
+  xy: 225, 1759
+  size: 196, 137
+  orig: 196, 137
+  offset: 0, 0
+  index: -1
+Icon_DontLook
+  rotate: false
+  xy: 1, 1639
+  size: 220, 185
+  orig: 220, 185
+  offset: 0, 0
+  index: -1
+Icon_DotsVertical
+  rotate: false
+  xy: 573, 1170
+  size: 69, 224
+  orig: 69, 224
+  offset: 0, 0
+  index: -1
+Icon_Exclamation
+  rotate: false
+  xy: 854, 1428
+  size: 89, 204
+  orig: 89, 204
+  offset: 0, 0
+  index: -1
+Icon_Exit
+  rotate: false
+  xy: 1867, 1802
+  size: 180, 243
+  orig: 180, 243
+  offset: 0, 0
+  index: -1
+Icon_Expand
+  rotate: false
+  xy: 1062, 1844
+  size: 200, 201
+  orig: 200, 201
+  offset: 0, 0
+  index: -1
+Icon_FLag
+  rotate: false
+  xy: 1855, 1602
+  size: 164, 198
+  orig: 164, 198
+  offset: 0, 0
+  index: -1
+Icon_Film
+  rotate: false
+  xy: 1, 43
+  size: 203, 171
+  orig: 203, 171
+  offset: 0, 0
+  index: -1
+Icon_Food
+  rotate: false
+  xy: 1, 1826
+  size: 222, 219
+  orig: 222, 219
+  offset: 0, 0
+  index: -1
+Icon_Fork
+  rotate: false
+  xy: 217, 1351
+  size: 195, 219
+  orig: 195, 219
+  offset: 0, 0
+  index: -1
+Icon_Ghost
+  rotate: false
+  xy: 409, 899
+  size: 188, 225
+  orig: 188, 225
+  offset: 0, 0
+  index: -1
+Icon_Globe
+  rotate: false
+  xy: 590, 25
+  size: 164, 227
+  orig: 164, 227
+  offset: 0, 0
+  index: -1
+Icon_Helix
+  rotate: false
+  xy: 1837, 1390
+  size: 148, 210
+  orig: 148, 210
+  offset: 0, 0
+  index: -1
+Icon_Home
+  rotate: false
+  xy: 859, 1826
+  size: 201, 219
+  orig: 201, 219
+  offset: 0, 0
+  index: -1
+Icon_Image
+  rotate: false
+  xy: 223, 1572
+  size: 196, 185
+  orig: 196, 185
+  offset: 0, 0
+  index: -1
+Icon_Info
+  rotate: false
+  xy: 758, 1403
+  size: 94, 194
+  orig: 94, 194
+  offset: 0, 0
+  index: -1
+Icon_Key
+  rotate: false
+  xy: 403, 26
+  size: 185, 226
+  orig: 185, 226
+  offset: 0, 0
+  index: -1
+Icon_Left
+  rotate: false
+  xy: 595, 257
+  size: 158, 223
+  orig: 158, 223
+  offset: 0, 0
+  index: -1
+Icon_Lightning
+  rotate: false
+  xy: 1686, 1384
+  size: 149, 235
+  orig: 149, 235
+  offset: 0, 0
+  index: -1
+Icon_Like
+  rotate: false
+  xy: 211, 516
+  size: 194, 207
+  orig: 194, 207
+  offset: 0, 0
+  index: -1
+Icon_Link
+  rotate: false
+  xy: 423, 1610
+  size: 185, 208
+  orig: 185, 208
+  offset: 0, 0
+  index: -1
+Icon_Lock
+  rotate: false
+  xy: 407, 482
+  size: 187, 219
+  orig: 187, 219
+  offset: 0, 0
+  index: -1
+Icon_Look
+  rotate: false
+  xy: 225, 1898
+  size: 220, 147
+  orig: 220, 147
+  offset: 0, 0
+  index: -1
+Icon_LookingGlass
+  rotate: false
+  xy: 215, 1126
+  size: 195, 223
+  orig: 195, 223
+  offset: 0, 0
+  index: -1
+Icon_Magic
+  rotate: false
+  xy: 1, 1448
+  size: 214, 189
+  orig: 214, 189
+  offset: 0, 0
+  index: -1
+Icon_Menu
+  rotate: false
+  xy: 211, 357
+  size: 193, 157
+  orig: 193, 157
+  offset: 0, 0
+  index: -1
+Icon_MusicOff
+  rotate: false
+  xy: 409, 703
+  size: 188, 194
+  orig: 188, 194
+  offset: 0, 0
+  index: -1
+Icon_MusicOn
+  rotate: false
+  xy: 1686, 1621
+  size: 167, 194
+  orig: 167, 194
+  offset: 0, 0
+  index: -1
+Icon_Next
+  rotate: false
+  xy: 797, 1634
+  size: 180, 184
+  orig: 180, 184
+  offset: 0, 0
+  index: -1
+Icon_PaperPlane
+  rotate: false
+  xy: 1, 1244
+  size: 212, 202
+  orig: 212, 202
+  offset: 0, 0
+  index: -1
+Icon_Pencil
+  rotate: false
+  xy: 610, 1599
+  size: 185, 219
+  orig: 185, 219
+  offset: 0, 0
+  index: -1
+Icon_Pin
+  rotate: false
+  xy: 653, 1362
+  size: 103, 235
+  orig: 103, 235
+  offset: 0, 0
+  index: -1
+Icon_Plant
+  rotate: false
+  xy: 1264, 1823
+  size: 200, 222
+  orig: 200, 222
+  offset: 0, 0
+  index: -1
+Icon_Play
+  rotate: false
+  xy: 414, 1389
+  size: 118, 181
+  orig: 118, 181
+  offset: 0, 0
+  index: -1
+Icon_Power
+  rotate: false
+  xy: 654, 1820
+  size: 203, 225
+  orig: 203, 225
+  offset: 0, 0
+  index: -1
+Icon_Present
+  rotate: false
+  xy: 212, 933
+  size: 195, 191
+  orig: 195, 191
+  offset: 0, 0
+  index: -1
+Icon_Question
+  rotate: false
+  xy: 534, 1396
+  size: 117, 201
+  orig: 117, 201
+  offset: 0, 0
+  index: -1
+Icon_Return
+  rotate: false
+  xy: 979, 1625
+  size: 178, 199
+  orig: 178, 199
+  offset: 0, 0
+  index: -1
+Icon_Right
+  rotate: false
+  xy: 412, 1126
+  size: 159, 223
+  orig: 159, 223
+  offset: 0, 0
+  index: -1
+Icon_SoundOff
+  rotate: false
+  xy: 1, 837
+  size: 209, 206
+  orig: 209, 206
+  offset: 0, 0
+  index: -1
+Icon_SoundOn
+  rotate: false
+  xy: 212, 725
+  size: 195, 206
+  orig: 195, 206
+  offset: 0, 0
+  index: -1
+Icon_SqiuareTilt
+  rotate: false
+  xy: 1, 632
+  size: 208, 203
+  orig: 208, 203
+  offset: 0, 0
+  index: -1
+Icon_SquareStraight
+  rotate: false
+  xy: 1338, 1635
+  size: 175, 180
+  orig: 175, 180
+  offset: 0, 0
+  index: -1
+Icon_Trash
+  rotate: false
+  xy: 406, 254
+  size: 187, 226
+  orig: 187, 226
+  offset: 0, 0
+  index: -1
+Icon_Write
+  rotate: false
+  xy: 1, 431
+  size: 208, 199
+  orig: 208, 199
+  offset: 0, 0
+  index: -1
+Icon_X
+  rotate: false
+  xy: 1, 216
+  size: 208, 213
+  orig: 208, 213
+  offset: 0, 0
+  index: -1

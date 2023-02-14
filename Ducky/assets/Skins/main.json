@@ -1,0 +1,279 @@
+{
+com.badlogic.gdx.graphics.g2d.BitmapFont: {
+	a: {
+		file: a.fnt
+		scaledSize: -1
+		markupEnabled: false
+		flip: false
+	}
+	b: {
+		file: 12.fnt
+		scaledSize: -1
+		markupEnabled: false
+		flip: false
+	}
+	black: {
+		file: black.fnt
+		scaledSize: -1
+		markupEnabled: false
+		flip: false
+	}
+	font: {
+		file: font.fnt
+		scaledSize: -1
+		markupEnabled: false
+		flip: false
+	}
+	J65: {
+		file: 65.fnt
+		scaledSize: -1
+		markupEnabled: false
+		flip: false
+	}
+	w: {
+		file: 12w.fnt
+		scaledSize: -1
+		markupEnabled: false
+		flip: false
+	}
+	white: {
+		file: white.fnt
+		scaledSize: -1
+		markupEnabled: false
+		flip: false
+	}
+	wItalic: {
+		file: 12wItalic.fnt
+		scaledSize: -1
+		markupEnabled: false
+		flip: false
+	}
+}
+com.badlogic.gdx.graphics.Color: {
+	black: {
+		r: 0
+		g: 0
+		b: 0
+		a: 1
+	}
+	white: {
+		r: 1
+		g: 1
+		b: 1
+		a: 1
+	}
+}
+com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable: {
+	Icon_Award: {
+		region: Icon_Award
+		minWidth: 55
+		minHeight: 60
+	}
+	Icon_Ghost: {
+		region: Icon_Ghost
+		minWidth: 55
+		minHeight: 60
+	}
+	Icon_Lightning: {
+		region: Icon_Lightning
+		minWidth: 37
+		minHeight: 60
+	}
+	Icon_MusicOff: {
+		region: Icon_MusicOff
+		minWidth: 35
+		minHeight: 35
+	}
+	Icon_MusicOn: {
+		region: Icon_MusicOn
+		minWidth: 35
+		minHeight: 35
+	}
+	Icon_Pin: {
+		region: Icon_Pin
+		minWidth: 30
+		minHeight: 55
+	}
+	Icon_Question: {
+		region: Icon_Question
+		minWidth: 40
+		minHeight: 50
+	}
+	Icon_Return: {
+		region: Icon_Return
+		minWidth: 40
+		minHeight: 40
+	}
+	Icon_Settings: {
+		region: Icon_Settings
+		minWidth: 55
+		minHeight: 55
+	}
+	Icon_SoundOff: {
+		region: Icon_SoundOff
+		minWidth: 35
+		minHeight: 35
+	}
+	Icon_SoundOn: {
+		region: Icon_SoundOn
+		minWidth: 35
+		minHeight: 35
+	}
+	Icon_Trash: {
+		region: Icon_Trash
+		minWidth: 40
+		minHeight: 45
+	}
+	Icon_Writing: {
+		region: Icon_Writing
+		minWidth: 30
+		minHeight: 40
+	}
+	Item1: {
+		region: Item1
+		minWidth: 220
+		minHeight: 155
+	}
+	Item2: {
+		region: Item2
+		minWidth: 230
+		minHeight: 80
+	}
+	Item3: {
+		region: Item3
+		minWidth: 300
+		minHeight: 400
+	}
+	Item5: {
+		region: Item5
+		minWidth: 210
+		minHeight: 60
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
+	Item5Push: {
+		name: Item5
+		color: {
+			r: 0.03137255
+			g: 0.18039216
+			b: 0.23529412
+			a: 1
+		}
+		minWidth: 180
+		minHeight: 60
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
+	default: {
+		up: Icon_Trash
+	}
+	Sound: {
+		up: Icon_SoundOn
+		checked: Icon_SoundOff
+	}
+	back: {
+		up: Icon_Return
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
+	default: {
+		checkboxOn: Icon_SoundOn
+		checkboxOff: Icon_SoundOff
+		font: black
+	}
+	sound: {
+		checkboxOn: Icon_MusicOn
+		checkboxOff: Icon_MusicOff
+		font: black
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
+	default: {
+		imageUp: Icon_Lightning
+		font: white
+		fontColor: white
+		downFontColor: white
+		up: Item5
+		down: Item5Push
+	}
+	Play: {
+		imageUp: Icon_Lightning
+		font: black
+		up: Item5
+		down: Item5
+	}
+	Options: {
+		imageUp: Icon_Settings
+		font: black
+		up: Item5
+	}
+	Records: {
+		imageUp: Icon_Award
+		font: black
+		up: Item5
+	}
+	Credits: {
+		imageUp: Icon_Ghost
+		font: black
+		up: Item5
+	}
+	Help: {
+		imageUp: Icon_Question
+		font: black
+		up: Item5
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
+	default: {
+		font: font
+		background: Item2
+	}
+	a: {
+		font: black
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
+	default: {
+		font: b
+		fontColorSelected: black
+		fontColorUnselected: white
+		selection: fondo
+	}
+	prueba: {
+		font: b
+		fontColorSelected: black
+		fontColorUnselected: white
+		selection: fondo
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
+	prueba: {
+		background: Icon_ArrowUp_1
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.SelectBox$SelectBoxStyle: {
+	default: {
+		font: black
+		fontColor: black
+		scrollStyle: prueba
+		listStyle: prueba
+		backgroundOver: Item3
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
+	default: {
+		font: J65
+		up: Item5
+	}
+	options: {
+		font: black
+		up: Item2
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
+	default: {
+		label: default
+		background: Item1
+	}
+}
+}

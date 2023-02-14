@@ -362,7 +362,7 @@
 	}
 ],
 "backgroundColor": null,
-"skinPath": "skin.json",
+"skinPath": "Skins/main.json",
 "packageString": "com.isabelrosado.duckyduck",
 "classString": "DuckyDuck"
 }

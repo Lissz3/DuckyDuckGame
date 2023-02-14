@@ -7,8 +7,6 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.isabelrosado.duckyduck.Screens.MainMenuScreen;
-import com.isabelrosado.duckyduck.Screens.MainMenuScreenTry;
-import com.isabelrosado.duckyduck.Screens.PlayScreen;
 
 public class DuckyDuck extends Game {
 	public SpriteBatch sprite;
@@ -51,7 +49,7 @@ public class DuckyDuck extends Game {
 		assetManager.finishLoading();
 		assetManager.getLoadedAssets();
 
-		setScreen(new MainMenuScreenTry(this));
+		setScreen(new MainMenuScreen(this));
 	}
 
 	@Override
