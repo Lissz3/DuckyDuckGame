@@ -8,46 +8,59 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.isabelrosado.duckyduck.DuckyDuck;
 import com.ray3k.stripe.scenecomposer.SceneComposerStageBuilder;
 
-public class OptionsMenuScreen implements Screen {
-    private DuckyDuck game;
-    private Stage stg;
-    private Viewport vp;
-    private Skin skin;
-    private Music music;
+import java.util.Locale;
+
+
+public class OptionsMenuScreen extends ScreenI {
 
     public OptionsMenuScreen(final DuckyDuck game){
-        this.game = game;
-        this.vp = new ExtendViewport(DuckyDuck.V_WIDTH, DuckyDuck.V_HEIGHT, new OrthographicCamera());
-        this.stg = new Stage(vp, game.sprite);
+        super(game, "Skins/moptions.json", true);
+        defineScreen();
+    }
 
-        skin = new Skin(Gdx.files.internal("Skins/main.json"));
+    @Override
+    protected void defineScreen() {
+        final Sound btnS = game.getAssetManager().get("Audio/Sounds/Button.mp3", Sound.class);
 
-        music = game.getAssetManager().get("Audio/Music/MainTheme.mp3", Music.class);
-        music.setLooping(true);
-        music.play();
+        final CheckBox sound = stg.getRoot().findActor("cbxSound");
+        sound.getLabel().setText(" "+game.getBundle().get("optmenu.sound")+" "+(sound.isChecked() ? game.getBundle().get("optmenu.on") : game.getBundle().get("optmenu.off")));
 
-        SceneComposerStageBuilder builder = new SceneComposerStageBuilder();
-        builder.build(stg, skin, Gdx.files.internal("Skins/moptions.json"));
-
-        Button btnBack = stg.getRoot().findActor("btnBack");
-        btnBack.addListener(new ClickListener() {
+        sound.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new MainMenuScreen(game));
-                dispose();
+                btnS.play();
+                sound.getLabel().setText(" "+game.getBundle().get("optmenu.sound")+" "+(sound.isChecked() ? game.getBundle().get("optmenu.on") : game.getBundle().get("optmenu.off")));
             };
         });
 
-        Gdx.input.setInputProcessor(stg);
+        final CheckBox music = stg.getRoot().findActor("cbxMusic");
+        music.getLabel().setText(" "+game.getBundle().get("optmenu.music")+" "+(music.isChecked() ? game.getBundle().get("optmenu.on") : game.getBundle().get("optmenu.off")));
+        music.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                btnS.play();
+                music.getLabel().setText(" "+game.getBundle().get("optmenu.music")+" "+(music.isChecked() ? game.getBundle().get("optmenu.on") : game.getBundle().get("optmenu.off")));
+            };
+        });
+
+        ImageTextButton btnDel = stg.getRoot().findActor("btnDelRecords");
+        btnDel.getLabel().setText(" "+game.getBundle().get("optmenu.deleter"));
+
+        SelectBox sbxLanguage = stg.getRoot().findActor("sbxLanguage");
+        sbxLanguage.clearItems();
+        sbxLanguage.setItems(game.getBundle().get("optmenu.english"), game.getBundle().get("optmenu.spanish"));
+        if (Locale.getDefault().getLanguage().equals("es")){
+            sbxLanguage.setSelected(game.getBundle().get("optmenu.spanish"));
+        } else {
+            sbxLanguage.setSelected(game.getBundle().get("optmenu.english"));
+        }
     }
 
     @Override
@@ -57,10 +70,7 @@ public class OptionsMenuScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        stg.act();
-        stg.draw();
+        super.render(delta);
     }
 
     @Override
@@ -85,7 +95,6 @@ public class OptionsMenuScreen implements Screen {
 
     @Override
     public void dispose() {
-        stg.dispose();
-        skin.dispose();
+        super.dispose();
     }
 }

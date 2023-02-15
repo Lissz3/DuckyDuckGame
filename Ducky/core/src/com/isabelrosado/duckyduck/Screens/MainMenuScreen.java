@@ -12,37 +12,34 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.isabelrosado.duckyduck.DuckyDuck;
 import com.ray3k.stripe.scenecomposer.SceneComposerStageBuilder;
 
-public class MainMenuScreen implements Screen {
-    private DuckyDuck game;
-    private Stage stg;
-    private Viewport vp;
-    private Skin skin;
+public class MainMenuScreen extends ScreenI {
     private Music music;
 
     public MainMenuScreen(final DuckyDuck game){
-        this.game = game;
-        this.vp = new ExtendViewport(DuckyDuck.V_WIDTH, DuckyDuck.V_HEIGHT, new OrthographicCamera());
-        this.stg = new Stage(vp, game.sprite);
+        super(game, "Skins/mmskin.json", false);
 
-        skin = new Skin(Gdx.files.internal("Skins/main.json"));
+        defineScreen();
 
+        Gdx.input.setInputProcessor(stg);
+    }
+
+    @Override
+    protected void defineScreen() {
         music = game.getAssetManager().get("Audio/Music/MainTheme.mp3", Music.class);
         music.setLooping(true);
         music.play();
 
-        SceneComposerStageBuilder builder = new SceneComposerStageBuilder();
-        builder.build(stg, skin, Gdx.files.internal("Skins/mmskin.json"));
-
         ImageTextButton btnPlay = stg.getRoot().findActor("btnPlay");
+        btnPlay.getLabel().setText(game.getBundle().get("mainmenu.play"));
         btnPlay.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                music.stop();
                 game.getAssetManager().get("Audio/Sounds/PlayButton.mp3", Sound.class).play();
                 game.setScreen(new PlayScreen(game));
                 dispose();
@@ -50,30 +47,41 @@ public class MainMenuScreen implements Screen {
         });
 
         ImageTextButton options = stg.getRoot().findActor("btnOptions");
+        options.getLabel().setText(game.getBundle().get("mainmenu.options"));
         options.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                music.stop();
-                game.getAssetManager().get("Audio/Sounds/PlayButton.mp3", Sound.class).play();
+                btnSound.play();
                 game.setScreen(new OptionsMenuScreen(game));
-                dispose();
             };
         });
+
+        ImageTextButton records = stg.getRoot().findActor("btnRecords");
+        records.getLabel().setText(game.getBundle().get("mainmenu.records"));
+
+        ImageTextButton credits = stg.getRoot().findActor("btnCredits");
+        credits.getLabel().setText(game.getBundle().get("mainmenu.credits"));
+        credits.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                btnSound.play();
+                game.setScreen(new CreditsScreen(game));
+            };
+        });
+
+        ImageTextButton help = stg.getRoot().findActor("btnHelp");
+        help.getLabel().setText(game.getBundle().get("mainmenu.help"));
 
         ImageButton exit = stg.getRoot().findActor("btnExit");
         exit.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                music.stop();
-                game.getAssetManager().get("Audio/Sounds/PlayButton.mp3", Sound.class).play();
+                btnSound.play();
                 Gdx.app.exit();
                 dispose();
             };
         });
 
-
-
-        Gdx.input.setInputProcessor(stg);
     }
 
     @Override
@@ -83,10 +91,7 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        stg.act();
-        stg.draw();
+        super.render(delta);
     }
 
     @Override
@@ -111,7 +116,7 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void dispose() {
-        stg.dispose();
-        skin.dispose();
+        super.dispose();
+        music.stop();
     }
 }

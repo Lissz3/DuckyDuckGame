@@ -1,16 +1,17 @@
 package com.isabelrosado.duckyduck;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.I18NBundle;
 import com.isabelrosado.duckyduck.Screens.MainMenuScreen;
 
 public class DuckyDuck extends Game {
 	public SpriteBatch sprite;
-	Texture texture;
 	public static final int V_WIDTH = 600;
 	public static final int V_HEIGHT = 420;
 	public static final float PIXEL_PER_METER = 100;
@@ -31,11 +32,14 @@ public class DuckyDuck extends Game {
 	public static final short CHECKPOINT_BIT = 1024;
 
 	private AssetManager assetManager;
+
+	private I18NBundle bundle;
 	
 	@Override
 	public void create () {
 		sprite = new SpriteBatch();
 		assetManager = new AssetManager();
+		bundle = I18NBundle.createBundle(Gdx.files.internal("Locale/locale"));
 		assetManager.load("Audio/Music/MainTheme.mp3", Music.class);
 		assetManager.load("Audio/Music/Gameplay.mp3", Music.class);
 		assetManager.load("Audio/Sounds/BreakableBox.mp3", Sound.class);
@@ -68,7 +72,9 @@ public class DuckyDuck extends Game {
 		return assetManager;
 	}
 
-	public void setAssetManager(AssetManager assetManager) {
-		this.assetManager = assetManager;
+	public I18NBundle getBundle() {
+		return bundle;
 	}
+
+
 }

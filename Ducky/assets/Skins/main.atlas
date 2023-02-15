@@ -667,3 +667,66 @@ Icon_X
   orig: 208, 213
   offset: 0, 0
   index: -1
+select-box
+  rotate: false
+  xy: 1, 14
+  size: 46, 27
+  orig: 46, 27
+  offset: 0, 0
+  index: -1
+select-box-pressed-alt
+  rotate: false
+  xy: 758, 1374
+  size: 46, 27
+  orig: 46, 27
+  offset: 0, 0
+  index: -1
+selection
+  rotate: false
+  xy: 797, 1599
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
+list
+  rotate: false
+  xy: 206, 92
+  size: 41, 60
+  orig: 41, 60
+  offset: 0, 0
+  index: -1
+list-selection
+  rotate: false
+  xy: 1987, 1578
+  size: 27, 22
+  orig: 27, 22
+  offset: 0, 0
+  index: -1
+scroll-bar-back-horizontal
+  rotate: false
+  xy: 1189, 1823
+  size: 19, 19
+  orig: 19, 19
+  offset: 0, 0
+  index: -1
+scroll-bar-back-vertical
+  rotate: false
+  xy: 1210, 1823
+  size: 19, 19
+  orig: 19, 19
+  offset: 0, 0
+  index: -1
+scroll-bar-horizontal
+  rotate: false
+  xy: 1159, 1823
+  size: 28, 19
+  orig: 28, 19
+  offset: 0, 0
+  index: -1
+scroll-bar-vertical
+  rotate: false
+  xy: 423, 1868
+  size: 19, 28
+  orig: 19, 28
+  offset: 0, 0
+  index: -1

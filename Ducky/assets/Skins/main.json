@@ -109,6 +109,11 @@ com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable: {
 		minWidth: 40
 		minHeight: 40
 	}
+	Icon_Right: {
+		region: Icon_Right
+		minWidth: 20
+		minHeight: 30
+	}
 	Icon_Settings: {
 		region: Icon_Settings
 		minWidth: 40
@@ -124,10 +129,15 @@ com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable: {
 		minWidth: 35
 		minHeight: 35
 	}
+	Icon_SquareStraight: {
+		region: Icon_SquareStraight
+		minWidth: 20
+		minHeight: 20
+	}
 	Icon_Trash: {
 		region: Icon_Trash
-		minWidth: 40
-		minHeight: 45
+		minWidth: 30
+		minHeight: 35
 	}
 	Icon_Writing: {
 		region: Icon_Writing
@@ -199,6 +209,9 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 	exit: {
 		imageUp: Icon_Exit
 	}
+	back: {
+		imageUp: Icon_Return
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 	default: {
@@ -233,6 +246,10 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 		font: black
 		up: Item5
 	}
+	delrecords: {
+		imageUp: Icon_Trash
+		font: black
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	default: {
@@ -242,33 +259,36 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	a: {
 		font: black
 	}
+	b: {
+		parent: default
+		font: black
+	}
+	c: {
+		font: b
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
 	default: {
-		font: b
-		fontColorSelected: black
+		font: w
+		fontColorSelected: white
 		fontColorUnselected: white
-		selection: fondo
-	}
-	prueba: {
-		font: b
-		fontColorSelected: black
-		fontColorUnselected: white
-		selection: fondo
+		selection: list-selection
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
-	prueba: {
-		background: Icon_ArrowUp_1
+	default: {
+		hScroll: scroll-bar-back-horizontal
+		hScrollKnob: scroll-bar-vertical
+		vScroll: scroll-bar-back-vertical
+		vScrollKnob: scroll-bar-vertical
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.SelectBox$SelectBoxStyle: {
 	default: {
 		font: black
-		fontColor: black
-		scrollStyle: prueba
-		listStyle: prueba
-		backgroundOver: Item3
+		fontColor: white
+		scrollStyle: default
+		listStyle: default
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {

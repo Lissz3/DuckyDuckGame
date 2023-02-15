@@ -10,7 +10,7 @@
 					"children": [
 						{
 							"class": "Image",
-							"name": "bg",
+							"name": null,
 							"drawable": "fondo",
 							"scaling": "fill",
 							"touchable": "enabled",
@@ -21,21 +21,19 @@
 							"cells": [
 								{
 									"child": {
-										"class": "TextButton",
-										"name": "txtBtnOptions",
-										"text": "Options",
+										"class": "Label",
+										"name": null,
 										"style": {
-											"clazz": "com.badlogic.gdx.scenes.scene2d.ui.TextButton",
-											"name": "options"
+											"clazz": "com.badlogic.gdx.scenes.scene2d.ui.Label",
+											"name": "b"
 										},
-										"checked": false,
-										"disabled": false,
+										"text": "Options",
+										"textAlignment": 1,
+										"ellipsis": false,
+										"ellipsisString": "...",
+										"wrap": false,
 										"color": null,
-										"padLeft": 0,
-										"padRight": 0,
-										"padTop": 0,
-										"padBottom": 0,
-										"touchable": "disabled",
+										"touchable": "enabled",
 										"visible": true
 									},
 									"row": 0,
@@ -43,7 +41,7 @@
 									"padLeft": 0,
 									"padRight": 0,
 									"padTop": 0,
-									"padBottom": 40,
+									"padBottom": 30,
 									"spaceLeft": 0,
 									"spaceRight": 0,
 									"spaceTop": 0,
@@ -68,13 +66,13 @@
 								{
 									"child": {
 										"class": "CheckBox",
-										"name": "cbMusic",
+										"name": "cbxSound",
 										"style": {
 											"clazz": "com.badlogic.gdx.scenes.scene2d.ui.CheckBox",
 											"name": "default"
 										},
 										"disabled": false,
-										"text": null,
+										"text": " Sound on",
 										"color": null,
 										"padLeft": 0,
 										"padRight": 0,
@@ -100,50 +98,6 @@
 									"fillY": false,
 									"growX": false,
 									"growY": false,
-									"alignment": 16,
-									"minWidth": 35,
-									"minHeight": -1,
-									"maxWidth": 35,
-									"maxHeight": -1,
-									"preferredWidth": 3,
-									"preferredHeight": -1,
-									"uniformX": false,
-									"uniformY": false,
-									"colSpan": 1
-								},
-								{
-									"child": {
-										"class": "Label",
-										"name": "lblMusic",
-										"style": {
-											"clazz": "com.badlogic.gdx.scenes.scene2d.ui.Label",
-											"name": "a"
-										},
-										"text": "Music enabled",
-										"textAlignment": 8,
-										"ellipsis": false,
-										"ellipsisString": "...",
-										"wrap": false,
-										"color": null,
-										"touchable": "enabled",
-										"visible": true
-									},
-									"row": 1,
-									"column": 1,
-									"padLeft": 10,
-									"padRight": 0,
-									"padTop": 0,
-									"padBottom": 10,
-									"spaceLeft": 0,
-									"spaceRight": 0,
-									"spaceTop": 0,
-									"spaceBottom": 0,
-									"expandX": false,
-									"expandY": false,
-									"fillX": false,
-									"fillY": false,
-									"growX": false,
-									"growY": false,
 									"alignment": 8,
 									"minWidth": -1,
 									"minHeight": -1,
@@ -153,18 +107,18 @@
 									"preferredHeight": -1,
 									"uniformX": false,
 									"uniformY": false,
-									"colSpan": 1
+									"colSpan": 2
 								},
 								{
 									"child": {
 										"class": "CheckBox",
-										"name": "cbSound",
+										"name": "cbxMusic",
 										"style": {
 											"clazz": "com.badlogic.gdx.scenes.scene2d.ui.CheckBox",
 											"name": "sound"
 										},
 										"disabled": false,
-										"text": null,
+										"text": " Music on",
 										"color": null,
 										"padLeft": 0,
 										"padRight": 0,
@@ -190,37 +144,29 @@
 									"fillY": false,
 									"growX": false,
 									"growY": false,
-									"alignment": 16,
-									"minWidth": 35,
+									"alignment": 8,
+									"minWidth": -1,
 									"minHeight": -1,
-									"maxWidth": 35,
+									"maxWidth": -1,
 									"maxHeight": -1,
-									"preferredWidth": 3,
+									"preferredWidth": -1,
 									"preferredHeight": -1,
 									"uniformX": false,
 									"uniformY": false,
-									"colSpan": 1
+									"colSpan": 2
 								},
 								{
 									"child": {
-										"class": "Label",
-										"name": "lblSound",
-										"style": {
-											"clazz": "com.badlogic.gdx.scenes.scene2d.ui.Label",
-											"name": "a"
-										},
-										"text": "Sound enabled",
-										"textAlignment": 8,
-										"ellipsis": false,
-										"ellipsisString": "...",
-										"wrap": false,
-										"color": null,
+										"class": "Image",
+										"name": null,
+										"drawable": "Icon_Writing",
+										"scaling": "none",
 										"touchable": "enabled",
 										"visible": true
 									},
-									"row": 2,
-									"column": 1,
-									"padLeft": 10,
+									"row": 3,
+									"column": 0,
+									"padLeft": 0,
 									"padRight": 0,
 									"padTop": 0,
 									"padBottom": 10,
@@ -237,6 +183,53 @@
 									"alignment": 8,
 									"minWidth": -1,
 									"minHeight": -1,
+									"maxWidth": 0,
+									"maxHeight": -1,
+									"preferredWidth": -1,
+									"preferredHeight": -1,
+									"uniformX": false,
+									"uniformY": false,
+									"colSpan": 1
+								},
+								{
+									"child": {
+										"class": "SelectBox",
+										"name": "sbxLanguage",
+										"style": {
+											"clazz": "com.badlogic.gdx.scenes.scene2d.ui.SelectBox",
+											"name": "default"
+										},
+										"disabled": false,
+										"maxListCount": 0,
+										"list": [
+											" English",
+											" Spanish"
+										],
+										"alignment": 8,
+										"selected": 0,
+										"scrollingDisabled": false,
+										"touchable": "enabled",
+										"visible": true
+									},
+									"row": 3,
+									"column": 1,
+									"padLeft": 0,
+									"padRight": 0,
+									"padTop": 0,
+									"padBottom": 10,
+									"spaceLeft": 0,
+									"spaceRight": 0,
+									"spaceTop": 0,
+									"spaceBottom": 0,
+									"expandX": false,
+									"expandY": false,
+									"fillX": false,
+									"fillY": false,
+									"growX": false,
+									"growY": false,
+									"alignment": 8,
+									"minWidth": 250,
+									"minHeight": -1,
 									"maxWidth": -1,
 									"maxHeight": -1,
 									"preferredWidth": -1,
@@ -247,11 +240,12 @@
 								},
 								{
 									"child": {
-										"class": "Button",
-										"name": null,
+										"class": "ImageTextButton",
+										"name": "btnDelRecords",
+										"text": " Delete records",
 										"style": {
-											"clazz": "com.badlogic.gdx.scenes.scene2d.ui.Button",
-											"name": "default"
+											"clazz": "com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton",
+											"name": "delrecords"
 										},
 										"checked": false,
 										"disabled": false,
@@ -260,86 +254,6 @@
 										"padRight": 0,
 										"padTop": 0,
 										"padBottom": 0,
-										"touchable": "enabled",
-										"visible": true
-									},
-									"row": 3,
-									"column": 0,
-									"padLeft": 0,
-									"padRight": 0,
-									"padTop": 0,
-									"padBottom": 10,
-									"spaceLeft": 0,
-									"spaceRight": 0,
-									"spaceTop": 0,
-									"spaceBottom": 0,
-									"expandX": false,
-									"expandY": false,
-									"fillX": false,
-									"fillY": false,
-									"growX": false,
-									"growY": false,
-									"alignment": 16,
-									"minWidth": 35,
-									"minHeight": -1,
-									"maxWidth": 35,
-									"maxHeight": -1,
-									"preferredWidth": 3,
-									"preferredHeight": -1,
-									"uniformX": false,
-									"uniformY": false,
-									"colSpan": 1
-								},
-								{
-									"child": {
-										"class": "Label",
-										"name": "lblReset",
-										"style": {
-											"clazz": "com.badlogic.gdx.scenes.scene2d.ui.Label",
-											"name": "a"
-										},
-										"text": "Reset records",
-										"textAlignment": 8,
-										"ellipsis": false,
-										"ellipsisString": "...",
-										"wrap": false,
-										"color": null,
-										"touchable": "enabled",
-										"visible": true
-									},
-									"row": 3,
-									"column": 1,
-									"padLeft": 10,
-									"padRight": 0,
-									"padTop": 0,
-									"padBottom": 0,
-									"spaceLeft": 0,
-									"spaceRight": 0,
-									"spaceTop": 0,
-									"spaceBottom": 0,
-									"expandX": false,
-									"expandY": false,
-									"fillX": false,
-									"fillY": false,
-									"growX": false,
-									"growY": false,
-									"alignment": 8,
-									"minWidth": -1,
-									"minHeight": -1,
-									"maxWidth": -1,
-									"maxHeight": -1,
-									"preferredWidth": -1,
-									"preferredHeight": -1,
-									"uniformX": false,
-									"uniformY": false,
-									"colSpan": 1
-								},
-								{
-									"child": {
-										"class": "Image",
-										"name": "imgLanguage",
-										"drawable": "Icon_Writing",
-										"scaling": "stretch",
 										"touchable": "enabled",
 										"visible": true
 									},
@@ -365,53 +279,6 @@
 									"maxWidth": -1,
 									"maxHeight": -1,
 									"preferredWidth": -1,
-									"preferredHeight": -1,
-									"uniformX": false,
-									"uniformY": false,
-									"colSpan": 1
-								},
-								{
-									"child": {
-										"class": "SelectBox",
-										"name": "lbLanguage",
-										"style": {
-											"clazz": "com.badlogic.gdx.scenes.scene2d.ui.SelectBox",
-											"name": "default"
-										},
-										"disabled": false,
-										"maxListCount": 0,
-										"list": [
-											"English",
-											"Spanish"
-										],
-										"alignment": 8,
-										"selected": 0,
-										"scrollingDisabled": false,
-										"touchable": "enabled",
-										"visible": true
-									},
-									"row": 4,
-									"column": 1,
-									"padLeft": 10,
-									"padRight": 0,
-									"padTop": 0,
-									"padBottom": 0,
-									"spaceLeft": 0,
-									"spaceRight": 0,
-									"spaceTop": 0,
-									"spaceBottom": 0,
-									"expandX": false,
-									"expandY": false,
-									"fillX": false,
-									"fillY": false,
-									"growX": false,
-									"growY": false,
-									"alignment": 8,
-									"minWidth": 250,
-									"minHeight": -1,
-									"maxWidth": 250,
-									"maxHeight": -1,
-									"preferredWidth": 250,
 									"preferredHeight": -1,
 									"uniformX": false,
 									"uniformY": false,
@@ -436,10 +303,10 @@
 							"cells": [
 								{
 									"child": {
-										"class": "Button",
+										"class": "ImageButton",
 										"name": "btnBack",
 										"style": {
-											"clazz": "com.badlogic.gdx.scenes.scene2d.ui.Button",
+											"clazz": "com.badlogic.gdx.scenes.scene2d.ui.ImageButton",
 											"name": "back"
 										},
 										"checked": false,
@@ -455,8 +322,8 @@
 									"row": 0,
 									"column": 0,
 									"padLeft": 0,
-									"padRight": 5,
-									"padTop": 5,
+									"padRight": 10,
+									"padTop": 10,
 									"padBottom": 0,
 									"spaceLeft": 0,
 									"spaceRight": 0,
@@ -540,7 +407,7 @@
 	}
 ],
 "backgroundColor": null,
-"skinPath": "skin.json",
-"packageString": "com.mygdx.game",
-"classString": "Core"
+"skinPath": "Skins/main.json",
+"packageString": "com.isabelrosado.duckyduck",
+"classString": "DuckyDuck"
 }
