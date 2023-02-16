@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -27,7 +26,6 @@ import com.isabelrosado.duckyduck.Sprites.Items.ItemDef;
 import com.isabelrosado.duckyduck.Tools.WorldContactListener;
 import com.isabelrosado.duckyduck.Tools.WorldCreator;
 
-import java.util.PriorityQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class PlayScreen implements Screen {
@@ -67,7 +65,7 @@ public class PlayScreen implements Screen {
         gamePort = new FitViewport(DuckyDuck.V_WIDTH / DuckyDuck.PIXEL_PER_METER, DuckyDuck.V_HEIGHT / DuckyDuck.PIXEL_PER_METER, gameCam);
 
         //create the HUD
-        hud = new HUD(game.sprite);
+        hud = new HUD(game);
 
         //load map and setup the renderer
         mapLoader = new TmxMapLoader();
@@ -132,8 +130,8 @@ public class PlayScreen implements Screen {
         newGame.sprite.end();
 
         //set batch with the HUD
-        newGame.sprite.setProjectionMatrix(hud.stage.getCamera().combined);
-        hud.stage.draw();
+        newGame.sprite.setProjectionMatrix(hud.stg.getCamera().combined);
+        hud.stg.draw();
 
         if (gameOver()){
             newGame.setScreen(new GameOverScreen(newGame));
@@ -261,10 +259,6 @@ public class PlayScreen implements Screen {
 
     public HUD getHud() {
         return hud;
-    }
-
-    public void setHud(HUD hud) {
-        this.hud = hud;
     }
 
 }

@@ -16,9 +16,7 @@ import com.isabelrosado.duckyduck.Sprites.TileObjects.InteractiveTileObject;
 public class WorldContactListener implements ContactListener {
     private Fixture fixA;
     private Fixture fixB;
-
     private Fixture head;
-
     private Fixture object;
 
     @Override
@@ -64,16 +62,13 @@ public class WorldContactListener implements ContactListener {
 
     @Override
     public void endContact(Contact contact) {
-//        Gdx.app.log("End", "Contact");
     }
 
     @Override
     public void preSolve(Contact contact, Manifold oldManifold) {
-
     }
 
     @Override
     public void postSolve(Contact contact, ContactImpulse impulse) {
-
     }
 }

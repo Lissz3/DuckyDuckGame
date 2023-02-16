@@ -296,6 +296,76 @@ size: 2048, 2048
 format: RGBA8888
 filter: Linear, Linear
 repeat: none
+Bananas
+  rotate: false
+  xy: 945, 1600
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+Levels
+  rotate: false
+  xy: 854, 1404
+  size: 21, 22
+  orig: 21, 22
+  offset: 0, 0
+  index: -1
+Next
+  rotate: false
+  xy: 573, 1146
+  size: 21, 22
+  orig: 21, 22
+  offset: 0, 0
+  index: -1
+Play
+  rotate: false
+  xy: 414, 1365
+  size: 21, 22
+  orig: 21, 22
+  offset: 0, 0
+  index: -1
+Previous
+  rotate: false
+  xy: 49, 19
+  size: 21, 22
+  orig: 21, 22
+  offset: 0, 0
+  index: -1
+Restart
+  rotate: false
+  xy: 806, 1379
+  size: 21, 22
+  orig: 21, 22
+  offset: 0, 0
+  index: -1
+Settings
+  rotate: false
+  xy: 423, 1874
+  size: 21, 22
+  orig: 21, 22
+  offset: 0, 0
+  index: -1
+Volume
+  rotate: false
+  xy: 2021, 1778
+  size: 21, 22
+  orig: 21, 22
+  offset: 0, 0
+  index: -1
+lvl1
+  rotate: false
+  xy: 249, 135
+  size: 19, 17
+  orig: 19, 17
+  offset: 0, 0
+  index: -1
+lvl2
+  rotate: false
+  xy: 832, 1615
+  size: 19, 17
+  orig: 19, 17
+  offset: 0, 0
+  index: -1
 Icon_ArrowDown
   rotate: false
   xy: 1466, 1817
@@ -725,7 +795,7 @@ scroll-bar-horizontal
   index: -1
 scroll-bar-vertical
   rotate: false
-  xy: 423, 1868
+  xy: 206, 62
   size: 19, 28
   orig: 19, 28
   offset: 0, 0

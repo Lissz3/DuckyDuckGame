@@ -103,7 +103,7 @@ public class Fruit extends Item {
         shape.setRadius(7 / DuckyDuck.PIXEL_PER_METER);
 
         fruitFDef.filter.categoryBits = DuckyDuck.FRUIT_BIT;
-        fruitFDef.filter.maskBits = DuckyDuck.DUCK_BIT | DuckyDuck.GROUND_BIT;
+        fruitFDef.filter.maskBits = DuckyDuck.DUCK_BIT | DuckyDuck.GROUND_BIT | DuckyDuck.BRICK_BIT | DuckyDuck.BRICKHIT_BIT;
 
         fruitFDef.shape = shape;
 

@@ -20,7 +20,6 @@ public abstract class ScreenI implements Screen {
     protected Stage stg;
     protected Viewport vp;
     protected Skin skin;
-
     protected final Sound btnSound;
 
     public ScreenI(final DuckyDuck game, String skinPath, boolean backButton){

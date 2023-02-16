@@ -189,6 +189,27 @@ com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 	back: {
 		up: Icon_Return
 	}
+	grestart: {
+		up: Restart
+	}
+	gnext: {
+		up: Next
+	}
+	gprev: {
+		up: Previous
+	}
+	gsettings: {
+		up: Settings
+	}
+	glevels: {
+		up: Levels
+	}
+	lvl1: {
+		up: lvl1
+	}
+	lvl2: {
+		up: lvl2
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
 	default: {

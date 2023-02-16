@@ -27,7 +27,6 @@ public class OptionsMenuScreen extends ScreenI {
 
     @Override
     protected void defineScreen() {
-        final Sound btnS = game.getAssetManager().get("Audio/Sounds/Button.mp3", Sound.class);
 
         final CheckBox sound = stg.getRoot().findActor("cbxSound");
         sound.getLabel().setText(" "+game.getBundle().get("optmenu.sound")+" "+(sound.isChecked() ? game.getBundle().get("optmenu.on") : game.getBundle().get("optmenu.off")));
@@ -35,7 +34,7 @@ public class OptionsMenuScreen extends ScreenI {
         sound.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                btnS.play();
+                btnSound.play();
                 sound.getLabel().setText(" "+game.getBundle().get("optmenu.sound")+" "+(sound.isChecked() ? game.getBundle().get("optmenu.on") : game.getBundle().get("optmenu.off")));
             };
         });
@@ -45,7 +44,7 @@ public class OptionsMenuScreen extends ScreenI {
         music.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                btnS.play();
+                btnSound.play();
                 music.getLabel().setText(" "+game.getBundle().get("optmenu.music")+" "+(music.isChecked() ? game.getBundle().get("optmenu.on") : game.getBundle().get("optmenu.off")));
             };
         });

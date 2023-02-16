@@ -19,9 +19,9 @@ public class CheckPoint extends InteractiveTileObject {
 
     public void use() {
         if (screen.getHud().getScore() >= 5) {
-
+//            screen.getHud().getLblWarning().setVisible(false);
         } else {
-            screen.getHud().getTable().add(screen.getHud().getPopUp()).colspan(2);
+            screen.getHud().getLblWarning().setVisible(true);
         }
     }
 }

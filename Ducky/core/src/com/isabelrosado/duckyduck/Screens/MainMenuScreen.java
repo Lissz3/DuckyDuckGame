@@ -58,6 +58,13 @@ public class MainMenuScreen extends ScreenI {
 
         ImageTextButton records = stg.getRoot().findActor("btnRecords");
         records.getLabel().setText(game.getBundle().get("mainmenu.records"));
+        records.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                btnSound.play();
+                game.setScreen(new RecordsScreen(game));
+            };
+        });
 
         ImageTextButton credits = stg.getRoot().findActor("btnCredits");
         credits.getLabel().setText(game.getBundle().get("mainmenu.credits"));
