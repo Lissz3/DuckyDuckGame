@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.isabelrosado.duckyduck.DuckyDuck;
 import com.ray3k.stripe.scenecomposer.SceneComposerStageBuilder;
@@ -24,7 +25,7 @@ public abstract class ScreenI implements Screen {
 
     public ScreenI(final DuckyDuck game, String skinPath, boolean backButton){
         this.game = game;
-        this.vp = new ExtendViewport(DuckyDuck.V_WIDTH, DuckyDuck.V_HEIGHT, new OrthographicCamera());
+        this.vp = new FitViewport(DuckyDuck.V_WIDTH, DuckyDuck.V_HEIGHT, new OrthographicCamera());
         this.stg = new Stage(vp, game.sprite);
 
         skin = new Skin(Gdx.files.internal("Skins/main.json"));

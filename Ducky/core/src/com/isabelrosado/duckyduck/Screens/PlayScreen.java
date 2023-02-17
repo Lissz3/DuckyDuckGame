@@ -2,6 +2,7 @@ package com.isabelrosado.duckyduck.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
@@ -13,6 +14,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -31,30 +33,22 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class PlayScreen implements Screen {
     private DuckyDuck newGame;
     private TextureAtlas atlas;
-
     private OrthographicCamera gameCam;
     private Viewport gamePort;
-
     private HUD hud;
-
     private TmxMapLoader mapLoader;
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
-
     private World world;
     private Box2DDebugRenderer b2dr;
     private WorldCreator creator;
-
     private Music music;
-
     public Duck duck;
-
     private Array<Item> items;
     private LinkedBlockingQueue<ItemDef> itemsToSpawn;
 
     public PlayScreen(DuckyDuck game) {
         atlas = new TextureAtlas("Sprites/Frog.atlas");
-
         newGame = game;
 
         //follows the Duck through world
@@ -63,6 +57,7 @@ public class PlayScreen implements Screen {
         //maintains the virtual aspect ratio despite screen size
         //or maybe ScreenViewport?
         gamePort = new FitViewport(DuckyDuck.V_WIDTH / DuckyDuck.PIXEL_PER_METER, DuckyDuck.V_HEIGHT / DuckyDuck.PIXEL_PER_METER, gameCam);
+
 
         //create the HUD
         hud = new HUD(game);

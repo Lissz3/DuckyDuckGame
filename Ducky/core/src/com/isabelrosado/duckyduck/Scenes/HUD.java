@@ -1,13 +1,23 @@
 package com.isabelrosado.duckyduck.Scenes;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.isabelrosado.duckyduck.DuckyDuck;
+import com.isabelrosado.duckyduck.Screens.OptionsMenuScreen;
 import com.isabelrosado.duckyduck.Screens.ScreenI;
 
 public class HUD extends ScreenI {
     private int score;
     private Label lblScore;
     private Label lblWarning;
+    private boolean showLvls;
+    private Table tableLvls;
 
     public HUD(final DuckyDuck game) {
         super(game, "Skins/hud.json", false);
@@ -33,10 +43,21 @@ public class HUD extends ScreenI {
 
     @Override
     protected void defineScreen() {
+        showLvls = false;
         lblScore = stg.getRoot().findActor("lblScore");
         getLblScore().setText(getScore());
         lblWarning = stg.getRoot().findActor("lblWarning");
         getLblWarning().setText(game.getBundle().get("playscreen.popup"));
+        Button btnShowLvls = stg.getRoot().findActor("btnLvls");
+        tableLvls = stg.getRoot().findActor("tableLvls");
+
+        btnShowLvls.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                showLvls = !showLvls;
+                tableLvls.setVisible(showLvls);
+            };
+        });
     }
 
     @Override
@@ -67,5 +88,6 @@ public class HUD extends ScreenI {
     public void update(float dt) {
         lblScore.setText(getScore());
     }
+
 }
 
