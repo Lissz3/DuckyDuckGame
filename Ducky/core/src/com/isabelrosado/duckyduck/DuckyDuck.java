@@ -2,20 +2,22 @@ package com.isabelrosado.duckyduck;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.isabelrosado.duckyduck.Screens.MainMenuScreen;
 
+/**
+ *
+ */
 public class DuckyDuck extends Game {
 	public SpriteBatch sprite;
 	public static final int V_WIDTH = 600;
 	public static final int V_HEIGHT = 420;
 	public static final float PIXEL_PER_METER = 100;
-
 	public static final short NOTHING_BIT = 0;
 	public static final short DEFAULT_BIT = 1;
 	public static final short DUCK_BIT = 2;
@@ -26,15 +28,15 @@ public class DuckyDuck extends Game {
 	public static final short GROUND_BIT = 64;
 	public static final short ENEMY_BIT = 128;
 	public static final short ENEMY_HEAD_BIT = 256;
-
 	public static final short DUCK_HEAD_BIT = 512;
-
 	public static final short CHECKPOINT_BIT = 1024;
-
 	private AssetManager assetManager;
-
 	private I18NBundle bundle;
-	
+	private Preferences pref;
+
+	/**
+	 *
+	 */
 	@Override
 	public void create () {
 		sprite = new SpriteBatch();
@@ -52,6 +54,8 @@ public class DuckyDuck extends Game {
 		assetManager.load("Audio/Sounds/GameOver.mp3", Sound.class);
 		assetManager.finishLoading();
 		assetManager.getLoadedAssets();
+
+		pref = Gdx.app.getPreferences("com.isabelrosado.duckyduck");
 
 		setScreen(new MainMenuScreen(this));
 	}

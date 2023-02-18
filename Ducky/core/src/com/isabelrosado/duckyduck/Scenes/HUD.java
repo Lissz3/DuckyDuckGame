@@ -1,62 +1,98 @@
 package com.isabelrosado.duckyduck.Scenes;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.isabelrosado.duckyduck.DuckyDuck;
-import com.isabelrosado.duckyduck.Screens.OptionsMenuScreen;
+import com.isabelrosado.duckyduck.Screens.MainMenuScreen;
+import com.isabelrosado.duckyduck.Screens.PlayScreen;
 import com.isabelrosado.duckyduck.Screens.ScreenI;
 
 public class HUD extends ScreenI {
     private int score;
     private Label lblScore;
     private Label lblWarning;
-    private boolean showLvls;
-    private Table tableLvls;
+    private Window pauseScreen;
+    private Window lvlScreen;
+    private Button btnShowLvls;
+    private Button btnPause;
+    private TextButton btnContinue;
+    private TextButton btnRetry;
+    private TextButton btnExit;
+    private TextButton btnCancel;
+    private TextButton btnLvl1;
+    private TextButton btnLvl2;
+    private boolean paused;
+    private Label lblLevel;
+    private int gameLevel;
 
-    public HUD(final DuckyDuck game) {
+    private boolean inPausedScreen;
+
+    private boolean inLevelScreen;
+
+    public HUD(final DuckyDuck game, int level) {
         super(game, "Skins/hud.json", false);
-        setScore(0);
+        gameLevel = level;
         defineScreen();
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    public Label getLblScore() {
-        return lblScore;
-    }
-
-    public Label getLblWarning() {
-        return lblWarning;
     }
 
     @Override
     protected void defineScreen() {
-        showLvls = false;
+        setScore(0);
+        inLevelScreen = false;
+        inPausedScreen = false;
         lblScore = stg.getRoot().findActor("lblScore");
         getLblScore().setText(getScore());
         lblWarning = stg.getRoot().findActor("lblWarning");
         getLblWarning().setText(game.getBundle().get("playscreen.popup"));
-        Button btnShowLvls = stg.getRoot().findActor("btnLvls");
-        tableLvls = stg.getRoot().findActor("tableLvls");
+        btnShowLvls = stg.getRoot().findActor("btnLvls");
+        btnPause = stg.getRoot().findActor("btnPause");
+        lblLevel = stg.getRoot().findActor("lblLvl");
+        switch (gameLevel) {
+            default:
+            case 1:
+                lblLevel.setText(game.getBundle().get("playscreen.slvl.lvl1"));
+                break;
+            case 2:
+                lblLevel.setText(game.getBundle().get("playscreen.slvl.lvl2"));
+                break;
+        }
 
-        btnShowLvls.addListener(new ClickListener(){
+        //independent pause menu
+        createPauseScreen();
+
+        //select level menu
+        createLvlScreen();
+
+        stg.addActor(lvlScreen);
+        stg.addActor(pauseScreen);
+
+        btnPause.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                showLvls = !showLvls;
-                tableLvls.setVisible(showLvls);
-            };
+                if (!isInLevelScreen()) {
+                    btnSound.play();
+                    setPaused(true);
+                    setInPausedScreen(true);
+                    pauseScreen.setVisible(true);
+                }
+            }
+        });
+
+        btnShowLvls.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (!isInPausedScreen()) {
+                    btnSound.play();
+                    setPaused(true);
+                    setInLevelScreen(true);
+                    lvlScreen.setVisible(true);
+                }
+            }
         });
     }
 
@@ -85,9 +121,141 @@ public class HUD extends ScreenI {
 
     }
 
-    public void update(float dt) {
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public Label getLblScore() {
+        return lblScore;
+    }
+
+    public Label getLblWarning() {
+        return lblWarning;
+    }
+
+    public void update() {
         lblScore.setText(getScore());
     }
 
+    private void createPauseScreen() {
+        btnContinue = new TextButton(game.getBundle().get("playscreen.pausem.cont"), skin);
+        btnRetry = new TextButton(game.getBundle().get("playscreen.pausem.retry"), skin);
+        btnExit = new TextButton(game.getBundle().get("playscreen.pausem.exit"), skin);
+        pauseScreen = new Window(game.getBundle().get("playscreen.pause"), skin);
+        pauseScreen.getTitleLabel().setAlignment(Align.center);
+        pauseScreen.add(btnContinue);
+        pauseScreen.row();
+        pauseScreen.add(btnRetry);
+        pauseScreen.row();
+        pauseScreen.add(btnExit);
+        pauseScreen.setSize(stg.getWidth() / 2.5f, stg.getHeight() / 2.5f);
+        pauseScreen.setPosition(DuckyDuck.V_WIDTH / 2 - pauseScreen.getWidth() / 2, DuckyDuck.V_HEIGHT / 2 - pauseScreen.getHeight() / 2);
+        pauseScreen.setMovable(false);
+        pauseScreen.setVisible(false);
+
+        btnRetry.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                btnSound.play();
+                setInPausedScreen(false);
+                game.getScreen().dispose();
+                game.setScreen(new PlayScreen(game, 1));
+            }
+        });
+        btnExit.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                btnSound.play();
+                setInPausedScreen(false);
+                game.getScreen().dispose();
+                game.setScreen(new MainMenuScreen(game));
+            }
+        });
+        btnContinue.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                btnSound.play();
+                setInPausedScreen(false);
+                pauseScreen.setVisible(false);
+                setPaused(false);
+            }
+        });
+
+    }
+
+    private void createLvlScreen() {
+        btnLvl1 = new TextButton(game.getBundle().get("playscreen.slvl.lvl1"), skin);
+        btnLvl2 = new TextButton(game.getBundle().get("playscreen.slvl.lvl2"), skin);
+        btnCancel = new TextButton(game.getBundle().get("playscreen.cancel"), skin);
+        lvlScreen = new Window(game.getBundle().get("playscreen.selectlvl"), skin);
+        lvlScreen.getTitleLabel().setAlignment(Align.center);
+        lvlScreen.add(btnLvl1).row();
+        lvlScreen.add(btnLvl2).row();
+        lvlScreen.add(btnCancel);
+        lvlScreen.setSize(stg.getWidth() / 2.5f, stg.getHeight() / 2.5f);
+        lvlScreen.setPosition(DuckyDuck.V_WIDTH / 2 - pauseScreen.getWidth() / 2, DuckyDuck.V_HEIGHT / 2 - pauseScreen.getHeight() / 2);
+        lvlScreen.setMovable(false);
+        lvlScreen.setVisible(false);
+
+        btnLvl1.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                btnSound.play();
+                setInPausedScreen(false);
+                game.getScreen().dispose();
+                game.setScreen(new PlayScreen(game, 1));
+            }
+        });
+
+        btnLvl2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                btnSound.play();
+                setInPausedScreen(false);
+                game.getScreen().dispose();
+                game.setScreen(new PlayScreen(game, 2));
+                lblLevel.setText(game.getBundle().get("playscreen.slvl.lvl2"));
+            }
+        });
+
+        btnCancel.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                btnSound.play();
+                lvlScreen.setVisible(false);
+                setInPausedScreen(false);
+                setPaused(false);
+            }
+        });
+
+    }
+
+    public boolean isPaused() {
+        return paused;
+    }
+
+    public void setPaused(boolean paused) {
+        this.paused = paused;
+    }
+
+    public boolean isInPausedScreen() {
+        return inPausedScreen;
+    }
+
+    public void setInPausedScreen(boolean inPausedScreen) {
+        this.inPausedScreen = inPausedScreen;
+    }
+
+    public boolean isInLevelScreen() {
+        return inLevelScreen;
+    }
+
+    public void setInLevelScreen(boolean inLevelScreen) {
+        this.inLevelScreen = inLevelScreen;
+    }
 }
 

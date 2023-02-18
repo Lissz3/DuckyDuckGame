@@ -2,7 +2,6 @@ package com.isabelrosado.duckyduck.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
@@ -14,7 +13,6 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -46,10 +44,12 @@ public class PlayScreen implements Screen {
     public Duck duck;
     private Array<Item> items;
     private LinkedBlockingQueue<ItemDef> itemsToSpawn;
+    private int gameLevel;
 
-    public PlayScreen(DuckyDuck game) {
+    public PlayScreen(DuckyDuck game, int level) {
         atlas = new TextureAtlas("Sprites/Frog.atlas");
         newGame = game;
+        gameLevel = level;
 
         //follows the Duck through world
         gameCam = new OrthographicCamera();
@@ -58,13 +58,20 @@ public class PlayScreen implements Screen {
         //or maybe ScreenViewport?
         gamePort = new FitViewport(DuckyDuck.V_WIDTH / DuckyDuck.PIXEL_PER_METER, DuckyDuck.V_HEIGHT / DuckyDuck.PIXEL_PER_METER, gameCam);
 
-
         //create the HUD
-        hud = new HUD(game);
+        hud = new HUD(game, gameLevel);
 
         //load map and setup the renderer
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load("Maps/prueba2.tmx");
+        switch (gameLevel){
+            case 2:
+                map = mapLoader.load("Maps/prueba3.tmx");
+                break;
+            default:
+            case 1:
+                map = mapLoader.load("Maps/prueba2.tmx");
+                break;
+        }
         renderer = new OrthogonalTiledMapRenderer(map, 1 / DuckyDuck.PIXEL_PER_METER);
 
         //setup the gamecam at the start of the game
@@ -87,7 +94,6 @@ public class PlayScreen implements Screen {
         music = game.getAssetManager().get("Audio/Music/Gameplay.mp3", Music.class);
         music.setLooping(true);
         music.play();
-
     }
 
     @Override
@@ -183,43 +189,50 @@ public class PlayScreen implements Screen {
     }
 
     public void update(float dt) {
-        //handle user input
-        handleInput(dt);
+        if (!hud.isPaused()){
+            //handle user input
+            handleInput(dt);
+
+
+            //handle item creation
+            handleSpawningItems();
+
+            world.step(1 / 60f, 6, 2);
+
+            //update the duck sprite
+            duck.update(dt);
+
+            //update the fatBird sprite
+            for (FatBird fb : creator.getFatBirds()) {
+                fb.update(dt);
+            }
+
+            //update the item sprite
+            for (Item fruit : items) {
+                fruit.update(dt);
+            }
+
+            //the game cam follows the main char
+            if (duck.currentState != Duck.State.HITTED) {
+                gameCam.position.x = duck.dBody.getPosition().x;
+            }
+
+            //update gamecam with correct coordinates
+            gameCam.update();
+
+            //tell render to draw only what camera sees in the world
+            renderer.setView(gameCam);
+        }
 
         //update hud
-        hud.update(dt);
-
-        //handle item creation
-        handleSpawningItems();
-
-        world.step(1 / 60f, 6, 2);
-
-        //update the duck sprite
-        duck.update(dt);
-
-        //update the fatBird sprite
-        for (FatBird fb : creator.getFatBirds()) {
-            fb.update(dt);
-        }
-
-        //update the item sprite
-        for (Item fruit : items) {
-            fruit.update(dt);
-        }
-
-        //the game cam follows the main char
-        if (duck.currentState != Duck.State.HITTED) {
-            gameCam.position.x = duck.dBody.getPosition().x;
-        }
-
-        //update gamecam with correct coordinates
-        gameCam.update();
-
-        //tell render to draw only what camera sees in the world
-        renderer.setView(gameCam);
-
+        hud.update();
     }
 
+
+    /**
+     *
+     * @return
+     */
     public TextureAtlas getAtlas() {
         return atlas;
     }
@@ -254,6 +267,10 @@ public class PlayScreen implements Screen {
 
     public HUD getHud() {
         return hud;
+    }
+
+    public int getGameLevel() {
+        return gameLevel;
     }
 
 }

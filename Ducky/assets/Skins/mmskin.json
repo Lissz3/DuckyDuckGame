@@ -25,7 +25,7 @@
 										"name": null,
 										"style": {
 											"clazz": "com.badlogic.gdx.scenes.scene2d.ui.Label",
-											"name": "default"
+											"name": "lblTitle"
 										},
 										"text": "FROGGER",
 										"textAlignment": 1,
@@ -312,11 +312,11 @@
 							"cells": [
 								{
 									"child": {
-										"class": "ImageButton",
+										"class": "Button",
 										"name": "btnExit",
 										"style": {
 											"clazz": "com.badlogic.gdx.scenes.scene2d.ui.ImageButton",
-											"name": "default"
+											"name": "mainexit"
 										},
 										"checked": false,
 										"disabled": false,

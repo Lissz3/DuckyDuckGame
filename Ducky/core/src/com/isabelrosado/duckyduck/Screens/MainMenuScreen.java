@@ -1,22 +1,13 @@
 package com.isabelrosado.duckyduck.Screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.I18NBundle;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.isabelrosado.duckyduck.DuckyDuck;
-import com.ray3k.stripe.scenecomposer.SceneComposerStageBuilder;
 
 public class MainMenuScreen extends ScreenI {
     private Music music;
@@ -41,7 +32,7 @@ public class MainMenuScreen extends ScreenI {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.getAssetManager().get("Audio/Sounds/PlayButton.mp3", Sound.class).play();
-                game.setScreen(new PlayScreen(game));
+                game.setScreen(new PlayScreen(game, 1));
                 dispose();
             };
         });
@@ -79,7 +70,7 @@ public class MainMenuScreen extends ScreenI {
         ImageTextButton help = stg.getRoot().findActor("btnHelp");
         help.getLabel().setText(game.getBundle().get("mainmenu.help"));
 
-        ImageButton exit = stg.getRoot().findActor("btnExit");
+        Button exit = stg.getRoot().findActor("btnExit");
         exit.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
