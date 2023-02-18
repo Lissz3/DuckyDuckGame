@@ -1,11 +1,9 @@
 package com.isabelrosado.duckyduck.Scenes;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.isabelrosado.duckyduck.DuckyDuck;
 import com.isabelrosado.duckyduck.Screens.MainMenuScreen;
@@ -18,20 +16,12 @@ public class HUD extends ScreenI {
     private Label lblWarning;
     private Window pauseScreen;
     private Window lvlScreen;
-    private Button btnShowLvls;
-    private Button btnPause;
-    private TextButton btnContinue;
-    private TextButton btnRetry;
-    private TextButton btnExit;
-    private TextButton btnCancel;
-    private TextButton btnLvl1;
-    private TextButton btnLvl2;
+    private Window gameOverScreen;
+    private Window winScreen;
     private boolean paused;
     private Label lblLevel;
-    private int gameLevel;
-
+    private final int gameLevel;
     private boolean inPausedScreen;
-
     private boolean inLevelScreen;
 
     public HUD(final DuckyDuck game, int level) {
@@ -43,14 +33,14 @@ public class HUD extends ScreenI {
     @Override
     protected void defineScreen() {
         setScore(0);
-        inLevelScreen = false;
-        inPausedScreen = false;
+        setInLevelScreen(false);
+        setInPausedScreen(false);
         lblScore = stg.getRoot().findActor("lblScore");
         getLblScore().setText(getScore());
         lblWarning = stg.getRoot().findActor("lblWarning");
         getLblWarning().setText(game.getBundle().get("playscreen.popup"));
-        btnShowLvls = stg.getRoot().findActor("btnLvls");
-        btnPause = stg.getRoot().findActor("btnPause");
+        Button btnShowLvls = stg.getRoot().findActor("btnLvls");
+        Button btnPause = stg.getRoot().findActor("btnPause");
         lblLevel = stg.getRoot().findActor("lblLvl");
         switch (gameLevel) {
             default:
@@ -68,8 +58,16 @@ public class HUD extends ScreenI {
         //select level menu
         createLvlScreen();
 
+        //game over popup
+        createGameOverPopUp();
+
+        //win popup
+        createWinPopUp();
+
         stg.addActor(lvlScreen);
         stg.addActor(pauseScreen);
+        stg.addActor(gameOverScreen);
+        stg.addActor(winScreen);
 
         btnPause.addListener(new ClickListener() {
             @Override
@@ -142,9 +140,9 @@ public class HUD extends ScreenI {
     }
 
     private void createPauseScreen() {
-        btnContinue = new TextButton(game.getBundle().get("playscreen.pausem.cont"), skin);
-        btnRetry = new TextButton(game.getBundle().get("playscreen.pausem.retry"), skin);
-        btnExit = new TextButton(game.getBundle().get("playscreen.pausem.exit"), skin);
+        TextButton btnContinue = new TextButton(game.getBundle().get("playscreen.pausem.cont"), skin);
+        TextButton btnRetry = new TextButton(game.getBundle().get("playscreen.pausem.retry"), skin);
+        TextButton btnExit = new TextButton(game.getBundle().get("playscreen.pausem.exit"), skin);
         pauseScreen = new Window(game.getBundle().get("playscreen.pause"), skin);
         pauseScreen.getTitleLabel().setAlignment(Align.center);
         pauseScreen.add(btnContinue);
@@ -163,7 +161,7 @@ public class HUD extends ScreenI {
                 btnSound.play();
                 setInPausedScreen(false);
                 game.getScreen().dispose();
-                game.setScreen(new PlayScreen(game, 1));
+                game.setScreen(new PlayScreen(game, gameLevel));
             }
         });
         btnExit.addListener(new ClickListener() {
@@ -188,9 +186,9 @@ public class HUD extends ScreenI {
     }
 
     private void createLvlScreen() {
-        btnLvl1 = new TextButton(game.getBundle().get("playscreen.slvl.lvl1"), skin);
-        btnLvl2 = new TextButton(game.getBundle().get("playscreen.slvl.lvl2"), skin);
-        btnCancel = new TextButton(game.getBundle().get("playscreen.cancel"), skin);
+        TextButton btnLvl1 = new TextButton(game.getBundle().get("playscreen.slvl.lvl1"), skin);
+        TextButton btnLvl2 = new TextButton(game.getBundle().get("playscreen.slvl.lvl2"), skin);
+        TextButton btnCancel = new TextButton(game.getBundle().get("playscreen.cancel"), skin);
         lvlScreen = new Window(game.getBundle().get("playscreen.selectlvl"), skin);
         lvlScreen.getTitleLabel().setAlignment(Align.center);
         lvlScreen.add(btnLvl1).row();
@@ -234,6 +232,80 @@ public class HUD extends ScreenI {
 
     }
 
+    private void createGameOverPopUp() {
+        Drawable skull = skin.getDrawable("Icon_Skull");
+        Image skullImg = new Image(skull);
+        TextButton btnRetry = new TextButton(game.getBundle().get("playscreen.pausem.retry"), skin);
+        TextButton btnExit = new TextButton(game.getBundle().get("playscreen.pausem.exit"), skin);
+        gameOverScreen = new Window(game.getBundle().get("playscreen.gameover"), skin);
+        gameOverScreen.getTitleLabel().setAlignment(Align.center);
+        gameOverScreen.add(skullImg).padBottom(5);
+        gameOverScreen.row();
+        gameOverScreen.add(btnRetry);
+        gameOverScreen.row();
+        gameOverScreen.add(btnExit);
+        gameOverScreen.setSize(stg.getWidth() / 2.5f, stg.getHeight() / 2.5f);
+        gameOverScreen.setPosition(DuckyDuck.V_WIDTH / 2 - pauseScreen.getWidth() / 2, DuckyDuck.V_HEIGHT / 2 - pauseScreen.getHeight() / 2);
+        gameOverScreen.setMovable(false);
+        gameOverScreen.setVisible(false);
+
+        btnRetry.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                btnSound.play();
+                setInPausedScreen(false);
+                game.getScreen().dispose();
+                game.setScreen(new PlayScreen(game, 1));
+            }
+        });
+        btnExit.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                btnSound.play();
+                setInPausedScreen(false);
+                game.getScreen().dispose();
+                game.setScreen(new MainMenuScreen(game));
+            }
+        });
+    }
+
+    private void createWinPopUp() {
+        Drawable crown = skin.getDrawable("Icon_Crown");
+        Image crownImg = new Image(crown);
+        TextButton btnNextLevel = new TextButton(game.getBundle().get("playscreen.win.next"), skin);
+        TextButton btnExit = new TextButton(game.getBundle().get("playscreen.pausem.exit"), skin);
+        winScreen = new Window(game.getBundle().get("playscreen.win"), skin);
+        winScreen.getTitleLabel().setAlignment(Align.center);
+        winScreen.add(crownImg).padBottom(5);
+        winScreen.row();
+        winScreen.add(btnNextLevel);
+        winScreen.row();
+        winScreen.add(btnExit);
+        winScreen.setSize(stg.getWidth() / 2.5f, stg.getHeight() / 2.5f);
+        winScreen.setPosition(DuckyDuck.V_WIDTH / 2 - pauseScreen.getWidth() / 2, DuckyDuck.V_HEIGHT / 2 - pauseScreen.getHeight() / 2);
+        winScreen.setMovable(false);
+        winScreen.setVisible(false);
+
+        btnNextLevel.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                btnSound.play();
+                setInPausedScreen(false);
+                game.getScreen().dispose();
+                game.setScreen(new PlayScreen(game, gameLevel+1));
+            }
+        });
+        btnExit.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                btnSound.play();
+                setInPausedScreen(false);
+                game.getScreen().dispose();
+                game.setScreen(new MainMenuScreen(game));
+            }
+        });
+    }
+
     public boolean isPaused() {
         return paused;
     }
@@ -257,5 +329,14 @@ public class HUD extends ScreenI {
     public void setInLevelScreen(boolean inLevelScreen) {
         this.inLevelScreen = inLevelScreen;
     }
+
+    public Window getGameOverScreen() {
+        return gameOverScreen;
+    }
+
+    public Window getWinScreen() {
+        return winScreen;
+    }
+
 }
 

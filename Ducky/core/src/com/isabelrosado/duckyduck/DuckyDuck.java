@@ -10,9 +10,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.isabelrosado.duckyduck.Screens.MainMenuScreen;
 
-/**
- *
- */
 public class DuckyDuck extends Game {
 	public SpriteBatch sprite;
 	public static final int V_WIDTH = 600;
@@ -32,11 +29,10 @@ public class DuckyDuck extends Game {
 	public static final short CHECKPOINT_BIT = 1024;
 	private AssetManager assetManager;
 	private I18NBundle bundle;
-	private Preferences pref;
 
-	/**
-	 *
-	 */
+	private Preferences preferences;
+
+
 	@Override
 	public void create () {
 		sprite = new SpriteBatch();
@@ -55,7 +51,7 @@ public class DuckyDuck extends Game {
 		assetManager.finishLoading();
 		assetManager.getLoadedAssets();
 
-		pref = Gdx.app.getPreferences("com.isabelrosado.duckyduck");
+		preferences = Gdx.app.getPreferences("com.isabelrosado.duckyduck");
 
 		setScreen(new MainMenuScreen(this));
 	}
@@ -80,5 +76,8 @@ public class DuckyDuck extends Game {
 		return bundle;
 	}
 
+	public Preferences getPreferences() {
+		return preferences;
+	}
 
 }

@@ -141,6 +141,11 @@ com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable: {
 		minWidth: 30
 		minHeight: 40
 	}
+	Icon_Crown: {
+		region: Icon_Crown
+		minWidth: 35
+		minHeight: 30
+	}
 	Icon_Exit: {
 		region: Icon_Exit
 		minWidth: 30
@@ -200,6 +205,11 @@ com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable: {
 		region: Icon_Settings
 		minWidth: 40
 		minHeight: 40
+	}
+	Icon_Skull: {
+		region: Icon_Skull
+		minWidth: 32
+		minHeight: 35
 	}
 	Icon_SoundOff: {
 		region: Icon_SoundOff

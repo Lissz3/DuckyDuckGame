@@ -55,7 +55,6 @@ public class PlayScreen implements Screen {
         gameCam = new OrthographicCamera();
 
         //maintains the virtual aspect ratio despite screen size
-        //or maybe ScreenViewport?
         gamePort = new FitViewport(DuckyDuck.V_WIDTH / DuckyDuck.PIXEL_PER_METER, DuckyDuck.V_HEIGHT / DuckyDuck.PIXEL_PER_METER, gameCam);
 
         //create the HUD
@@ -135,9 +134,9 @@ public class PlayScreen implements Screen {
         hud.stg.draw();
 
         if (gameOver()){
-            newGame.setScreen(new GameOverScreen(newGame));
+            hud.getGameOverScreen().setVisible(true);
+            hud.setPaused(true);
             music.stop();
-            dispose();
         }
 
     }
@@ -228,11 +227,6 @@ public class PlayScreen implements Screen {
         hud.update();
     }
 
-
-    /**
-     *
-     * @return
-     */
     public TextureAtlas getAtlas() {
         return atlas;
     }
@@ -259,7 +253,7 @@ public class PlayScreen implements Screen {
     }
 
     public boolean gameOver (){
-        if (duck.isHit() && duck.getStateTimer() > 3){
+        if (duck.isHit() && duck.getStateTimer() > 3.5){
             return true;
         }
         return false;
@@ -267,10 +261,6 @@ public class PlayScreen implements Screen {
 
     public HUD getHud() {
         return hud;
-    }
-
-    public int getGameLevel() {
-        return gameLevel;
     }
 
 }
