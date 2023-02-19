@@ -28,38 +28,7 @@ public class OptionsMenuScreen extends ScreenI {
     @Override
     protected void defineScreen() {
 
-        final CheckBox sound = stg.getRoot().findActor("cbxSound");
-        sound.getLabel().setText(" "+game.getBundle().get("optmenu.sound")+" "+(sound.isChecked() ? game.getBundle().get("optmenu.on") : game.getBundle().get("optmenu.off")));
 
-        sound.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                btnSound.play();
-                sound.getLabel().setText(" "+game.getBundle().get("optmenu.sound")+" "+(sound.isChecked() ? game.getBundle().get("optmenu.on") : game.getBundle().get("optmenu.off")));
-            };
-        });
-
-        final CheckBox music = stg.getRoot().findActor("cbxMusic");
-        music.getLabel().setText(" "+game.getBundle().get("optmenu.music")+" "+(music.isChecked() ? game.getBundle().get("optmenu.on") : game.getBundle().get("optmenu.off")));
-        music.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                btnSound.play();
-                music.getLabel().setText(" "+game.getBundle().get("optmenu.music")+" "+(music.isChecked() ? game.getBundle().get("optmenu.on") : game.getBundle().get("optmenu.off")));
-            };
-        });
-
-        ImageTextButton btnDel = stg.getRoot().findActor("btnDelRecords");
-        btnDel.getLabel().setText(" "+game.getBundle().get("optmenu.deleter"));
-
-        SelectBox sbxLanguage = stg.getRoot().findActor("sbxLanguage");
-        sbxLanguage.clearItems();
-        sbxLanguage.setItems(game.getBundle().get("optmenu.english"), game.getBundle().get("optmenu.spanish"));
-        if (Locale.getDefault().getLanguage().equals("es")){
-            sbxLanguage.setSelected(game.getBundle().get("optmenu.spanish"));
-        } else {
-            sbxLanguage.setSelected(game.getBundle().get("optmenu.english"));
-        }
     }
 
     @Override

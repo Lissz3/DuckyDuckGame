@@ -1,5 +1,6 @@
 package com.isabelrosado.duckyduck.Scenes;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -18,6 +19,7 @@ public class HUD extends ScreenI {
     private Window lvlScreen;
     private Window gameOverScreen;
     private Window winScreen;
+    private Window saveScoreScreen;
     private boolean paused;
     private Label lblLevel;
     private final int gameLevel;
@@ -64,10 +66,14 @@ public class HUD extends ScreenI {
         //win popup
         createWinPopUp();
 
+        //save score popup
+        createScorePopUp();
+
         stg.addActor(lvlScreen);
         stg.addActor(pauseScreen);
         stg.addActor(gameOverScreen);
         stg.addActor(winScreen);
+        stg.addActor(saveScoreScreen);
 
         btnPause.addListener(new ClickListener() {
             @Override
@@ -158,6 +164,7 @@ public class HUD extends ScreenI {
         btnRetry.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                game.setFinalScore(0);
                 btnSound.play();
                 setInPausedScreen(false);
                 game.getScreen().dispose();
@@ -167,6 +174,7 @@ public class HUD extends ScreenI {
         btnExit.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                game.setFinalScore(0);
                 btnSound.play();
                 setInPausedScreen(false);
                 game.getScreen().dispose();
@@ -203,6 +211,7 @@ public class HUD extends ScreenI {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 btnSound.play();
+                game.setFinalScore(0);
                 setInPausedScreen(false);
                 game.getScreen().dispose();
                 game.setScreen(new PlayScreen(game, 1));
@@ -213,6 +222,7 @@ public class HUD extends ScreenI {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 btnSound.play();
+                game.setFinalScore(0);
                 setInPausedScreen(false);
                 game.getScreen().dispose();
                 game.setScreen(new PlayScreen(game, 2));
@@ -252,10 +262,11 @@ public class HUD extends ScreenI {
         btnRetry.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                game.setFinalScore(0);
                 btnSound.play();
                 setInPausedScreen(false);
                 game.getScreen().dispose();
-                game.setScreen(new PlayScreen(game, 1));
+                game.setScreen(new PlayScreen(game, gameLevel));
             }
         });
         btnExit.addListener(new ClickListener() {
@@ -292,7 +303,51 @@ public class HUD extends ScreenI {
                 btnSound.play();
                 setInPausedScreen(false);
                 game.getScreen().dispose();
-                game.setScreen(new PlayScreen(game, gameLevel+1));
+                if (gameLevel != game.getTotalLevels()) {
+                    game.setScreen(new PlayScreen(game, gameLevel + 1));
+                }
+            }
+        });
+        btnExit.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                btnSound.play();
+                setInPausedScreen(false);
+                game.getScreen().dispose();
+                game.setScreen(new MainMenuScreen(game));
+            }
+        });
+    }
+
+    private void createScorePopUp() {
+        Drawable crown = skin.getDrawable("Icon_Crown");
+        Image crownImg = new Image(crown);
+        TextButton btnSave = new TextButton(game.getBundle().get("playscreen.save"), skin);
+        TextButton btnExit = new TextButton(game.getBundle().get("playscreen.pausem.exit"), skin);
+        final TextField name = new TextField(game.getBundle().get("recmenu.name"), skin);
+
+        saveScoreScreen = new Window(game.getBundle().get("playscreen.win"), skin);
+        saveScoreScreen.getTitleLabel().setAlignment(Align.center);
+        saveScoreScreen.add(crownImg).padBottom(5);
+        saveScoreScreen.row();
+        saveScoreScreen.add(name).align(Align.center);
+        saveScoreScreen.row();
+        saveScoreScreen.add(btnSave);
+        saveScoreScreen.add(btnExit);
+        saveScoreScreen.setSize(stg.getWidth() / 2.5f, stg.getHeight() / 2.5f);
+        saveScoreScreen.setPosition(DuckyDuck.V_WIDTH / 2 - pauseScreen.getWidth() / 2, DuckyDuck.V_HEIGHT / 2 - pauseScreen.getHeight() / 2);
+        saveScoreScreen.setMovable(false);
+        saveScoreScreen.setVisible(false);
+
+        btnSave.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                btnSound.play();
+                game.getPreferences().putString(name.getText(), game.getFinalScore() + "");
+                game.getPreferences().flush();
+                setInPausedScreen(false);
+                game.getScreen().dispose();
+                game.setScreen(new MainMenuScreen(game));
             }
         });
         btnExit.addListener(new ClickListener() {
@@ -336,6 +391,14 @@ public class HUD extends ScreenI {
 
     public Window getWinScreen() {
         return winScreen;
+    }
+
+    public Window getSaveScoreScreen() {
+        return saveScoreScreen;
+    }
+
+    public int getGameLevel() {
+        return gameLevel;
     }
 
 }

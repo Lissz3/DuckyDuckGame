@@ -27,15 +27,16 @@ public class DuckyDuck extends Game {
 	public static final short ENEMY_HEAD_BIT = 256;
 	public static final short DUCK_HEAD_BIT = 512;
 	public static final short CHECKPOINT_BIT = 1024;
+	private final int totalLevels = 2;
+	private int finalScore;
 	private AssetManager assetManager;
 	private I18NBundle bundle;
-
 	private Preferences preferences;
-
 
 	@Override
 	public void create () {
 		sprite = new SpriteBatch();
+		finalScore = 0;
 		assetManager = new AssetManager();
 		bundle = I18NBundle.createBundle(Gdx.files.internal("Locale/locale"));
 		assetManager.load("Audio/Music/MainTheme.mp3", Music.class);
@@ -78,6 +79,18 @@ public class DuckyDuck extends Game {
 
 	public Preferences getPreferences() {
 		return preferences;
+	}
+
+	public int getFinalScore() {
+		return finalScore;
+	}
+
+	public void setFinalScore(int finalScore) {
+		this.finalScore = finalScore;
+	}
+
+	public int getTotalLevels() {
+		return totalLevels;
 	}
 
 }

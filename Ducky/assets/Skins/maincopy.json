@@ -68,18 +68,6 @@ com.badlogic.gdx.graphics.g2d.BitmapFont: {
 	}
 }
 com.badlogic.gdx.graphics.Color: {
-	Frogger: {
-		r: 0.09803922
-		g: 0.4862745
-		b: 0.09019608
-		a: 1
-	}
-	white: {
-		r: 1
-		g: 1
-		b: 1
-		a: 1
-	}
 	black: {
 		r: 0
 		g: 0
@@ -134,6 +122,18 @@ com.badlogic.gdx.graphics.Color: {
 		b: 0.4392157
 		a: 1
 	}
+	Frogger: {
+		r: 0.09803922
+		g: 0.4862745
+		b: 0.09019608
+		a: 1
+	}
+	white: {
+		r: 1
+		g: 1
+		b: 1
+		a: 1
+	}
 }
 com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable: {
 	Icon_Award: {
@@ -143,8 +143,8 @@ com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable: {
 	}
 	Icon_Crown: {
 		region: Icon_Crown
-		minWidth: 27
-		minHeight: 20
+		minWidth: 35
+		minHeight: 30
 	}
 	Icon_Exit: {
 		region: Icon_Exit
@@ -168,13 +168,13 @@ com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable: {
 	}
 	Icon_MusicOff: {
 		region: Icon_MusicOff
-		minWidth: 25
-		minHeight: 25
+		minWidth: 35
+		minHeight: 35
 	}
 	Icon_MusicOn: {
 		region: Icon_MusicOn
-		minWidth: 25
-		minHeight: 25
+		minWidth: 35
+		minHeight: 35
 	}
 	Icon_Next: {
 		region: Icon_Next
@@ -208,18 +208,18 @@ com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable: {
 	}
 	Icon_Skull: {
 		region: Icon_Skull
-		minWidth: 20
-		minHeight: 20
+		minWidth: 32
+		minHeight: 35
 	}
 	Icon_SoundOff: {
 		region: Icon_SoundOff
-		minWidth: 25
-		minHeight: 25
+		minWidth: 35
+		minHeight: 35
 	}
 	Icon_SoundOn: {
 		region: Icon_SoundOn
-		minWidth: 25
-		minHeight: 25
+		minWidth: 35
+		minHeight: 35
 	}
 	Icon_SquareStraight: {
 		region: Icon_SquareStraight
@@ -228,8 +228,8 @@ com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable: {
 	}
 	Icon_Trash: {
 		region: Icon_Trash
-		minWidth: 20
-		minHeight: 25
+		minWidth: 30
+		minHeight: 35
 	}
 	Icon_Writing: {
 		region: Icon_Writing
@@ -347,15 +347,6 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 	checkbox-alt-t: {
 		name: checkbox-alt
 		color: check-box
-	}
-	selection2: {
-		name: selection
-		color: {
-			r: 0.76862746
-			g: 0.8862745
-			b: 0.88235295
-			a: 1
-		}
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
@@ -592,23 +583,6 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 		over: button-over
 		disabled: button-icon-disabled
 	}
-	musicOn: {
-		imageUp: Icon_SoundOn
-		imageChecked: Icon_SoundOff
-		font: black
-		up: Item5
-	}
-	soundOn: {
-		imageUp: Icon_MusicOn
-		imageChecked: Icon_MusicOff
-		font: black
-		up: Item5
-	}
-	reset: {
-		imageUp: Icon_Trash
-		font: black
-		up: Item5
-	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	default: {
@@ -639,7 +613,7 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	}
 	title: {
 		font: title
-		fontColor: font
+		fontColor: Frogger
 	}
 	title-white: {
 		font: title
@@ -820,10 +794,18 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
 	default: {
-		font: font
+		font: small
 		fontColor: font-text-field
 		background: text-field
-		selection: selection2
+		cursor: black
+		selection: text-field-selection
+	}
+	spinner: {
+		font: small
+		fontColor: font-text-field
+		background: text-field-spinner
+		cursor: black
+		selection: text-field-selection
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {

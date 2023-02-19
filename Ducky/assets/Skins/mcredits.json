@@ -69,7 +69,7 @@
 										"name": null,
 										"style": {
 											"clazz": "com.badlogic.gdx.scenes.scene2d.ui.ScrollPane",
-											"name": "default"
+											"name": "no-bg"
 										},
 										"fadeScrollBars": false,
 										"child": {

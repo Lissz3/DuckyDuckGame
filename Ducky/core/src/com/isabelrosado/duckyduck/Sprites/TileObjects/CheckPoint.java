@@ -21,7 +21,14 @@ public class CheckPoint extends InteractiveTileObject {
         if (screen.getHud().getScore() >= 5) {
             screen.getHud().getLblWarning().setVisible(false);
             screen.getHud().setPaused(true);
-            screen.getHud().getWinScreen().setVisible(true);
+            game.setFinalScore(game.getFinalScore()+screen.getHud().getScore());
+            Gdx.app.log("FinalScore", game.getFinalScore()+"");
+            if (screen.getHud().getGameLevel() != game.getTotalLevels()) {
+                screen.getHud().getWinScreen().setVisible(true);
+            } else {
+                screen.getHud().getSaveScoreScreen().setVisible(true);
+            }
+
         } else {
             screen.getHud().getLblWarning().setVisible(true);
         }

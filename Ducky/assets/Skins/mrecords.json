@@ -25,7 +25,7 @@
 										"name": "lblTitle",
 										"style": {
 											"clazz": "com.badlogic.gdx.scenes.scene2d.ui.Label",
-											"name": "b"
+											"name": "lblTitle"
 										},
 										"text": "Records",
 										"textAlignment": 1,
@@ -65,11 +65,55 @@
 								},
 								{
 									"child": {
+										"class": "Label",
+										"name": "lblExp",
+										"style": {
+											"clazz": "com.badlogic.gdx.scenes.scene2d.ui.Label",
+											"name": "c"
+										},
+										"text": "Lorem ipsum",
+										"textAlignment": 8,
+										"ellipsis": false,
+										"ellipsisString": "...",
+										"wrap": false,
+										"color": null,
+										"touchable": "enabled",
+										"visible": true
+									},
+									"row": 1,
+									"column": 0,
+									"padLeft": 0,
+									"padRight": 0,
+									"padTop": 0,
+									"padBottom": 0,
+									"spaceLeft": 0,
+									"spaceRight": 0,
+									"spaceTop": 0,
+									"spaceBottom": 0,
+									"expandX": false,
+									"expandY": false,
+									"fillX": false,
+									"fillY": false,
+									"growX": false,
+									"growY": false,
+									"alignment": 1,
+									"minWidth": -1,
+									"minHeight": -1,
+									"maxWidth": -1,
+									"maxHeight": -1,
+									"preferredWidth": -1,
+									"preferredHeight": -1,
+									"uniformX": false,
+									"uniformY": false,
+									"colSpan": 1
+								},
+								{
+									"child": {
 										"class": "ScrollPane",
-										"name": null,
+										"name": "scpRecords",
 										"style": {
 											"clazz": "com.badlogic.gdx.scenes.scene2d.ui.ScrollPane",
-											"name": "default"
+											"name": "no-bg"
 										},
 										"fadeScrollBars": false,
 										"child": {
@@ -110,8 +154,8 @@
 										"touchable": "enabled",
 										"visible": true
 									},
-									"row": 1,
-									"column": 0,
+									"row": 2,
+									"column": 1,
 									"padLeft": 0,
 									"padRight": 0,
 									"padTop": 0,

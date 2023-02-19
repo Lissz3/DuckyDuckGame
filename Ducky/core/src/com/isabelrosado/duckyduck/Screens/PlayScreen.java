@@ -60,7 +60,7 @@ public class PlayScreen implements Screen {
         //create the HUD
         hud = new HUD(game, gameLevel);
 
-        //load map and setup the renderer
+        //load map and renderer setup
         mapLoader = new TmxMapLoader();
         switch (gameLevel){
             case 2:
@@ -192,10 +192,10 @@ public class PlayScreen implements Screen {
             //handle user input
             handleInput(dt);
 
-
             //handle item creation
             handleSpawningItems();
 
+            //frame ratio
             world.step(1 / 60f, 6, 2);
 
             //update the duck sprite

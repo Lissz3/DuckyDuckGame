@@ -25,7 +25,7 @@
 										"name": null,
 										"style": {
 											"clazz": "com.badlogic.gdx.scenes.scene2d.ui.Label",
-											"name": "b"
+											"name": "lblTitle"
 										},
 										"text": "Options",
 										"textAlignment": 1,
@@ -65,14 +65,14 @@
 								},
 								{
 									"child": {
-										"class": "CheckBox",
-										"name": "cbxSound",
+										"class": "ImageTextButton",
+										"name": "btnMusic",
 										"style": {
-											"clazz": "com.badlogic.gdx.scenes.scene2d.ui.CheckBox",
-											"name": "default"
+											"clazz": "com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton",
+											"name": "musicOn"
 										},
 										"disabled": false,
-										"text": " Sound on",
+										"text": "",
 										"color": null,
 										"padLeft": 0,
 										"padRight": 0,
@@ -111,14 +111,14 @@
 								},
 								{
 									"child": {
-										"class": "CheckBox",
-										"name": "cbxMusic",
+										"class": "ImageTextButton",
+										"name": "btnSound",
 										"style": {
-											"clazz": "com.badlogic.gdx.scenes.scene2d.ui.CheckBox",
-											"name": "sound"
+											"clazz": "com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton",
+											"name": "soundOn"
 										},
 										"disabled": false,
-										"text": " Music on",
+										"text": "",
 										"color": null,
 										"padLeft": 0,
 										"padRight": 0,
@@ -242,10 +242,10 @@
 									"child": {
 										"class": "ImageTextButton",
 										"name": "btnDelRecords",
-										"text": " Delete records",
+										"text": "",
 										"style": {
 											"clazz": "com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton",
-											"name": "delrecords"
+											"name": "reset"
 										},
 										"checked": false,
 										"disabled": false,
