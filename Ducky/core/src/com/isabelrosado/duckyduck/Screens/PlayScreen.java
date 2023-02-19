@@ -1,12 +1,13 @@
 package com.isabelrosado.duckyduck.Screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -23,6 +24,7 @@ import com.isabelrosado.duckyduck.Sprites.Enemies.FatBird;
 import com.isabelrosado.duckyduck.Sprites.Items.Fruit;
 import com.isabelrosado.duckyduck.Sprites.Items.Item;
 import com.isabelrosado.duckyduck.Sprites.Items.ItemDef;
+import com.isabelrosado.duckyduck.Tools.MyInputProcessor;
 import com.isabelrosado.duckyduck.Tools.WorldContactListener;
 import com.isabelrosado.duckyduck.Tools.WorldCreator;
 
@@ -45,6 +47,7 @@ public class PlayScreen implements Screen {
     private Array<Item> items;
     private LinkedBlockingQueue<ItemDef> itemsToSpawn;
     private int gameLevel;
+    private MyInputProcessor processor;
 
     public PlayScreen(DuckyDuck game, int level) {
         atlas = new TextureAtlas("Sprites/Frog.atlas");
@@ -57,12 +60,9 @@ public class PlayScreen implements Screen {
         //maintains the virtual aspect ratio despite screen size
         gamePort = new FitViewport(DuckyDuck.V_WIDTH / DuckyDuck.PIXEL_PER_METER, DuckyDuck.V_HEIGHT / DuckyDuck.PIXEL_PER_METER, gameCam);
 
-        //create the HUD
-        hud = new HUD(game, gameLevel);
-
         //load map and renderer setup
         mapLoader = new TmxMapLoader();
-        switch (gameLevel){
+        switch (gameLevel) {
             case 2:
                 map = mapLoader.load("Maps/prueba3.tmx");
                 break;
@@ -82,7 +82,10 @@ public class PlayScreen implements Screen {
         creator = new WorldCreator(newGame, this);
 
         //create Duck in our world
-        duck = new Duck(newGame,this);
+        duck = new Duck(newGame, this);
+
+        //create the HUD
+        hud = new HUD(game, duck, gameLevel);
 
         //create Items in our world
         items = new Array<Item>();
@@ -93,6 +96,15 @@ public class PlayScreen implements Screen {
         music = game.getAssetManager().get("Audio/Music/Gameplay.mp3", Music.class);
         music.setLooping(true);
         music.play();
+
+        processor = new MyInputProcessor(duck);
+
+        InputMultiplexer multiplexer = new InputMultiplexer();
+
+        multiplexer.addProcessor(hud.getHudInput());
+        multiplexer.addProcessor(processor);
+
+        Gdx.input.setInputProcessor(multiplexer);
     }
 
     @Override
@@ -133,7 +145,7 @@ public class PlayScreen implements Screen {
         newGame.sprite.setProjectionMatrix(hud.stg.getCamera().combined);
         hud.stg.draw();
 
-        if (gameOver()){
+        if (gameOver()) {
             hud.getGameOverScreen().setVisible(true);
             hud.setPaused(true);
             music.stop();
@@ -170,28 +182,9 @@ public class PlayScreen implements Screen {
         hud.dispose();
     }
 
-    public void handleInput(float dt) {
-        if (duck.currentState != Duck.State.HITTED) {
-            //holding down keys moves camera through world
-            if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && duck.canDoubleJump()) {
-                duck.dBody.applyLinearImpulse(new Vector2(0, 4f), duck.dBody.getWorldCenter(), true);
-            }
-
-            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && duck.dBody.getLinearVelocity().x <= 2) {
-                duck.dBody.applyLinearImpulse(new Vector2(0.1f, 0), duck.dBody.getWorldCenter(), true);
-            }
-
-            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && duck.dBody.getLinearVelocity().x >= -2) {
-                duck.dBody.applyLinearImpulse(new Vector2(-0.1f, 0), duck.dBody.getWorldCenter(), true);
-            }
-        }
-    }
 
     public void update(float dt) {
-        if (!hud.isPaused()){
-            //handle user input
-            handleInput(dt);
-
+        if (!hud.isPaused()) {
             //handle item creation
             handleSpawningItems();
 
@@ -252,8 +245,8 @@ public class PlayScreen implements Screen {
         }
     }
 
-    public boolean gameOver (){
-        if (duck.isHit() && duck.getStateTimer() > 3.5){
+    public boolean gameOver() {
+        if (duck.isHit() && duck.getStateTimer() > 3.5) {
             return true;
         }
         return false;

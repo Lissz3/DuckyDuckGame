@@ -1,6 +1,7 @@
 package com.isabelrosado.duckyduck.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
@@ -10,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.isabelrosado.duckyduck.DuckyDuck;
@@ -21,16 +21,17 @@ public abstract class ScreenI implements Screen {
     protected Stage stg;
     protected Viewport vp;
     protected Skin skin;
-    protected final Sound btnSound;
+    protected final Sound soundBtn;
+    private InputProcessor hudInput;
 
-    public ScreenI(final DuckyDuck game, String skinPath, boolean backButton){
+    public ScreenI(final DuckyDuck game, String skinPath, boolean inputProcessor, boolean backButton){
         this.game = game;
         this.vp = new FitViewport(DuckyDuck.V_WIDTH, DuckyDuck.V_HEIGHT, new OrthographicCamera());
         this.stg = new Stage(vp, game.sprite);
 
         skin = new Skin(Gdx.files.internal("Skins/main.json"));
 
-        btnSound = game.getAssetManager().get("Audio/Sounds/Button.mp3", Sound.class);
+        soundBtn = game.getAssetManager().get("Audio/Sounds/Button.mp3", Sound.class);
 
         SceneComposerStageBuilder builder = new SceneComposerStageBuilder();
         builder.build(stg, skin, Gdx.files.internal(skinPath));
@@ -40,14 +41,16 @@ public abstract class ScreenI implements Screen {
             btnBack.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    btnSound.play();
+                    soundBtn.play();
                     game.setScreen(new MainMenuScreen(game));
                     dispose();
                 };
             });
         }
-
-        Gdx.input.setInputProcessor(stg);
+        hudInput = stg;
+        if (inputProcessor){
+            Gdx.input.setInputProcessor(stg);
+        }
     }
 
     protected abstract void defineScreen();
@@ -73,5 +76,9 @@ public abstract class ScreenI implements Screen {
     public void dispose() {
         stg.dispose();
         skin.dispose();
+    }
+
+    public InputProcessor getHudInput() {
+        return hudInput;
     }
 }

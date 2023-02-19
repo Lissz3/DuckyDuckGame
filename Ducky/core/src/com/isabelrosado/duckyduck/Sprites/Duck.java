@@ -1,5 +1,7 @@
 package com.isabelrosado.duckyduck.Sprites;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -14,7 +16,6 @@ import com.isabelrosado.duckyduck.Tools.Animator;
 public class Duck extends Sprite {
     public World world;
     public Body dBody;
-
     public enum State {
         FALLING,
         JUMPING,
@@ -23,12 +24,9 @@ public class Duck extends Sprite {
         DOUBLEJUMPING,
         HITTED
     }
-
     public State currentState;
     public State previousState;
-
     private Texture animationTexture;
-
     Animator animator;
     private Animation<TextureRegion> duckIdle;
     private Animation<TextureRegion> duckRun;
@@ -46,9 +44,10 @@ public class Duck extends Sprite {
     private final int maxJumps = 2;
 
     private boolean hit;
-
     private DuckyDuck game;
-
+    private boolean leftMove;
+    private boolean rightMove;
+    private boolean jumping;
 
     public State getState() {
         if (!isHit()){
@@ -177,8 +176,12 @@ public class Duck extends Sprite {
     public void update(float dt) {
         setPosition(dBody.getPosition().x - getWidth() / 2, (dBody.getPosition().y - getHeight() / 2) + 0.05f);
         setRegion(getFrame(dt));
+        movementUpdate();
         if (this.dBody.getLinearVelocity().y == 0) {
             jumps = 0;
+        }
+        if (!isHit() && this.dBody.getPosition().y < -4){
+            onHit();
         }
     }
 
@@ -212,5 +215,50 @@ public class Duck extends Sprite {
 
     public float getStateTimer(){
         return stateTimer;
+    }
+
+    public boolean isLeftMove() {
+        return leftMove;
+    }
+
+    public void setLeftMove(boolean leftMove) {
+        if (isRightMove() && leftMove){
+            setRightMove(false);
+        }
+        this.leftMove = leftMove;
+    }
+
+    public boolean isRightMove() {
+        return rightMove;
+    }
+
+    public void setRightMove(boolean rightMove) {
+        if (isLeftMove() && rightMove){
+            setLeftMove(false);
+        }
+        this.rightMove = rightMove;
+    }
+
+    public void setJumping(boolean jumping){
+        this.jumping = jumping;
+    }
+    public boolean isJumping() {
+        return jumping;
+    }
+
+
+    public void movementUpdate(){
+        if (getCurrentState() != State.HITTED) {
+            if (isRightMove() && dBody.getLinearVelocity().x <= 2) {
+                dBody.applyLinearImpulse(new Vector2(0.1f, 0), dBody.getWorldCenter(), true);
+            }
+            if (isLeftMove() && dBody.getLinearVelocity().x >= -2) {
+                dBody.applyLinearImpulse(new Vector2(-0.1f, 0), dBody.getWorldCenter(), true);
+            }
+            if ((Gdx.input.isKeyJustPressed(Input.Keys.UP) || isJumping()) && canDoubleJump()) {
+                dBody.applyLinearImpulse(new Vector2(0, 4f), dBody.getWorldCenter(), true);
+                setJumping(false);
+            }
+        }
     }
 }

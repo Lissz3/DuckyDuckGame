@@ -231,16 +231,6 @@ com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable: {
 		minWidth: 20
 		minHeight: 25
 	}
-	Icon_Tube: {
-		region: Icon_Tube
-		minWidth: 40
-		minHeight: 40
-	}
-	Icon_Up: {
-		region: Icon_Up
-		minWidth: 45
-		minHeight: 35
-	}
 	Icon_Writing: {
 		region: Icon_Writing
 		minWidth: 30
@@ -444,9 +434,6 @@ com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 	}
 	btnPause: {
 		up: Icon_Next
-	}
-	btnJump: {
-		up: Icon_Up
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {

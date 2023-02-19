@@ -1,6 +1,5 @@
 package com.isabelrosado.duckyduck.Scenes;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -10,8 +9,10 @@ import com.isabelrosado.duckyduck.DuckyDuck;
 import com.isabelrosado.duckyduck.Screens.MainMenuScreen;
 import com.isabelrosado.duckyduck.Screens.PlayScreen;
 import com.isabelrosado.duckyduck.Screens.ScreenI;
+import com.isabelrosado.duckyduck.Sprites.Duck;
 
 public class HUD extends ScreenI {
+    private Duck duck;
     private int score;
     private Label lblScore;
     private Label lblWarning;
@@ -26,9 +27,10 @@ public class HUD extends ScreenI {
     private boolean inPausedScreen;
     private boolean inLevelScreen;
 
-    public HUD(final DuckyDuck game, int level) {
-        super(game, "Skins/hud.json", false);
+    public HUD(final DuckyDuck game, Duck duck, int level) {
+        super(game, "Skins/hud.json", false, false);
         gameLevel = level;
+        this.duck = duck;
         defineScreen();
     }
 
@@ -43,6 +45,7 @@ public class HUD extends ScreenI {
         getLblWarning().setText(game.getBundle().get("playscreen.popup"));
         Button btnShowLvls = stg.getRoot().findActor("btnLvls");
         Button btnPause = stg.getRoot().findActor("btnPause");
+        Button btnJump = stg.getRoot().findActor("btnJump");
         lblLevel = stg.getRoot().findActor("lblLvl");
         switch (gameLevel) {
             default:
@@ -79,7 +82,7 @@ public class HUD extends ScreenI {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (!isInLevelScreen()) {
-                    btnSound.play();
+                    soundBtn.play();
                     setPaused(true);
                     setInPausedScreen(true);
                     pauseScreen.setVisible(true);
@@ -91,11 +94,18 @@ public class HUD extends ScreenI {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (!isInPausedScreen()) {
-                    btnSound.play();
+                    soundBtn.play();
                     setPaused(true);
                     setInLevelScreen(true);
                     lvlScreen.setVisible(true);
                 }
+            }
+        });
+
+        btnJump.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                duck.setJumping(true);
             }
         });
     }
@@ -164,8 +174,10 @@ public class HUD extends ScreenI {
         btnRetry.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setFinalScore(0);
-                btnSound.play();
+                if (gameLevel == 1) {
+                    game.setFinalScore(0);
+                }
+                soundBtn.play();
                 setInPausedScreen(false);
                 game.getScreen().dispose();
                 game.setScreen(new PlayScreen(game, gameLevel));
@@ -175,7 +187,7 @@ public class HUD extends ScreenI {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.setFinalScore(0);
-                btnSound.play();
+                soundBtn.play();
                 setInPausedScreen(false);
                 game.getScreen().dispose();
                 game.setScreen(new MainMenuScreen(game));
@@ -184,7 +196,7 @@ public class HUD extends ScreenI {
         btnContinue.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                btnSound.play();
+                soundBtn.play();
                 setInPausedScreen(false);
                 pauseScreen.setVisible(false);
                 setPaused(false);
@@ -210,7 +222,7 @@ public class HUD extends ScreenI {
         btnLvl1.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                btnSound.play();
+                soundBtn.play();
                 game.setFinalScore(0);
                 setInPausedScreen(false);
                 game.getScreen().dispose();
@@ -221,7 +233,7 @@ public class HUD extends ScreenI {
         btnLvl2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                btnSound.play();
+                soundBtn.play();
                 game.setFinalScore(0);
                 setInPausedScreen(false);
                 game.getScreen().dispose();
@@ -233,7 +245,7 @@ public class HUD extends ScreenI {
         btnCancel.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                btnSound.play();
+                soundBtn.play();
                 lvlScreen.setVisible(false);
                 setInPausedScreen(false);
                 setPaused(false);
@@ -262,8 +274,10 @@ public class HUD extends ScreenI {
         btnRetry.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setFinalScore(0);
-                btnSound.play();
+                if (gameLevel == 1) {
+                    game.setFinalScore(0);
+                }
+                soundBtn.play();
                 setInPausedScreen(false);
                 game.getScreen().dispose();
                 game.setScreen(new PlayScreen(game, gameLevel));
@@ -272,7 +286,7 @@ public class HUD extends ScreenI {
         btnExit.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                btnSound.play();
+                soundBtn.play();
                 setInPausedScreen(false);
                 game.getScreen().dispose();
                 game.setScreen(new MainMenuScreen(game));
@@ -300,7 +314,7 @@ public class HUD extends ScreenI {
         btnNextLevel.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                btnSound.play();
+                soundBtn.play();
                 setInPausedScreen(false);
                 game.getScreen().dispose();
                 if (gameLevel != game.getTotalLevels()) {
@@ -311,7 +325,7 @@ public class HUD extends ScreenI {
         btnExit.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                btnSound.play();
+                soundBtn.play();
                 setInPausedScreen(false);
                 game.getScreen().dispose();
                 game.setScreen(new MainMenuScreen(game));
@@ -328,9 +342,9 @@ public class HUD extends ScreenI {
 
         saveScoreScreen = new Window(game.getBundle().get("playscreen.win"), skin);
         saveScoreScreen.getTitleLabel().setAlignment(Align.center);
-        saveScoreScreen.add(crownImg).padBottom(5);
+        saveScoreScreen.add(crownImg).padBottom(5).colspan(2);
         saveScoreScreen.row();
-        saveScoreScreen.add(name).align(Align.center);
+        saveScoreScreen.add(name).align(Align.center).colspan(2);
         saveScoreScreen.row();
         saveScoreScreen.add(btnSave);
         saveScoreScreen.add(btnExit);
@@ -342,9 +356,10 @@ public class HUD extends ScreenI {
         btnSave.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                btnSound.play();
+                soundBtn.play();
                 game.getPreferences().putString(name.getText(), game.getFinalScore() + "");
                 game.getPreferences().flush();
+                game.setFinalScore(0);
                 setInPausedScreen(false);
                 game.getScreen().dispose();
                 game.setScreen(new MainMenuScreen(game));
@@ -353,7 +368,7 @@ public class HUD extends ScreenI {
         btnExit.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                btnSound.play();
+                soundBtn.play();
                 setInPausedScreen(false);
                 game.getScreen().dispose();
                 game.setScreen(new MainMenuScreen(game));

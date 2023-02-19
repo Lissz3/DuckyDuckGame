@@ -18,7 +18,7 @@ import com.isabelrosado.duckyduck.DuckyDuck;
 public class CreditsScreen extends ScreenI {
 
     public CreditsScreen(final DuckyDuck game) {
-        super(game, "Skins/mcredits.json", true);
+        super(game, "Skins/mcredits.json", true, true);
         defineScreen();
     }
 

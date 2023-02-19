@@ -8,7 +8,7 @@ import java.util.*;
 public class RecordsScreen extends ScreenI {
 
     public RecordsScreen(final DuckyDuck game) {
-        super(game, "Skins/mrecords.json", true);
+        super(game, "Skins/mrecords.json", true, true);
         defineScreen();
     }
 

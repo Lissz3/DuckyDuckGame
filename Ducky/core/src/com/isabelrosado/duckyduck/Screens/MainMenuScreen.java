@@ -13,7 +13,7 @@ public class MainMenuScreen extends ScreenI {
     private Music music;
 
     public MainMenuScreen(final DuckyDuck game){
-        super(game, "Skins/mmskin.json", false);
+        super(game, "Skins/mmskin.json", true, false);
 
         defineScreen();
 
@@ -42,7 +42,7 @@ public class MainMenuScreen extends ScreenI {
         options.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                btnSound.play();
+                soundBtn.play();
                 game.setScreen(new OptionsMenuScreen(game));
             };
         });
@@ -52,7 +52,7 @@ public class MainMenuScreen extends ScreenI {
         records.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                btnSound.play();
+                soundBtn.play();
                 game.setScreen(new RecordsScreen(game));
             };
         });
@@ -62,7 +62,7 @@ public class MainMenuScreen extends ScreenI {
         credits.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                btnSound.play();
+                soundBtn.play();
                 game.setScreen(new CreditsScreen(game));
             };
         });
@@ -74,7 +74,7 @@ public class MainMenuScreen extends ScreenI {
         exit.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                btnSound.play();
+                soundBtn.play();
                 Gdx.app.exit();
                 dispose();
             };
