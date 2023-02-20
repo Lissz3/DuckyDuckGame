@@ -111,7 +111,7 @@ public class Duck extends Sprite {
 
     public void defineDuck() {
         BodyDef duckBdef = new BodyDef();
-        duckBdef.position.set(32 / DuckyDuck.PIXEL_PER_METER, 32 / DuckyDuck.PIXEL_PER_METER);
+        duckBdef.position.set(130 / DuckyDuck.PIXEL_PER_METER, 130 / DuckyDuck.PIXEL_PER_METER);
         duckBdef.type = BodyDef.BodyType.DynamicBody;
         dBody = world.createBody(duckBdef);
 

@@ -64,17 +64,18 @@ public class PlayScreen implements Screen {
         mapLoader = new TmxMapLoader();
         switch (gameLevel) {
             case 2:
-                map = mapLoader.load("Maps/prueba3.tmx");
+                map = mapLoader.load("Maps/nivel2.tmx");
                 break;
             default:
             case 1:
-                map = mapLoader.load("Maps/prueba2.tmx");
+                map = mapLoader.load("Maps/nivel1.tmx");
                 break;
         }
+
         renderer = new OrthogonalTiledMapRenderer(map, 1 / DuckyDuck.PIXEL_PER_METER);
 
         //setup the gamecam at the start of the game
-        gameCam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
+        gameCam.position.set(gamePort.getWorldWidth(), gamePort.getWorldHeight() / 2, 0);
 
         world = new World(new Vector2(0, -10), true);
         b2dr = new Box2DDebugRenderer();
