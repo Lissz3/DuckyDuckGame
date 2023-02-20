@@ -29,7 +29,7 @@ public class BrickHit extends InteractiveTileObject {
         setCategoryFilter(DuckyDuck.DESTROYED_BIT);
         getCell().setTile(null);
         screen.spawnItem(new ItemDef(new Vector2(body.getPosition().x, body.getPosition().y + 16 / DuckyDuck.PIXEL_PER_METER), Fruit.class));
-        game.getAssetManager().get("Audio/Sounds/BreakableBox.mp3", Sound.class).play();
+        game.getAssetManager().get("Audio/Sounds/BreakableBox.mp3", Sound.class).play(DuckyDuck.FX_VOLUME);
     }
 
 }

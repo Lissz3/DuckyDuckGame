@@ -11,7 +11,6 @@ import com.isabelrosado.duckyduck.DuckyDuck;
 
 public class MainMenuScreen extends ScreenI {
     private Music music;
-
     public MainMenuScreen(final DuckyDuck game){
         super(game, "Skins/mmskin.json", true, false);
 
@@ -22,8 +21,10 @@ public class MainMenuScreen extends ScreenI {
 
     @Override
     protected void defineScreen() {
+        final MainMenuScreen menuScreen = this;
         music = game.getAssetManager().get("Audio/Music/MainTheme.mp3", Music.class);
         music.setLooping(true);
+        music.setVolume(DuckyDuck.MUSIC_VOLUME);
         music.play();
 
         ImageTextButton btnPlay = stg.getRoot().findActor("btnPlay");
@@ -42,8 +43,8 @@ public class MainMenuScreen extends ScreenI {
         options.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                soundBtn.play();
-                game.setScreen(new OptionsMenuScreen(game));
+                soundBtn.play(DuckyDuck.FX_VOLUME);
+                game.setScreen(new OptionsMenuScreen(game, menuScreen));
             };
         });
 
@@ -52,7 +53,7 @@ public class MainMenuScreen extends ScreenI {
         records.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                soundBtn.play();
+                soundBtn.play(DuckyDuck.FX_VOLUME);
                 game.setScreen(new RecordsScreen(game));
             };
         });
@@ -62,24 +63,30 @@ public class MainMenuScreen extends ScreenI {
         credits.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                soundBtn.play();
+                soundBtn.play(DuckyDuck.FX_VOLUME);
                 game.setScreen(new CreditsScreen(game));
             };
         });
 
         ImageTextButton help = stg.getRoot().findActor("btnHelp");
         help.getLabel().setText(game.getBundle().get("mainmenu.help"));
+        help.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                soundBtn.play(DuckyDuck.FX_VOLUME);
+                game.setScreen(new HelpScreen(game));
+            };
+        });
 
         Button exit = stg.getRoot().findActor("btnExit");
         exit.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                soundBtn.play();
+                soundBtn.play(DuckyDuck.FX_VOLUME);
                 Gdx.app.exit();
                 dispose();
             };
         });
-
     }
 
     @Override
@@ -117,4 +124,9 @@ public class MainMenuScreen extends ScreenI {
         super.dispose();
         music.stop();
     }
+
+    public Music getMusic() {
+        return music;
+    }
+
 }

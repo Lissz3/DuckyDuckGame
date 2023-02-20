@@ -203,7 +203,7 @@ public class Duck extends Sprite {
     }
 
     public void onHit() {
-        game.getAssetManager().get("Audio/Sounds/GameOver.mp3", Sound.class).play();
+        game.getAssetManager().get("Audio/Sounds/GameOver.mp3", Sound.class).play(DuckyDuck.FX_VOLUME);
         Filter filter = new Filter();
         filter.maskBits = DuckyDuck.NOTHING_BIT;
         for (Fixture fix : dBody.getFixtureList()) {

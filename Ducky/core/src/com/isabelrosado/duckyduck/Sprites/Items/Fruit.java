@@ -115,7 +115,7 @@ public class Fruit extends Item {
     @Override
     public void use() {
         screen.getHud().setScore(screen.getHud().getScore() + 1);
-        game.getAssetManager().get("Audio/Sounds/FruitCollected.mp3", Sound.class).play();
+        game.getAssetManager().get("Audio/Sounds/FruitCollected.mp3", Sound.class).play(DuckyDuck.FX_VOLUME);
         destroy();
     }
 

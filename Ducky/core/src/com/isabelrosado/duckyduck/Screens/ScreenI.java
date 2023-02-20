@@ -41,13 +41,15 @@ public abstract class ScreenI implements Screen {
             btnBack.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    soundBtn.play();
+                    soundBtn.play(DuckyDuck.FX_VOLUME);
                     game.setScreen(new MainMenuScreen(game));
                     dispose();
                 };
             });
         }
+
         hudInput = stg;
+
         if (inputProcessor){
             Gdx.input.setInputProcessor(stg);
         }

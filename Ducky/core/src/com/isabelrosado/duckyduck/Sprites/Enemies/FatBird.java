@@ -24,7 +24,6 @@ public class FatBird extends Enemy {
     public State currentState;
     public State previousState;
     private float stateTime;
-
     Animator animator;
     private Texture animationTexture;
     private Animation<TextureRegion> fbFall;
@@ -34,16 +33,10 @@ public class FatBird extends Enemy {
 
     public boolean setToDestroy;
     public boolean destroyed;
-
     private BodyDef fatBirdBdef;
-
-    private FixtureDef fbFDef;
-
     private boolean touchedGround;
     private boolean top;
-
     private boolean smash;
-
 
     public FatBird(DuckyDuck game, PlayScreen screen, float x, float y, float velX, float velY) {
         super(game, screen, x, y, velX, velY);
@@ -104,7 +97,7 @@ public class FatBird extends Enemy {
             return State.HITTED;
         } else if (b2body.getLinearVelocity().y < 0) {
             return State.FALLING;
-        } else if (getY() < screen.duck.getY()) {
+        } else if (getY() < 0) {
             return State.GROUNDED;
         } else if (b2body.getLinearVelocity().y > 0) {
             return  State.FLAPPING;
@@ -174,7 +167,7 @@ public class FatBird extends Enemy {
     @Override
     public void hitOnHead() {
         setToDestroy = true;
-        game.getAssetManager().get("Audio/Sounds/FatBirdKilled.mp3", Sound.class).play();
+        game.getAssetManager().get("Audio/Sounds/FatBirdKilled.mp3", Sound.class).play(DuckyDuck.FX_VOLUME);
     }
 
 
@@ -205,8 +198,7 @@ public class FatBird extends Enemy {
                 super.reverseVelocity(x, y);
                 top = false;
                 touchedGround = true;
-                game.getAssetManager().get("Audio/Sounds/FatBirdGround.mp3", Sound.class).play();
-
+                game.getAssetManager().get("Audio/Sounds/FatBirdGround.mp3", Sound.class).play(DuckyDuck.FX_VOLUME);
             }
         }
     }

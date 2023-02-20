@@ -96,6 +96,7 @@ public class PlayScreen implements Screen {
 
         music = game.getAssetManager().get("Audio/Music/Gameplay.mp3", Music.class);
         music.setLooping(true);
+        music.setVolume(DuckyDuck.MUSIC_VOLUME);
         music.play();
 
         processor = new MyInputProcessor(duck);
@@ -126,7 +127,7 @@ public class PlayScreen implements Screen {
         renderer.render();
 
         //box2D renderer
-        b2dr.render(world, gameCam.combined);
+//        b2dr.render(world, gameCam.combined);
 
         //draw the sprites
         newGame.sprite.setProjectionMatrix(gameCam.combined);
@@ -181,6 +182,7 @@ public class PlayScreen implements Screen {
         world.dispose();
         b2dr.dispose();
         hud.dispose();
+        music.stop();
     }
 
 

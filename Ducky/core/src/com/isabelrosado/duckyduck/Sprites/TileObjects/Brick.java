@@ -17,7 +17,7 @@ public class Brick extends InteractiveTileObject {
 
     @Override
     public void onHeadHit() {
-        game.getAssetManager().get("Audio/Sounds/NotBreakable.mp3", Sound.class).play();
+        game.getAssetManager().get("Audio/Sounds/NotBreakable.mp3", Sound.class).play(DuckyDuck.FX_VOLUME);
     }
 
 }

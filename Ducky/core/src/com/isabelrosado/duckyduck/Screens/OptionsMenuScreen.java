@@ -1,38 +1,34 @@
 package com.isabelrosado.duckyduck.Screens;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.isabelrosado.duckyduck.DuckyDuck;
-import com.ray3k.stripe.scenecomposer.SceneComposerStageBuilder;
-
-import java.util.Locale;
 
 
 public class OptionsMenuScreen extends ScreenI {
-
+    MainMenuScreen mmscreen;
+    private Music music;
+    private ImageTextButton btnMusic;
+    private ImageTextButton btnSound;
     private Window delScorePopUp;
-    public OptionsMenuScreen(final DuckyDuck game){
+    public OptionsMenuScreen(final DuckyDuck game, MainMenuScreen mmscreen){
         super(game, "Skins/moptions.json", true, true);
+        this.mmscreen = mmscreen;
+        this.music = mmscreen.getMusic();
         defineScreen();
     }
 
     @Override
     protected void defineScreen() {
-        final ImageTextButton btnMusic = stg.getRoot().findActor("btnMusic");
-        final ImageTextButton btnSound = stg.getRoot().findActor("btnSound");
+        btnMusic = stg.getRoot().findActor("btnMusic");
+        btnMusic.setChecked(DuckyDuck.musicOffChecked);
+        btnSound = stg.getRoot().findActor("btnSound");
+        btnSound.setChecked(DuckyDuck.soundOffChecked);
         final ImageTextButton btnReset = stg.getRoot().findActor("btnDelRecords");
         SelectBox sbxLanguage = stg.getRoot().findActor("sbxLanguage");
         sbxLanguage.clearItems();
@@ -48,8 +44,16 @@ public class OptionsMenuScreen extends ScreenI {
         btnMusic.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                soundBtn.play();
+                soundBtn.play(DuckyDuck.FX_VOLUME);
                 btnMusic.setChecked(btnMusic.isChecked());
+                if (btnMusic.isChecked()){
+                    DuckyDuck.muteMSC();
+                    music.pause();
+                } else {
+                    DuckyDuck.normalizeMSC();
+                    music.play();
+                }
+                DuckyDuck.musicOffChecked = btnMusic.isChecked();
                 btnMusic.getLabel().setText(game.getBundle().get("optmenu.music")+" "+(btnMusic.isChecked() ? game.getBundle().get("optmenu.off") : game.getBundle().get("optmenu.on"))+" ");
             };
         });
@@ -57,16 +61,22 @@ public class OptionsMenuScreen extends ScreenI {
         btnSound.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                soundBtn.play();
+                soundBtn.play(DuckyDuck.FX_VOLUME);
                 btnSound.setChecked(btnSound.isChecked());
-                btnSound.getLabel().setText(game.getBundle().get("optmenu.music")+" "+(btnSound.isChecked() ? game.getBundle().get("optmenu.off") : game.getBundle().get("optmenu.on"))+" ");
+                if (btnSound.isChecked()){
+                    DuckyDuck.muteFX();
+                } else {
+                    DuckyDuck.normalizeFX();
+                }
+                DuckyDuck.soundOffChecked = btnSound.isChecked();
+                btnSound.getLabel().setText(game.getBundle().get("optmenu.sound")+" "+(btnSound.isChecked() ? game.getBundle().get("optmenu.off") : game.getBundle().get("optmenu.on"))+" ");
             };
         });
 
         btnReset.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                soundBtn.play();
+                soundBtn.play(DuckyDuck.FX_VOLUME);
                 delScorePopUp.setVisible(true);
             };
         });
@@ -75,7 +85,6 @@ public class OptionsMenuScreen extends ScreenI {
         createDelScorePopUp();
 
         stg.addActor(delScorePopUp);
-
     }
 
     private void createDelScorePopUp() {
@@ -103,7 +112,7 @@ public class OptionsMenuScreen extends ScreenI {
         btnYes.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                soundBtn.play();
+                soundBtn.play(DuckyDuck.FX_VOLUME);
                 game.getPreferences().clear();
                 game.getPreferences().flush();
                 delScorePopUp.setVisible(false);
@@ -113,9 +122,8 @@ public class OptionsMenuScreen extends ScreenI {
         btnNo.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                soundBtn.play();
+                soundBtn.play(DuckyDuck.FX_VOLUME);
                 delScorePopUp.setVisible(false);
-
             }
         });
     }

@@ -181,11 +181,6 @@ com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable: {
 		minWidth: 40
 		minHeight: 40
 	}
-	Icon_Pin: {
-		region: Icon_Pin
-		minWidth: 30
-		minHeight: 55
-	}
 	Icon_Question: {
 		region: Icon_Question
 		minWidth: 30
@@ -251,20 +246,10 @@ com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable: {
 		minWidth: 20
 		minHeight: 20
 	}
-	Item1: {
-		region: Item1
-		minWidth: 220
-		minHeight: 155
-	}
 	Item2: {
 		region: Item2
 		minWidth: 230
 		minHeight: 80
-	}
-	Item3: {
-		region: Item3
-		minWidth: 300
-		minHeight: 400
 	}
 	Item5: {
 		region: Item5
@@ -382,26 +367,8 @@ com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 	back: {
 		up: Icon_Return
 	}
-	grestart: {
-		up: Restart
-	}
-	gnext: {
-		up: Next
-	}
-	gprev: {
-		up: Previous
-	}
-	gsettings: {
-		up: Settings
-	}
 	glevels: {
 		up: Icon_Image
-	}
-	lvl1: {
-		up: lvl1
-	}
-	lvl2: {
-		up: lvl2
 	}
 	exit: {
 		up: Icon_X
@@ -668,6 +635,10 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	}
 	lblTitle: {
 		font: a
+		background: Item2
+	}
+	lblHelp: {
+		font: wItalic
 		background: Item2
 	}
 }
