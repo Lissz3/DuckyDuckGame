@@ -17,7 +17,7 @@ android {
         exclude 'META-INF/robovm/ios/robovm.xml'
     }
     defaultConfig {
-        applicationId "com.isabelrosado.duckyduck"
+        applicationId "com.isabelrosado.fruitytoad"
         minSdkVersion 16
         targetSdkVersion 33
         versionCode 1
@@ -82,7 +82,7 @@ task run(type: Exec) {
     }
 
     def adb = path + "/platform-tools/adb"
-    commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.isabelrosado.duckyduck/com.isabelrosado.duckyduck.AndroidLauncher'
+    commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.isabelrosado.fruitytoad.AndroidLauncher'
 }
 
 eclipse.project.name = appName + "-android"
