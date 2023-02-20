@@ -27,7 +27,7 @@
 											"clazz": "com.badlogic.gdx.scenes.scene2d.ui.Label",
 											"name": "lblTitle"
 										},
-										"text": "FROGGER",
+										"text": "FRUITYTOAD",
 										"textAlignment": 1,
 										"ellipsis": false,
 										"ellipsisString": "...",
