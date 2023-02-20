@@ -32,7 +32,7 @@ public class MainMenuScreen extends ScreenI {
         btnPlay.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.getAssetManager().get("Audio/Sounds/PlayButton.mp3", Sound.class).play();
+                game.getAssetManager().get("Audio/Sounds/PlayButton.mp3", Sound.class).play(DuckyDuck.FX_VOLUME);
                 game.setScreen(new PlayScreen(game, 1));
                 dispose();
             };
@@ -44,7 +44,7 @@ public class MainMenuScreen extends ScreenI {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 soundBtn.play(DuckyDuck.FX_VOLUME);
-                game.setScreen(new OptionsMenuScreen(game, menuScreen));
+                game.setScreen(new OptionsMenuScreen(game, music));
             };
         });
 
@@ -123,10 +123,6 @@ public class MainMenuScreen extends ScreenI {
     public void dispose() {
         super.dispose();
         music.stop();
-    }
-
-    public Music getMusic() {
-        return music;
     }
 
 }

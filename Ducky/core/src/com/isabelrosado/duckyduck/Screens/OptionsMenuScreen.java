@@ -11,15 +11,13 @@ import com.isabelrosado.duckyduck.DuckyDuck;
 
 
 public class OptionsMenuScreen extends ScreenI {
-    MainMenuScreen mmscreen;
     private Music music;
     private ImageTextButton btnMusic;
     private ImageTextButton btnSound;
     private Window delScorePopUp;
-    public OptionsMenuScreen(final DuckyDuck game, MainMenuScreen mmscreen){
+    public OptionsMenuScreen(final DuckyDuck game, Music music){
         super(game, "Skins/moptions.json", true, true);
-        this.mmscreen = mmscreen;
-        this.music = mmscreen.getMusic();
+        this.music = music;
         defineScreen();
     }
 
