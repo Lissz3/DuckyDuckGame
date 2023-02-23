@@ -22,7 +22,6 @@ import com.isabelrosado.fruitytoad.Sprites.Frog;
 public class HUD extends ScreenI {
     /**
      * Main character of the game.
-     * @see Frog
      */
     private Frog frog;
 
@@ -33,25 +32,48 @@ public class HUD extends ScreenI {
     private Label lblScore;
     private Label lblWarning;
 
-
+    /**
+     * PopUp Windows
+     */
     private Window pauseScreen;
     private Window lvlScreen;
     private Window gameOverScreen;
     private Window winScreen;
     private Window saveScoreScreen;
+
+    /**
+     * Checks if the game is paused(true) or not (false)
+     */
     private boolean paused;
+
+    /**
+     * Shows the current level
+     */
     private Label lblLevel;
+
+    /**
+     * Saves the current level
+     */
     private final int gameLevel;
+
+    /**
+     * Checks if the Paused window is up(true) or not(false).
+     */
     private boolean inPausedScreen;
+
+    /**
+     * Checks if the Select level window is up(true) or not(false).
+     */
     private boolean inLevelScreen;
 
     /**
-     * Initialize the values
+     * <p>Creates a screen with the given values.</p>
+     * <p>It also gives values needed to the main constructor {@link ScreenI} as the path for the JSON file skin,
+     * if there is need of an InputProcessor or if the screen has a Back Button.
+     * Defines the screen with {@link #defineScreen()}.</p>
      * @param game main screen
      * @param frog main character
-     * @param level actual level
-     * <p>to the values given to the constructor.</p>
-     * <p>Defines the screen.</p>
+     * @param level current level
      */
     public HUD(final FruityToad game, Frog frog, int level) {
         super(game, "Skins/hud.json", false, false);
@@ -153,7 +175,7 @@ public class HUD extends ScreenI {
      */
     @Override
     public void resize(int width, int height) {
-
+        super.resize(width, height);
     }
 
     /**
