@@ -11,11 +11,29 @@ import com.isabelrosado.fruitytoad.Screens.PlayScreen;
 import com.isabelrosado.fruitytoad.Screens.ScreenI;
 import com.isabelrosado.fruitytoad.Sprites.Frog;
 
+/**
+ * <p>
+ * Represents the HUD in the game screen.
+ * </p>
+ *
+ * @see PlayScreen
+ * @author Isabel Rosado
+ */
 public class HUD extends ScreenI {
+    /**
+     * Main character of the game.
+     * @see Frog
+     */
     private Frog frog;
+
+    /**
+     * Score every level.
+     */
     private int score;
     private Label lblScore;
     private Label lblWarning;
+
+
     private Window pauseScreen;
     private Window lvlScreen;
     private Window gameOverScreen;
@@ -27,6 +45,14 @@ public class HUD extends ScreenI {
     private boolean inPausedScreen;
     private boolean inLevelScreen;
 
+    /**
+     * Initialize the values
+     * @param game main screen
+     * @param frog main character
+     * @param level actual level
+     * <p>to the values given to the constructor.</p>
+     * <p>Defines the screen.</p>
+     */
     public HUD(final FruityToad game, Frog frog, int level) {
         super(game, "Skins/hud.json", false, false);
         gameLevel = level;
@@ -34,6 +60,10 @@ public class HUD extends ScreenI {
         defineScreen();
     }
 
+    /**
+     * Used to define the unique actors of the screen to change their values and/or give them listeners.
+     * <p>Adds new actors to the Stage if needed.</p>
+     */
     @Override
     protected void defineScreen() {
         setScore(0);
@@ -110,26 +140,41 @@ public class HUD extends ScreenI {
         });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void show() {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void resize(int width, int height) {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void pause() {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void resume() {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void hide() {
 
@@ -151,10 +196,16 @@ public class HUD extends ScreenI {
         return lblWarning;
     }
 
+    /**
+     * Called to update values of the screen
+     */
     public void update() {
         lblScore.setText(getScore());
     }
 
+    /**
+     * Creates a Pause popup window with his own listeners.
+     */
     private void createPauseScreen() {
         TextButton btnContinue = new TextButton(game.getBundle().get("playscreen.pausem.cont"), skin);
         TextButton btnRetry = new TextButton(game.getBundle().get("playscreen.pausem.retry"), skin);
@@ -205,6 +256,9 @@ public class HUD extends ScreenI {
 
     }
 
+    /**
+     * Creates a Select level popup window with his own listeners.
+     */
     private void createLvlScreen() {
         TextButton btnLvl1 = new TextButton(game.getBundle().get("playscreen.slvl.lvl1"), skin);
         TextButton btnLvl2 = new TextButton(game.getBundle().get("playscreen.slvl.lvl2"), skin);
@@ -254,6 +308,9 @@ public class HUD extends ScreenI {
 
     }
 
+    /**
+     * Creates a Game Over popup window with his own listeners.
+     */
     private void createGameOverPopUp() {
         Drawable skull = skin.getDrawable("Icon_Skull");
         Image skullImg = new Image(skull);
@@ -294,6 +351,9 @@ public class HUD extends ScreenI {
         });
     }
 
+    /**
+     * Creates a Win popup window with his own listeners.
+     */
     private void createWinPopUp() {
         Drawable crown = skin.getDrawable("Icon_Crown");
         Image crownImg = new Image(crown);
@@ -333,6 +393,9 @@ public class HUD extends ScreenI {
         });
     }
 
+    /**
+     * Creates a popup window to save the score with his own listeners.
+     */
     private void createScorePopUp() {
         Drawable crown = skin.getDrawable("Icon_Crown");
         Image crownImg = new Image(crown);

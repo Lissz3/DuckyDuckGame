@@ -9,19 +9,35 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.isabelrosado.fruitytoad.FruityToad;
 
+/**
+ * Game's main menu screen.
+ * @see ScreenI
+ */
 public class MainMenuScreen extends ScreenI {
+
+    /**
+     * Music to be played.
+     */
     private Music music;
+
+    /**
+     * <p>Creates a screen with the given values.</p>
+     * <p>It also gives values needed to the main constructor {@link ScreenI} as the path for the JSON file skin,
+     * if there is need of an InputProcessor or if the screen has a Back Button.
+     * Defines the screen with {@link #defineScreen()}.</p>
+     * @param game main screen
+     */
     public MainMenuScreen(final FruityToad game){
         super(game, "Skins/mmskin.json", true, false);
-
         defineScreen();
-
-        Gdx.input.setInputProcessor(stg);
     }
 
+    /**
+     * Used to define the unique actors of the screen to change their values and/or give them listeners.
+     * <p>Adds new actors to the Stage if needed.</p>
+     */
     @Override
     protected void defineScreen() {
-
         music = game.getAssetManager().get("Audio/Music/MainTheme.mp3", Music.class);
         music.setLooping(true);
         music.setVolume(FruityToad.MUSIC_VOLUME);
@@ -89,36 +105,57 @@ public class MainMenuScreen extends ScreenI {
         });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void show() {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void render(float delta) {
         super.render(delta);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void resize(int width, int height) {
-
+        super.resize(width, height);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void pause() {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void resume() {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void hide() {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void dispose() {
         super.dispose();

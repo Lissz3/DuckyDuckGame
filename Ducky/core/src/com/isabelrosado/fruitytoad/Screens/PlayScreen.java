@@ -29,25 +29,91 @@ import com.isabelrosado.fruitytoad.Tools.WorldCreator;
 
 import java.util.concurrent.LinkedBlockingQueue;
 
+/**
+ * Screen used to play the game.
+ */
 public class PlayScreen implements Screen {
+    /**
+     * Main screen.
+     */
     private FruityToad newGame;
-    private TextureAtlas atlas;
-    private OrthographicCamera gameCam;
-    private Viewport gamePort;
-    private HUD hud;
-    private TmxMapLoader mapLoader;
-    private TiledMap map;
-    private OrthogonalTiledMapRenderer renderer;
-    private World world;
-    private Box2DDebugRenderer b2dr;
-    private WorldCreator creator;
-    private Music music;
-    public Frog frog;
-    private Array<Item> items;
-    private LinkedBlockingQueue<ItemDef> itemsToSpawn;
-    private int gameLevel;
-    private MyInputProcessor processor;
 
+    /**
+     * Textures used in the screen.
+     */
+    private TextureAtlas atlas;
+
+    /**
+     * Camera with orthographic projection.
+     */
+    private OrthographicCamera gameCam;
+
+    /**
+     * Determines how world coordinates are mapped to and from the screen.
+     * <p>Also manages the {@link #gameCam}.</p>
+     */
+    private Viewport gamePort;
+
+    /**
+     * Game UI.
+     */
+    private HUD hud;
+
+    /**
+     * Map loaded.
+     */
+    private TiledMap map;
+
+    /**
+     * Responsible to draw the map in the scene.
+     */
+    private OrthogonalTiledMapRenderer renderer;
+
+    /**
+     * Manager for physic entities and dinamic simulation.
+     */
+    private World world;
+
+    /**
+     * Debugger for simple shapes to visualize Box2D World.
+     */
+    private Box2DDebugRenderer b2dr;
+
+    /**
+     *
+     */
+    private WorldCreator creator;
+
+    /**
+     * Music to play.
+     */
+    private Music music;
+
+    /**
+     * Main character.
+     */
+    public Frog frog;
+
+    /**
+     * Items to spawn
+     */
+    private Array<Item> items;
+
+    /**
+     * Items spawn in the order you hit the boxes.
+     */
+    private LinkedBlockingQueue<ItemDef> itemsToSpawn;
+
+    /**
+     * Actual game level.
+     */
+    private int gameLevel;
+
+    /**
+     * <p>Creates a play screen with the given values.</p>
+     * @param game main screen
+     * @param level game level
+     */
     public PlayScreen(FruityToad game, int level) {
         atlas = new TextureAtlas("Sprites/Frog.atlas");
         newGame = game;
@@ -60,7 +126,7 @@ public class PlayScreen implements Screen {
         gamePort = new FitViewport(FruityToad.V_WIDTH / FruityToad.PIXEL_PER_METER, FruityToad.V_HEIGHT / FruityToad.PIXEL_PER_METER, gameCam);
 
         //load map and renderer setup
-        mapLoader = new TmxMapLoader();
+        TmxMapLoader mapLoader = new TmxMapLoader();
         switch (gameLevel) {
             case 2:
                 map = mapLoader.load("Maps/nivel2.tmx");
@@ -98,7 +164,7 @@ public class PlayScreen implements Screen {
         music.setVolume(FruityToad.MUSIC_VOLUME);
         music.play();
 
-        processor = new MyInputProcessor(frog);
+        MyInputProcessor processor = new MyInputProcessor(frog);
 
         InputMultiplexer multiplexer = new InputMultiplexer();
 
@@ -125,8 +191,8 @@ public class PlayScreen implements Screen {
         //map render
         renderer.render();
 
-        //box2D renderer
-//        b2dr.render(world, gameCam.combined);
+        //box2D debug renderer
+        //b2dr.render(world, gameCam.combined);
 
         //draw the sprites
         newGame.sprite.setProjectionMatrix(gameCam.combined);
@@ -154,6 +220,11 @@ public class PlayScreen implements Screen {
 
     }
 
+    /**
+     *
+     * @param width
+     * @param height
+     */
     @Override
     public void resize(int width, int height) {
         gamePort.update(width, height);
@@ -176,6 +247,7 @@ public class PlayScreen implements Screen {
 
     @Override
     public void dispose() {
+        atlas.dispose();
         map.dispose();
         renderer.dispose();
         world.dispose();
@@ -186,6 +258,7 @@ public class PlayScreen implements Screen {
 
 
     public void update(float dt) {
+        //updates if game is not paused
         if (!hud.isPaused()) {
             //handle item creation
             handleSpawningItems();
@@ -218,7 +291,7 @@ public class PlayScreen implements Screen {
             renderer.setView(gameCam);
         }
 
-        //update hud
+        //updates hud
         hud.update();
     }
 

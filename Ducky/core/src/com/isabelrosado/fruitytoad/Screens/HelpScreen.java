@@ -8,15 +8,37 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
 import com.isabelrosado.fruitytoad.FruityToad;
 
+/**
+ * Screen used to show game help.
+ * @see ScreenI
+ */
 public class HelpScreen extends ScreenI {
+    /**
+     * Label used to show text in the screen
+     */
     private Label lblHelp;
+
+    /**
+     * Image used to show instructions in the screen
+     */
     private Image imgHelp;
 
+    /**
+     * <p>Creates a screen with the given values.</p>
+     * <p>It also gives values needed to the main constructor {@link ScreenI} as the path for the JSON file skin,
+     * if there is need of an InputProcessor or if the screen has a Back Button.
+     * Defines the screen with {@link #defineScreen()}.</p>
+     * @param game main screen
+     */
     public HelpScreen(FruityToad game) {
         super(game, "Skins/mhelp.json", true, true);
         defineScreen();
     }
 
+    /**
+     * Used to define the unique actors of the screen to change their values and/or give them listeners.
+     * <p>Adds new actors to the Stage if needed.</p>
+     */
     @Override
     protected void defineScreen() {
         lblHelp = stg.getRoot().findActor("lblHelp");
@@ -81,36 +103,57 @@ public class HelpScreen extends ScreenI {
         });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void show() {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void render(float delta) {
         super.render(delta);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void resize(int width, int height) {
-
+        super.resize(width, height);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void pause() {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void resume() {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void hide() {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void dispose() {
         super.dispose();

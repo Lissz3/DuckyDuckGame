@@ -9,18 +9,47 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.isabelrosado.fruitytoad.FruityToad;
 
-
+/**
+ * Screen used to change game options.
+ * @see ScreenI
+ */
 public class OptionsMenuScreen extends ScreenI {
+    /**
+     * Music being played.
+     */
     private Music music;
+
+    /**
+     * Button that activates or desactivates the music.
+     */
     private ImageTextButton btnMusic;
+    /**
+     * Button that activates or desactivates sound effects.
+     */
     private ImageTextButton btnSound;
+
+    /**
+     * Warning window to delete scores
+     */
     private Window delScorePopUp;
+
+    /**
+     * <p>Creates a screen with the given values.</p>
+     * <p>It also gives values needed to the main constructor {@link ScreenI} as the path for the JSON file skin,
+     * if there is need of an InputProcessor or if the screen has a Back Button.
+     * Defines the screen with {@link #defineScreen()}.</p>
+     * @param game main screen
+     */
     public OptionsMenuScreen(final FruityToad game, Music music){
         super(game, "Skins/moptions.json", true, true);
         this.music = music;
         defineScreen();
     }
 
+    /**
+     * Used to define the unique actors of the screen to change their values and/or give them listeners.
+     * <p>Adds new actors to the Stage if needed.</p>
+     */
     @Override
     protected void defineScreen() {
         btnMusic = stg.getRoot().findActor("btnMusic");
@@ -85,6 +114,9 @@ public class OptionsMenuScreen extends ScreenI {
         stg.addActor(delScorePopUp);
     }
 
+    /**
+     * Creates a warning popup window for delete the scores with his own listeners.
+     */
     private void createDelScorePopUp() {
         Drawable trash = skin.getDrawable("Icon_Trash");
         Image crownImg = new Image(trash);
@@ -126,36 +158,58 @@ public class OptionsMenuScreen extends ScreenI {
         });
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void show() {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void render(float delta) {
         super.render(delta);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void resize(int width, int height) {
-
+        super.resize(width, height);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void pause() {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void resume() {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void hide() {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void dispose() {
         super.dispose();
