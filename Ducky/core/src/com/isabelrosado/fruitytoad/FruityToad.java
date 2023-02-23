@@ -68,7 +68,7 @@ public class FruityToad extends Game {
     private AssetManager assetManager;
 
     /**
-     * Provides Locale-specific resources loaded from property files.
+     * Provides Locale-specific language resources loaded from property files.
      */
     private I18NBundle bundle;
 
@@ -102,12 +102,12 @@ public class FruityToad extends Game {
      */
     @Override
     public void create() {
+
         sprite = new SpriteBatch();
         finalScore = 0;
         musicOffChecked = false;
         soundOffChecked = false;
         assetManager = new AssetManager();
-        bundle = I18NBundle.createBundle(Gdx.files.internal("Locale/locale"));
         assetManager.load("Audio/Music/MainTheme.mp3", Music.class);
         assetManager.load("Audio/Music/Gameplay.mp3", Music.class);
         assetManager.load("Audio/Sounds/BreakableBox.mp3", Sound.class);
@@ -118,11 +118,11 @@ public class FruityToad extends Game {
         assetManager.load("Audio/Sounds/PlayButton.mp3", Sound.class);
         assetManager.load("Audio/Sounds/FruitCollected.mp3", Sound.class);
         assetManager.load("Audio/Sounds/GameOver.mp3", Sound.class);
+        assetManager.load("Locale/locale", I18NBundle.class);
         assetManager.finishLoading();
         assetManager.getLoadedAssets();
-
+        bundle = assetManager.get("Locale/locale", I18NBundle.class);
         preferences = Gdx.app.getPreferences("com.isabelrosado.fruitytoad");
-
         setScreen(new MainMenuScreen(this));
     }
 
