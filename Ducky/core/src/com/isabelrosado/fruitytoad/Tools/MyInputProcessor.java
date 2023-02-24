@@ -3,11 +3,25 @@ package com.isabelrosado.fruitytoad.Tools;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.isabelrosado.fruitytoad.Sprites.Frog;
 
+/**
+ * <p>
+ * Class to handle events using the common observer pattern, extends {@link InputProcessor}.
+ * </p>
+ * @author Isabel Rosado
+ */
 public class MyInputProcessor implements InputProcessor {
+    /**
+     * Main character of the game.
+     */
     private Frog frog;
 
+    /**
+     * Initialize the values to the values given to the constructor.
+     * @param frog main character who is going to be handled
+     */
     public MyInputProcessor(Frog frog) {
         this.frog = frog;
     }
@@ -74,4 +88,5 @@ public class MyInputProcessor implements InputProcessor {
     public boolean scrolled(float amountX, float amountY) {
         return false;
     }
+
 }

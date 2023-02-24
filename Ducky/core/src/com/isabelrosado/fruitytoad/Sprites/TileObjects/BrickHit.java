@@ -10,12 +10,24 @@ import com.isabelrosado.fruitytoad.Sprites.Items.ItemDef;
 
 public class BrickHit extends InteractiveTileObject {
 
+    /**
+     * Initialize the values to the values given to the super constructor.
+     * <p>Sets the fixture data to the object data itself and gives the unique bit for this object.</p>
+     * @param game main screen
+     * @param screen actual screen
+     * @param object this item at the tiled map
+     */
     public BrickHit(FruityToad game, PlayScreen screen, MapObject object) {
         super(game, screen, object);
         fixture.setUserData(this);
         setCategoryFilter(FruityToad.BRICKHIT_BIT);
     }
 
+    /**
+     * Called when the main character head fixture collides with this object fixture.
+     * <p>Sets the filter to {@link FruityToad#DESTROYED_BIT} and the tile on the map as null (empty).</p>
+     * <p>Plays a sound and spawns a {@link Fruit} item.</p>
+     */
     @Override
     public void onHeadHit() {
         setCategoryFilter(FruityToad.DESTROYED_BIT);

@@ -12,11 +12,19 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.isabelrosado.fruitytoad.FruityToad;
 import com.isabelrosado.fruitytoad.Screens.PlayScreen;
+import com.isabelrosado.fruitytoad.Screens.ScreenI;
 import com.isabelrosado.fruitytoad.Tools.Animator;
 
-
+/**
+ * Unique enemy called FatBird or Fe'Yi.
+ * @see Enemy
+ */
 public class FatBird extends Enemy {
     //40x48
+
+    /**
+     * Difference the Fat Bird states
+     */
     public enum State {
         FALLING,
         GROUNDED,
@@ -24,27 +32,76 @@ public class FatBird extends Enemy {
         IDLE,
         FLAPPING
     }
+
+    /**
+     * Current <code>State</code>
+     */
     public State currentState;
+
+    /**
+     * Previous <code>State</code>
+     */
     public State previousState;
+
+    /**
+     * Timer for sprite updates
+     */
     private float stateTime;
-    Animator animator;
-    private Texture animationTexture;
+
+    /**
+     * <code>State</code> animations
+     */
     private Animation<TextureRegion> fbFall;
     private Animation<TextureRegion> fbGround;
     private Animation<TextureRegion> fbHit;
     private Animation<TextureRegion> fbIdle;
 
+    /**
+     * Sets if the FatBird should be destroyed (true) or not (false).
+     */
     public boolean setToDestroy;
+
+    /**
+     * Looks if the FatBird has been destroyed (true) or not (false).
+     */
     public boolean destroyed;
+
+    /**
+     * Body definition as type of body.
+     */
     private BodyDef fatBirdBdef;
+
+    /**
+     * Sets if the FatBird has touched the ground (true) or not (false).
+     */
     private boolean touchedGround;
+
+    /**
+     * Sets if the FatBird has raised to the top (true) or not (false).
+     */
     private boolean top;
+
+    /**
+     * Sets if the FatBird should smash(true) or not (false).
+     */
     private boolean smash;
 
+
+    /**
+     * Initialize the values to the values given to the super constructor.
+     * <p>Sets the texture needed for this specific enemy, creates the animations and initialize the current & previous <code>State</code>.</p>
+     * Also gives the first Region to be drawn.
+     * @param game main screen
+     * @param screen actual screen
+     * @param x position of the body in the world for <b>x-axis</b>
+     * @param y position of the body in the world for <b>y-axis</b>
+     * @param velX velocity for the <b>x-axis</b>
+     * @param velY velocity for the <b>y-axis</b>
+     */
     public FatBird(FruityToad game, PlayScreen screen, float x, float y, float velX, float velY) {
         super(game, screen, x, y, velX, velY);
-        animationTexture = new Texture("Sprites/FatBird.png");
-        animator = new Animator(animationTexture, 40, 48);
+        Texture animationTexture = new Texture("Sprites/FatBird.png");
+        Animator animator = new Animator(animationTexture, 40, 48);
         setToDestroy = false;
         destroyed = false;
         touchedGround = false;
@@ -64,7 +121,11 @@ public class FatBird extends Enemy {
         setRegion(fbIdle.getKeyFrame(stateTime));
     }
 
-
+    /**
+     * Used to define the body definition, type, his fixtures and shapes.
+     * <p>Also set the position and the size of the sprite to be drawn</p>
+     * <p>Sets the bird unique bit and sets the bits who can collide with him.</p>
+     */
     @Override
     protected void defineEnemy() {
         fatBirdBdef = new BodyDef();
@@ -95,6 +156,9 @@ public class FatBird extends Enemy {
         b2body.createFixture(fbFDef).setUserData(this);
     }
 
+    /**
+     * @return the <code>State</code> depending on conditions as the current {@link #velocity} and if it is {@link #destroyed}
+     */
     public State getState() {
         if (destroyed) {
             return State.HITTED;
@@ -103,7 +167,7 @@ public class FatBird extends Enemy {
         } else if (getY() < 0) {
             return State.GROUNDED;
         } else if (b2body.getLinearVelocity().y > 0) {
-            return  State.FLAPPING;
+            return State.FLAPPING;
         } else {
             return State.IDLE;
         }
@@ -125,6 +189,11 @@ public class FatBird extends Enemy {
         this.previousState = previousState;
     }
 
+    /**
+     * Adds time to the <code>stateTimer</code> if the current and previous state are the same or resets it otherwise.
+     * @param dt The time in seconds since the last update.
+     * @return the frame region depending on the FatBird <code>State</code>
+     */
     public TextureRegion getFrame(float dt) {
         currentState = getState();
 
@@ -151,6 +220,10 @@ public class FatBird extends Enemy {
         return region;
     }
 
+    /**
+     * Called when the sprite should update his position and frame if {@link #setToDestroy} is false.
+     * @param dt The time in seconds since the last update.
+     */
     @Override
     public void update(float dt) {
         stateTime += dt;
@@ -167,21 +240,30 @@ public class FatBird extends Enemy {
         setRegion(getFrame(dt));
     }
 
+    /**
+     * Plays a sound when the FatBird is hitted on the head and sets {@link #setToDestroy} to true.
+     */
     @Override
     public void hitOnHead() {
         setToDestroy = true;
         game.getAssetManager().get("Audio/Sounds/FatBirdKilled.mp3", Sound.class).play(FruityToad.FX_VOLUME);
     }
 
-
+    /**
+     * Draws the specified sprite animation
+     * @param batch 2D texture (region) to draw
+     */
     public void draw(Batch batch) {
         if (!destroyed || !fbHit.isAnimationFinished(stateTime)) {
             super.draw(batch);
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void reverseVelocity(boolean x, boolean y){
+    public void reverseVelocity(boolean x, boolean y) {
         if (!screen.frog.isHit() || getState() != State.IDLE) {
             if ((getX() < screen.frog.getX() + 0.5 || getX() < screen.frog.getX() - 0.5)) {
                 setSmash(true);
@@ -190,7 +272,7 @@ public class FatBird extends Enemy {
             setSmash(false);
         }
 
-        if (isSmash() || getState() != State.IDLE){
+        if (isSmash() || getState() != State.IDLE) {
             if (getY() >= 2 && !top) {
                 velocity.y = 3f;
                 super.reverseVelocity(x, y);

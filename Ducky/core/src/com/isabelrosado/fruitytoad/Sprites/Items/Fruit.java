@@ -12,30 +12,60 @@ import com.isabelrosado.fruitytoad.FruityToad;
 import com.isabelrosado.fruitytoad.Screens.PlayScreen;
 import com.isabelrosado.fruitytoad.Tools.Animator;
 
+/**
+ * Unique item called Fruit.
+ * @see Item
+ */
 public class Fruit extends Item {
+
+    /**
+     * Difference the Fruit states
+     */
     public enum State {
         NOT_COLLECTED,
         COLLECTED
     }
 
+    /**
+     * Current <code>State</code>
+     */
     public State currentState;
+
+    /**
+     * Previous <code>State</code>
+     */
     public State previousState;
 
-    private Texture animationTexture;
-
-    Animator animator;
+    /**
+     * <code>State</code> animations
+     */
     private Animation<TextureRegion> fruitNotCollected;
     private Animation<TextureRegion> fruitCollected;
 
+    /**
+     * Body definition as type of body.
+     */
     BodyDef fruitBDef;
+
+    /**
+     * Timer for sprite updates
+     */
     private float stateTimer;
 
-
+    /**
+     * Initialize the values to the values given to the super constructor.
+     * <p>Sets the texture needed for this specific item and creates the animations and the current & previous <code>State</code>.</p>
+     * Also gives the first Region to be drawn.
+     * @param game main screen
+     * @param screen actual screen
+     * @param x position of the body in the world for <b>x-axis</b>
+     * @param y position of the body in the world for <b>y-axis</b>
+     */
     public Fruit(FruityToad game, PlayScreen screen, float x, float y) {
         super(game, screen, x, y);
         stateTimer = 0;
-        animationTexture = new Texture("Sprites/Fruits.png");
-        animator = new Animator(animationTexture, 32, 32);
+        Texture animationTexture = new Texture("Sprites/Fruits.png");
+        Animator animator = new Animator(animationTexture, 32, 32);
         fruitNotCollected = animator.getAnimation(17, 0, 0);
         fruitCollected = animator.getAnimation(6, 544, 0);
         setCurrentState(State.NOT_COLLECTED);
@@ -44,6 +74,9 @@ public class Fruit extends Item {
         setRegion(fruitNotCollected.getKeyFrame(stateTimer, true));
     }
 
+    /**
+     * @return the <code>State</code> depending on if it is set {@link #toDestroy}
+     */
     public State getState() {
         if (toDestroy) {
             return State.COLLECTED;
@@ -68,6 +101,11 @@ public class Fruit extends Item {
         this.previousState = previousState;
     }
 
+    /**
+     * Adds time to the <code>stateTimer</code> if the current and previous state are the same or resets it otherwise.
+     * @param dt The time in seconds since the last update.
+     * @return the frame region depending on the Fruit <code>State</code>
+     */
     public TextureRegion getFrame(float dt) {
         currentState = getState();
 
@@ -87,6 +125,12 @@ public class Fruit extends Item {
         return region;
     }
 
+
+    /**
+     * Used to define the body definiton, type, his fixtures, shapes and restitution.
+     * <p>Also set the position and the size of the sprite to be drawn</p>
+     * <p>Sets the fruit unique bit and sets the bits who can collide with him.</p>
+     */
     @Override
     public void defineItem() {
         fruitBDef = new BodyDef();
@@ -108,6 +152,9 @@ public class Fruit extends Item {
         body.createFixture(fruitFDef).setUserData(this);
     }
 
+    /**
+     * Plays a sound when the item is used, adds the score to the {@link com.isabelrosado.fruitytoad.Scenes.HUD} and {@link #destroy()} the item.
+     */
     @Override
     public void use() {
         screen.getHud().setScore(screen.getHud().getScore() + 1);
@@ -115,6 +162,10 @@ public class Fruit extends Item {
         destroy();
     }
 
+    /**
+     * Called when the sprite should update his position and frame if its not {@link #destroyed}.
+     * @param dt The time in seconds since the last update.
+     */
     @Override
     public void update(float dt) {
         super.update(dt);
@@ -122,6 +173,10 @@ public class Fruit extends Item {
         setRegion(getFrame(dt));
     }
 
+    /**
+     * Draws the specified sprite animation
+     * @param batch 2D texture (region) to draw
+     */
     @Override
     public void draw(Batch batch) {
         if (!destroyed || !fruitCollected.isAnimationFinished(stateTimer)) {

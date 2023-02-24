@@ -1,6 +1,7 @@
 package com.isabelrosado.fruitytoad.Tools;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.physics.box2d.*;
 import com.isabelrosado.fruitytoad.FruityToad;
 import com.isabelrosado.fruitytoad.Sprites.Enemies.Enemy;
@@ -9,19 +10,47 @@ import com.isabelrosado.fruitytoad.Sprites.Items.Fruit;
 import com.isabelrosado.fruitytoad.Sprites.TileObjects.CheckPoint;
 import com.isabelrosado.fruitytoad.Sprites.TileObjects.InteractiveTileObject;
 
+/**
+ * <p>
+ * Class to handle collision between objects, extends {@link ContactListener}.
+ * </p>
+ * @author Isabel Rosado
+ */
 public class WorldContactListener implements ContactListener {
+    /**
+     *  First fixture identified.
+     */
     private Fixture fixA;
+
+    /**
+     *  Second fixture identified.
+     */
     private Fixture fixB;
+
+    /**
+     *  Head fixture.
+     */
     private Fixture head;
+
+    /**
+     *  Generic object fixture.
+     */
     private Fixture object;
 
+
+    /**
+     *
+     * @param contact
+     */
     @Override
     public void beginContact(Contact contact) {
         fixA = contact.getFixtureA();
         fixB = contact.getFixtureB();
 
+        //gets the result of the operation between two category bits to know which objects are colliding
         int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
 
+        //gets if the main character head has collided with something
         if (fixA.getUserData() == "head" || fixB.getUserData() == "head") {
             head = fixA.getUserData() == "head" ? fixA : fixB;
             object = head == fixA ? fixB : fixA;
@@ -30,6 +59,7 @@ public class WorldContactListener implements ContactListener {
             }
         }
 
+        //depending on the result of the bitwise operation
         switch (cDef) {
             case FruityToad.ENEMY_HEAD_BIT | FruityToad.FROG_BIT:
                 if (fixA.getFilterData().categoryBits == FruityToad.ENEMY_HEAD_BIT) {

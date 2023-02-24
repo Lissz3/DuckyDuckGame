@@ -13,15 +13,31 @@ import com.isabelrosado.fruitytoad.Sprites.TileObjects.Brick;
 import com.isabelrosado.fruitytoad.Sprites.TileObjects.BrickHit;
 import com.isabelrosado.fruitytoad.Sprites.TileObjects.CheckPoint;
 import com.isabelrosado.fruitytoad.Sprites.TileObjects.Ground;
+import com.isabelrosado.fruitytoad.Sprites.TileObjects.InteractiveTileObject;
+import com.isabelrosado.fruitytoad.Sprites.Enemies.Enemy;
+import com.isabelrosado.fruitytoad.Sprites.Items.Item;
 
-
+/**
+ * <p>
+ * Class to create or add the body fixtures of every item of the map game.
+ * </p>
+ * @author Isabel Rosado
+ */
 public class WorldCreator {
+    /**
+     * FatBirds to be created
+     */
     private Array<FatBird> fatBirds;
 
     public Array<FatBird> getFatBirds() {
         return fatBirds;
     }
 
+    /**
+     * Creates body and/or fixtures of any {@link InteractiveTileObject}, {@link Enemy} or {@link Item} that {@link PlayScreen#getMap()} has.
+     * @param game main screen
+     * @param screen actual screen
+     */
     public WorldCreator(FruityToad game, PlayScreen screen){
         World world = screen.getWorld();
         TiledMap map = screen.getMap();

@@ -19,7 +19,7 @@ import com.ray3k.stripe.scenecomposer.SceneComposerStageBuilder;
  * Abstract class implementing {@link Screen}.
  * </p>
  * <p>
- * Generic class for create different Game screens.
+ * Generic class to create different Game screens.
  * </p>
  * @author Isabel Rosado
  */
@@ -57,14 +57,13 @@ public abstract class ScreenI implements Screen {
     private InputProcessor hudInput;
 
     /**
-     * Initialize the values
-     *
+     * Initialize the values to the values given to the constructor.
+     * <p>Adds the listener to the Back button and gives the stage to the InputProcessor.</p>
      * @param game           main screen
      * @param skinPath       path to the JSON skin
      * @param inputProcessor true if it needs to have key or touch listeners, false otherwise.
      * @param backButton     true if the screen have a back button, false otherwise.
-     *                       <p>to the values given to the constructor.</p>
-     *                       <p>Adds the listener to the Back button and gives the stage to the InputProcessor.</p>
+     *
      */
     public ScreenI(final FruityToad game, String skinPath, boolean inputProcessor, boolean backButton) {
         this.game = game;

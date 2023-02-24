@@ -29,6 +29,10 @@ public class HUD extends ScreenI {
      * Score every level.
      */
     private int score;
+
+    /**
+     * Labels used to show information on the HUD
+     */
     private Label lblScore;
     private Label lblWarning;
 

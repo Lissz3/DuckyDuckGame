@@ -13,9 +13,26 @@ import com.isabelrosado.fruitytoad.FruityToad;
 import com.isabelrosado.fruitytoad.Screens.PlayScreen;
 import com.isabelrosado.fruitytoad.Tools.Animator;
 
+/**
+ * <p>
+ * Class specifying the main character of the game, extends {@link Sprite}.
+ * </p>
+ * @author Isabel Rosado
+ */
 public class Frog extends Sprite {
+    /**
+     * Manager for physic entities and dynamic simulation.
+     */
     public World world;
+
+    /**
+     * Body definition as type of body.
+     */
     public Body dBody;
+
+    /**
+     * Difference the Frog states
+     */
     public enum State {
         FALLING,
         JUMPING,
@@ -24,10 +41,18 @@ public class Frog extends Sprite {
         DOUBLEJUMPING,
         HITTED
     }
+    /**
+     * Current <code>State</code>
+     */
     public State currentState;
+    /**
+     * Previous <code>State</code>
+     */
     public State previousState;
-    private Texture animationTexture;
-    Animator animator;
+
+    /**
+     * <code>State</code> animations
+     */
     private Animation<TextureRegion> frogIdle;
     private Animation<TextureRegion> frogRun;
     private Animation<TextureRegion> frogDoubleJump;
@@ -35,20 +60,56 @@ public class Frog extends Sprite {
     private TextureRegion frogFall;
     private TextureRegion frogJump;
 
+    /**
+     * Sets if the Frog sprite should be watching to the right side (true) or not (false).
+     */
     private boolean runningRight;
 
+    /**
+     * Timer for sprite updates
+     */
     private float stateTimer;
 
+    /**
+     * Quantity of jumps done
+     */
     private int jumps;
 
+    /**
+     * Maximum jumps to perform
+     */
     private final int maxJumps = 2;
 
+    /**
+     * Sets if the Frog has been hit (true) or not (false).
+     */
     private boolean hit;
+
+    /**
+     * Main screen of the game.
+     *
+     * @see FruityToad
+     */
     private FruityToad game;
+
+    /**
+     * Sets if the Frog is running to the left side (true) or not (false).
+     */
     private boolean leftMove;
+
+    /**
+     * Sets if the Frog is running to the right side (true) or not (false).
+     */
     private boolean rightMove;
+
+    /**
+     * Sets if the Frog is jumping (true) or not (false).
+     */
     private boolean jumping;
 
+    /**
+     * @return the <code>State</code> depending on conditions as if it has been {@link #hit}.
+     */
     public State getState() {
         if (!isHit()){
             if (dBody.getLinearVelocity().y > 0 && jumps == 1) {
@@ -83,6 +144,12 @@ public class Frog extends Sprite {
         this.previousState = previousState;
     }
 
+    /**
+     * Initialize the values to the values given to the super constructor.
+     * <p>Sets the texture needed the Frog, creates the animations, initialize the current & previous <code>States</code> and his bounds.</p>
+     * @param game main screen
+     * @param screen actual screen
+     */
     public Frog(FruityToad game, PlayScreen screen) {
         super(screen.getAtlas().findRegion("FrogRun"));
         this.world = screen.getWorld();
@@ -96,8 +163,8 @@ public class Frog extends Sprite {
         jumps = 0;
         setHit(false);
 
-        animationTexture = new Texture("Sprites/Frog.png");
-        animator = new Animator(getTexture(), 32, 32);
+//        Texture animationTexture = new Texture("Sprites/Frog.png");
+        Animator animator = new Animator(getTexture(), 32, 32);
         frogIdle = animator.getAnimation(11, 384, 0);
         frogRun = animator.getAnimation(12, 0, 0);
         frogDoubleJump = animator.getAnimation(6, 960, 0);
@@ -109,6 +176,11 @@ public class Frog extends Sprite {
         setRegion(frogIdle.getKeyFrame(stateTimer));
     }
 
+    /**
+     * Used to define the body definiton, type, his fixtures and shapes.
+     * <p>Also set the position and the size of the sprite to be drawn</p>
+     * <p>Sets the frog unique bit and sets the bits who can collide with him.</p>
+     */
     public void defineDuck() {
         BodyDef frogBDef = new BodyDef();
         frogBDef.position.set(130 / FruityToad.PIXEL_PER_METER, 130 / FruityToad.PIXEL_PER_METER);
@@ -132,6 +204,12 @@ public class Frog extends Sprite {
         dBody.createFixture(duckFDef).setUserData("head");
     }
 
+    /**
+     * Adds time to the <code>stateTimer</code> if the current and previous state are the same or resets it otherwise.
+     *<p>Sets if the frog is {@link #runningRight} or not to flip the region</p>
+     * @param dt The time in seconds since the last update.
+     * @return the frame region depending on the Frog <code>State</code>
+     */
     public TextureRegion getFrame(float dt) {
         currentState = getState();
         TextureRegion region;
@@ -173,6 +251,10 @@ public class Frog extends Sprite {
         return region;
     }
 
+    /**
+     * Called when the sprite should update his position and frame if {@link #hit} is false.
+     * @param dt The time in seconds since the last update.
+     */
     public void update(float dt) {
         setPosition(dBody.getPosition().x - getWidth() / 2, (dBody.getPosition().y - getHeight() / 2) + 0.05f);
         setRegion(getFrame(dt));
@@ -185,6 +267,10 @@ public class Frog extends Sprite {
         }
     }
 
+    /**
+     *
+     * @return <code>true</code> if the Frog can jump, <code>false</code> otherwise.
+     */
     public boolean canDoubleJump() {
         if (jumps == maxJumps) {
             return false;
@@ -202,6 +288,9 @@ public class Frog extends Sprite {
         this.hit = hit;
     }
 
+    /**
+     * Plays a sound when the Frog is hitted, sets the filter bit to {@link FruityToad#NOTHING_BIT} to evade collisions and cancels the player to move the Frog.
+     */
     public void onHit() {
         game.getAssetManager().get("Audio/Sounds/GameOver.mp3", Sound.class).play(FruityToad.FX_VOLUME);
         Filter filter = new Filter();
@@ -247,6 +336,9 @@ public class Frog extends Sprite {
     }
 
 
+    /**
+     * Updates the movement depending on the player inputs.
+     */
     public void movementUpdate(){
         if (getCurrentState() != State.HITTED) {
             if (isRightMove() && dBody.getLinearVelocity().x <= 2) {

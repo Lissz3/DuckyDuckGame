@@ -1,6 +1,7 @@
 package com.isabelrosado.fruitytoad.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
@@ -56,6 +57,7 @@ public class PlayScreen implements Screen {
 
     /**
      * Game UI.
+     * @see HUD
      */
     private HUD hud;
 
@@ -70,7 +72,7 @@ public class PlayScreen implements Screen {
     private OrthogonalTiledMapRenderer renderer;
 
     /**
-     * Manager for physic entities and dinamic simulation.
+     * Manager for physic entities and dynamic simulation.
      */
     private World world;
 
@@ -80,7 +82,9 @@ public class PlayScreen implements Screen {
     private Box2DDebugRenderer b2dr;
 
     /**
+     * Tool to create or add the body fixtures of every item of the game map.
      *
+     * @see WorldCreator
      */
     private WorldCreator creator;
 
@@ -109,9 +113,12 @@ public class PlayScreen implements Screen {
      */
     private int gameLevel;
 
+    boolean gyroscopeAvail;
+
     /**
      * <p>Creates a play screen with the given values.</p>
-     * @param game main screen
+     *
+     * @param game  main screen
      * @param level game level
      */
     public PlayScreen(FruityToad game, int level) {
@@ -119,7 +126,9 @@ public class PlayScreen implements Screen {
         newGame = game;
         gameLevel = level;
 
-        //follows the Duck through world
+        gyroscopeAvail = Gdx.input.isPeripheralAvailable(Input.Peripheral.Gyroscope);
+
+        //follows the Frog through world
         gameCam = new OrthographicCamera();
 
         //maintains the virtual aspect ratio despite screen size
@@ -147,7 +156,7 @@ public class PlayScreen implements Screen {
 
         creator = new WorldCreator(newGame, this);
 
-        //create Duck in our world
+        //create Frog in our world
         frog = new Frog(newGame, this);
 
         //create the HUD
@@ -218,10 +227,10 @@ public class PlayScreen implements Screen {
             music.stop();
         }
 
+
     }
 
     /**
-     *
      * @param width
      * @param height
      */
@@ -289,6 +298,11 @@ public class PlayScreen implements Screen {
 
             //tell render to draw only what camera sees in the world
             renderer.setView(gameCam);
+        }
+
+        if (gyroscopeAvail) {
+            float gyro = Gdx.input.getGyroscopeX();
+//            Gdx.app.log("Gyro x", gyro + "");
         }
 
         //updates hud

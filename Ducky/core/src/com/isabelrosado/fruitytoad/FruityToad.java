@@ -102,7 +102,6 @@ public class FruityToad extends Game {
      */
     @Override
     public void create() {
-
         sprite = new SpriteBatch();
         finalScore = 0;
         musicOffChecked = false;
